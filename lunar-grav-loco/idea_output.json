@@ -1,0 +1,29 @@
+{
+  "title_en": "Gravity-Conditioned Legged Locomotion: A Single Policy Across Lunar-to-Earth Gravity, Benchmarked and VLA-Ready",
+  "title_zh": "重力条件化足式运动控制：覆盖月面到地球重力的单一策略 + 基准评测 + VLA 接口",
+  "research_question": "能否训练一个以重力 g 为观测条件的单一 RL 运动策略，在 0.16g（月面）~2g 范围内连续泛化并涌现出随重力切换的步态？该策略作为低层技能接入 VLA 中层指令接口时，重力偏移会导致哪些失效模式？",
+  "gap": "ETH（Arm et al. 2025）的多重力工作是'每个重力单独训练+重力缩放奖励'，不存在以重力为连续条件输入的单一策略；'low gravity + vision language + robot' 在 arXiv 检索为零，VLA 在重力偏移下的表现完全未被研究；领域无统一评测基准，各工作机器人/任务/指标互不可比。",
+  "novelty": [
+    "首次将重力 g 作为连续条件输入训练单一运动策略（对比 per-gravity 训练/fine-tune/zero-shot 三种范式）",
+    "首次系统刻画步态随重力连续变化的相变现象（走→小跑→跳跃的 g-v 平面 gait map）",
+    "第一个低重力足式运动统一基准 LunarLoco-Bench（重力×地形×任务×能耗指标）",
+    "首次评估 VLA 中层语言指令在重力偏移条件下的失效模式"
+  ],
+  "contributions": [
+    "Contribution 1: 重力条件化策略架构与训练方案（g 归一化入观测、重力域随机化、课程设计）",
+    "Contribution 2: LunarLoco-Bench 开源基准：标准任务集（平地行走/坡面/台阶/跳跃/扰动恢复）× 重力档位 × 统一指标（CoT、速度跟踪误差、跌倒率、关节峰值扭矩）",
+    "Contribution 3: 系统性实证——单一条件化策略 vs 独立策略 vs fine-tune 在全重力区间的性能-样本效率权衡",
+    "Contribution 4（论文2/延伸）: 中层语言动作接口在重力偏移下的失效模式分析与修正"
+  ],
+  "approach_sketch": "在 Isaac Lab + unitree_rl_lab 上改造 G1/Go2 训练管线：观测向量注入归一化重力标量，重力值跨 episode 随机化采样，配合能耗缩放奖励；用统一基准协议做全重力区间评测与步态相变分析；后期以 NaVILA 式中层语言动作接口接 VLA。",
+  "difficulty": "medium",
+  "resource_requirements": "RTX 5060 8GB（Isaac Lab 4096 并行环境可行）；无需真实机器人；VLA 阶段用 4-8B 量化 VLM",
+  "potential_venues": ["ICRA", "IROS", "RA-L", "CoRL/RSS workshop（基准部分）"],
+  "similar_works": [
+    "Arm et al., Energy-Efficient Learning-Based Control in Multiple Gravity Environments, arXiv:2509.10128 (重叠度~0.5：重力缩放奖励但非条件化单策略)",
+    "QUT, Training Humanoid Robots to Walk in Lunar Gravity Using RL (重叠度~0.4：G1 月面行走，无条件化/无基准)",
+    "NaVILA, RSS 2025 (重叠度~0.3：VLA 分层接口方法可复用，但不做低重力)"
+  ],
+  "selected_combination": "A（核心方法）+ D（基准评测，合并进论文1）+ B（VLA 接入，论文2/延伸）",
+  "stage2_idea": "Gravity-Shift Robustness of VLA-Mediated Locomotion Control"
+}

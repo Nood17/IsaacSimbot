@@ -1,0 +1,17 @@
+{
+  "project_name": "lunar-grav-loco",
+  "target_venue": "ICRA/IROS (主论文) + CoRL/RSS workshop (基准)",
+  "current_phase": "literature",
+  "selected_idea_index": 0,
+  "phases": {
+    "idea": {"status": "completed", "output_path": "idea_output.json"},
+    "literature": {"status": "pending", "output_path": null},
+    "method": {"status": "pending", "output_path": null},
+    "experiment": {"status": "pending", "output_path": null},
+    "writing": {"status": "pending", "output_path": null},
+    "review": {"status": "pending", "output_path": null},
+    "rebuttal": {"status": "pending", "output_path": null}
+  },
+  "created_at": "2026-09-30",
+  "updated_at": "2026-09-30"
+}
