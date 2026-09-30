@@ -1,0 +1,24 @@
+% iclr2026_conference.sty - Minimal ICLR style placeholder
+% For actual submission, download the official template from:
+% https://iclr.cc/ (check call for papers page)
+%
+% Replace with the official .sty before submission.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{iclr2026_conference}[2026/01/01 ICLR 2026 style (placeholder)]
+
+\DeclareOption*{\relax}
+\ProcessOptions\relax
+
+\RequirePackage[margin=1in]{geometry}
+\RequirePackage{times}
+\RequirePackage{natbib}
+
+\linespread{1.0}
+
+\RequirePackage{titlesec}
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\itshape}{\thesubsubsection}{1em}{}
+
+\endinput

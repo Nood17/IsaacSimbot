@@ -1,0 +1,37 @@
+IEEE ICCSE 2026 Template
+========================
+
+Conference: 21st International Conference on Computer Science & Education (ICCSE 2026)
+Venue:      Óbuda University, Budapest, Hungary
+Dates:      July 21-25, 2026
+Theme:      AI-driven Educational Digital Innovation for the Belt and Road Initiative (BRI)
+
+Target Track: Invited Session 7 - New Technologies, Methods, and Models in Computer Experiment Teaching
+Session Chair:    Li Shanshan (Tsinghua University)
+Session Co-chair: Fan Xuesong (Peking University)
+
+Template
+--------
+Uses standard IEEE Conference template (IEEEtran.cls with [conference] option).
+Download from: https://www.ieee.org/conferences/publishing/templates.html
+
+Key format requirements:
+  - Paper size: US Letter (8.5" x 11")
+  - Columns: Double column
+  - Font: Times, 10pt
+  - Page limit: 4-6 pages (including figures and references)
+  - Citation style: IEEE numbered ([1], [2], ...)
+  - Bibliography style: IEEEtran
+
+Submission
+----------
+  - System: EasyChair (https://easychair.org/conferences/?conf=iccse2026)
+  - Deadline: May 15, 2026
+  - Acceptance: June 15, 2026
+  - Camera-ready: July 15, 2026
+  - Contact: iccse@outlook.com
+
+Note: This is NOT a blind review. Include author names and affiliations.
+
+The IEEEtran.cls file is NOT bundled here as it ships with standard TeX distributions
+(texlive, miktex). If missing, download from CTAN: https://ctan.org/pkg/ieeetran
