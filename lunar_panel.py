@@ -8,8 +8,10 @@ Single-file tkinter GUI for the Unitree-G1 lunar-surface experiments.
            backup per file is kept next to it). Changes apply to the NEXT run.
   Right  : run control -- pick experiment, pick a checkpoint (or scratch),
            start / stop training, launch play.py for visual inspection.
-  Bottom : live metrics parsed from the training log (last metric block plus a
-           reward / tracking / curriculum history plot).
+  Metrics tab : parses the training log incrementally and plots ALL metrics in
+                6 grouped subplots (vitals / task tracking / curriculum &
+                termination / penalty terms / learning engine / perf) over the
+                last N iterations; every curve is toggleable via checkboxes.
 
 Usage:
     source ~/miniconda3/etc/profile.d/conda.sh && conda activate env_isaaclab
@@ -247,13 +249,21 @@ def scan_checkpoints() -> list[tuple[str, str, str, str]]:
 # Log parsing
 # --------------------------------------------------------------------------
 ITER_RE = re.compile(r"Learning iteration (\d+)/(\d+)")
-METRIC_RE = re.compile(r"^\s{2,}([\w/_.]+):\s*(-?[\d.eE+]+)\s*$")
+METRIC_RE = re.compile(r"^\s*([A-Za-z_][\w/_. ]*?):\s*(-?[\d.eE+]+)\s*$")
+STEPS_RE = re.compile(r"Computation:\s*(\d+)\s*steps/s")
+ITIME_RE = re.compile(r"Iteration time:\s*([\d.]+)s")
 
+# metrics shown in the "latest block" grid (order = display order)
 METRICS_OF_INTEREST = [
     "Mean reward",
     "Mean episode length",
+    "Mean action noise std",
+    "Mean value_function loss",
+    "Mean entropy loss",
     "Episode_Reward/track_lin_vel_xy",
     "Episode_Reward/track_ang_vel_z",
+    "Episode_Reward/gait",
+    "Episode_Reward/feet_clearance",
     "Curriculum/terrain_levels",
     "Curriculum/lin_vel_cmd_levels",
     "Metrics/base_velocity/error_vel_xy",
@@ -262,23 +272,92 @@ METRICS_OF_INTEREST = [
     "Episode_Termination/bad_orientation",
 ]
 
+# Plot groups: each entry = one subplot; curves sharing an axis must have
+# comparable scales, otherwise they get their own subplot or the right axis.
+# (title, [(metric_key, "left"|"right"), ...])
+PLOT_GROUPS = [
+    ("生命体征", [
+        ("Mean reward", "left"),
+        ("Mean episode length", "right"),
+    ]),
+    ("任务跟踪", [
+        ("Episode_Reward/track_lin_vel_xy", "left"),
+        ("Episode_Reward/track_ang_vel_z", "left"),
+        ("Episode_Reward/gait", "left"),
+        ("Episode_Reward/feet_clearance", "left"),
+        ("Episode_Reward/alive", "left"),
+        ("Metrics/base_velocity/error_vel_xy", "left"),
+        ("Metrics/base_velocity/error_vel_yaw", "left"),
+    ]),
+    ("课程与终止", [
+        ("Curriculum/terrain_levels", "left"),
+        ("Curriculum/lin_vel_cmd_levels", "left"),
+        ("Episode_Termination/time_out", "right"),
+        ("Episode_Termination/base_height", "right"),
+        ("Episode_Termination/bad_orientation", "right"),
+    ]),
+    ("正则/惩罚分项", [
+        ("Episode_Reward/action_rate", "left"),
+        ("Episode_Reward/joint_vel", "left"),
+        ("Episode_Reward/joint_acc", "left"),
+        ("Episode_Reward/joint_deviation_arms", "left"),
+        ("Episode_Reward/joint_deviation_legs", "left"),
+        ("Episode_Reward/joint_deviation_waists", "left"),
+        ("Episode_Reward/base_linear_velocity", "left"),
+        ("Episode_Reward/base_angular_velocity", "left"),
+        ("Episode_Reward/flat_orientation_l2", "left"),
+        ("Episode_Reward/base_height", "left"),
+        ("Episode_Reward/feet_slide", "left"),
+        ("Episode_Reward/energy", "left"),
+        ("Episode_Reward/dof_pos_limits", "left"),
+        ("Episode_Reward/undesired_contacts", "left"),
+    ]),
+    ("学习引擎", [
+        ("Mean entropy loss", "left"),
+        ("Mean value_function loss", "right"),
+        ("Mean surrogate loss", "right"),
+        ("Mean action noise std", "right"),
+    ]),
+    ("性能", [
+        ("Perf/steps_per_s", "left"),
+        ("Perf/iter_time_s", "right"),
+    ]),
+]
 
-def parse_log(path: str, max_lines: int | None = None) -> tuple[list[dict], dict]:
-    """Parse metric blocks. Returns (history list, last block)."""
-    history = []
-    cur: dict = {}
+
+def new_log_state() -> dict:
+    return {"offset": 0, "hist": [], "cur": {}, "pending": ""}
+
+
+def parse_log_incremental(path: str, state: dict) -> tuple[list[dict], dict]:
+    """Incrementally parse metric blocks. state keeps file offset + history.
+
+    Returns (history list, last/current block). A block is only appended to
+    history when the next 'Learning iteration' header is seen, so the last
+    (possibly in-flight) block lives in state['cur']. A partial trailing line
+    is kept in state['pending'] and re-parsed once it completes.
+    """
     try:
-        with open(path, errors="replace") as f:
-            lines = f.readlines()
+        size = os.path.getsize(path)
     except OSError:
-        return history, {}
-    if max_lines:
-        lines = lines[-max_lines:]
-    for ln in lines:
+        return state["hist"], (state["cur"] or (state["hist"][-1] if state["hist"] else {}))
+    if size < state["offset"]:  # log rotated/truncated -> restart
+        state.update(offset=0, hist=[], cur={}, pending="")
+    with open(path, errors="replace") as f:
+        f.seek(state["offset"])
+        chunk = f.read()
+        state["offset"] = f.tell()
+    chunk = state.get("pending", "") + chunk
+    if not chunk.endswith("\n"):
+        chunk, _, state["pending"] = chunk.rpartition("\n")
+    else:
+        state["pending"] = ""
+    cur = state["cur"]
+    for ln in chunk.splitlines():
         mi = ITER_RE.search(ln)
         if mi:
             if cur:
-                history.append(cur)
+                state["hist"].append(cur)
             cur = {"iter": int(mi.group(1)), "target": int(mi.group(2))}
             continue
         mm = METRIC_RE.match(ln)
@@ -287,9 +366,17 @@ def parse_log(path: str, max_lines: int | None = None) -> tuple[list[dict], dict
                 cur[mm.group(1)] = float(mm.group(2))
             except ValueError:
                 pass
-    if cur:
-        history.append(cur)
-    return history, (history[-1] if history else {})
+            continue
+        ms = STEPS_RE.search(ln)
+        if ms and cur:
+            cur["Perf/steps_per_s"] = float(ms.group(1))
+            continue
+        mt = ITIME_RE.search(ln)
+        if mt and cur:
+            cur["Perf/iter_time_s"] = float(mt.group(1))
+    state["cur"] = cur
+    last = cur or (state["hist"][-1] if state["hist"] else {})
+    return state["hist"], last
 
 
 # --------------------------------------------------------------------------
@@ -319,6 +406,8 @@ class Panel(tk.Tk):
         self.proc_name = ""
         self.log_file = tk.StringVar(value=os.path.join(BASE, "g1_panel_train.log"))
         self.knob_vars: dict = {}
+        self._log_state = new_log_state()
+        self._log_path_seen: str | None = None
 
         nb = ttk.Notebook(self)
         nb.pack(fill="both", expand=True, padx=4, pady=4)
@@ -534,6 +623,9 @@ class Panel(tk.Tk):
         ttk.Entry(top, textvariable=self.metric_log, width=60).pack(side="left", padx=4)
         ttk.Button(top, text="浏览…", command=self._pick_log).pack(side="left")
         ttk.Button(top, text="跟随训练日志", command=lambda: self.metric_log.set(self.log_file.get())).pack(side="left", padx=6)
+        ttk.Label(top, text="窗口 iter").pack(side="left", padx=(12, 2))
+        self.window_var = tk.StringVar(value="10000")
+        ttk.Entry(top, textvariable=self.window_var, width=8).pack(side="left")
         ttk.Label(top, text="每 5s 自动刷新", foreground="#777").pack(side="right")
 
         grid = ttk.LabelFrame(f, text=" 最新指标块 ")
@@ -546,11 +638,58 @@ class Panel(tk.Tk):
             lbl.grid(row=i // 5 * 2 + 1, column=i % 5, sticky="w", padx=8, pady=(0, 4))
             self.metric_lbls[name] = lbl
 
-        matplotlib.rcParams.update({"font.size": 14})
-        self.fig = Figure(figsize=(14, 6), dpi=100)
-        self.ax = self.fig.add_subplot(111)
-        self.canvas_fig = FigureCanvasTkAgg(self.fig, master=f)
-        self.canvas_fig.get_tk_widget().pack(fill="both", expand=True, padx=8, pady=4)
+        body = ttk.Frame(f)
+        body.pack(fill="both", expand=True, padx=8, pady=4)
+
+        # left: scrollable curve toggles, grouped by subplot
+        side = ttk.LabelFrame(body, text=" 曲线开关 ")
+        side.pack(side="left", fill="y", padx=(0, 6))
+        sc = tk.Canvas(side, width=330, highlightthickness=0)
+        svsb = ttk.Scrollbar(side, orient="vertical", command=sc.yview)
+        sc.configure(yscrollcommand=svsb.set)
+        svsb.pack(side="right", fill="y")
+        sc.pack(side="left", fill="both", expand=True)
+        sinner = ttk.Frame(sc)
+        sc.create_window((0, 0), window=sinner, anchor="nw")
+        sinner.bind("<Configure>",
+                    lambda e: sc.configure(scrollregion=sc.bbox("all")))
+        sc.bind_all("<MouseWheel>",
+                    lambda e: sc.yview_scroll(-e.delta // 120, "units"))
+
+        btns = ttk.Frame(sinner); btns.pack(fill="x", pady=2)
+        ttk.Button(btns, text="全选", command=lambda: self._set_all_curves(True)).pack(side="left", padx=2)
+        ttk.Button(btns, text="全不选", command=lambda: self._set_all_curves(False)).pack(side="left", padx=2)
+
+        self.curve_vars: dict[str, tk.BooleanVar] = {}
+        for gtitle, curves in PLOT_GROUPS:
+            gf = ttk.LabelFrame(sinner, text=f" {gtitle} ")
+            gf.pack(fill="x", padx=4, pady=3)
+            for key, _axis in curves:
+                v = tk.BooleanVar(value=True)
+                ttk.Checkbutton(gf, text=key.split("/")[-1], variable=v).pack(
+                    anchor="w", padx=6)
+                self.curve_vars[key] = v
+
+        # right: figure grid, one subplot per group (+ pre-made right twin)
+        matplotlib.rcParams.update({"font.size": 11})
+        self.fig = Figure(figsize=(14, 8), dpi=100)
+        self.axes = []
+        self.axes_r = []
+        for i, (gtitle, _c) in enumerate(PLOT_GROUPS):
+            ax = self.fig.add_subplot(2, 3, i + 1)
+            ax.set_title(gtitle, fontsize=12)
+            ax.grid(alpha=0.3)
+            axr = ax.twinx()
+            axr.set_visible(False)
+            self.axes.append(ax)
+            self.axes_r.append(axr)
+        self.fig.tight_layout(rect=[0, 0, 1, 0.94])
+        self.canvas_fig = FigureCanvasTkAgg(self.fig, master=body)
+        self.canvas_fig.get_tk_widget().pack(side="left", fill="both", expand=True)
+
+    def _set_all_curves(self, on: bool):
+        for v in self.curve_vars.values():
+            v.set(on)
 
     def _pick_log(self):
         p = filedialog.askopenfilename(initialdir=BASE, title="选训练日志")
@@ -597,31 +736,50 @@ class Panel(tk.Tk):
         except OSError:
             pass
 
-        # metrics
-        hist, last = parse_log(self.metric_log.get())
+        # metrics — incremental parse, sliding window over last N iters
+        mpath = self.metric_log.get()
+        if mpath != self._log_path_seen:
+            self._log_state = new_log_state()
+            self._log_path_seen = mpath
+        hist_all, last = parse_log_incremental(mpath, self._log_state)
         for name, lbl in self.metric_lbls.items():
             lbl.configure(text=f"{last[name]:.4f}" if name in last else "—")
-        if hist:
-            it = [h["iter"] for h in hist if "iter" in h]
-            def series(k):
-                return [h.get(k) for h in hist if "iter" in h]
-            self.ax.clear()
-            r = series("Mean reward")
-            self.ax.plot(it, r, label="Mean reward", color="tab:blue", lw=1)
-            ax2 = self.ax.twinx()
-            ax2.plot(it, series("Episode_Reward/track_lin_vel_xy"),
-                     label="track_lin_vel", color="tab:orange", lw=1)
-            ax2.plot(it, series("Curriculum/terrain_levels"),
-                     label="terrain_level", color="tab:green", lw=1)
-            self.ax.set_xlabel("iteration")
-            self.ax.set_ylabel("reward")
-            ax2.set_ylabel("track / level")
-            self.ax.set_title(f"{os.path.basename(self.metric_log.get())}  ({len(hist)} blocks)")
-            h1, l1 = self.ax.get_legend_handles_labels()
-            h2, l2 = ax2.get_legend_handles_labels()
-            self.ax.legend(h1 + h2, l1 + l2, loc="upper left", fontsize=8)
-            self.ax.grid(alpha=0.3)
-            self.canvas_fig.draw_idle()
+
+        try:
+            win = max(1, int(self.window_var.get()))
+        except ValueError:
+            win = 10000
+        maxit = max((h["iter"] for h in hist_all), default=0)
+        hist = [h for h in hist_all if h.get("iter", 0) > maxit - win]
+        if self._log_state["cur"]:
+            hist = hist + [self._log_state["cur"]]
+
+        for ax, axr, (gtitle, curves) in zip(self.axes, self.axes_r, PLOT_GROUPS):
+            ax.clear()
+            axr.clear()
+            ax.grid(alpha=0.3)
+            ax.set_title(gtitle, fontsize=12)
+            used_r = False
+            handles, labels = [], []
+            for key, side in curves:
+                if not self.curve_vars[key].get():
+                    continue
+                xs = [h["iter"] for h in hist if key in h and "iter" in h]
+                ys = [h[key] for h in hist if key in h and "iter" in h]
+                if not xs:
+                    continue
+                a = ax if side == "left" else axr
+                used_r |= side == "right"
+                ln, = a.plot(xs, ys, lw=1, label=key.split("/")[-1])
+                handles.append(ln)
+                labels.append(key.split("/")[-1])
+            ax.set_xlabel("iter", fontsize=9)
+            axr.set_visible(used_r)
+            if handles:
+                ax.legend(handles, labels, loc="best", fontsize=7)
+        self.fig.suptitle(f"{os.path.basename(mpath)} — last {win} iters "
+                          f"({len(hist)} blocks)", fontsize=11)
+        self.canvas_fig.draw_idle()
 
         self.after(5000, self._tick)
 
