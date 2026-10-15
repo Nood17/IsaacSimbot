@@ -1,0 +1,674 @@
+Loading user config located at: '/home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/kit/data/Kit/Isaac-Sim/5.1/user.config.json'
+[Info] [carb] Logging to file: /home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/kit/logs/Kit/Isaac-Sim/5.1/kit_20261001_081915.log
+2026-10-01T00:19:16Z [115ms] [Warning] [omni.usd_config.extension] Enable omni.materialx.libs extension to use MaterialX
+2026-10-01T00:19:16Z [463ms] [Warning] [carb] Acquiring non optional plugin interface which is not listed as dependency: [omni::physx::IPhysxBenchmarks v1.0] (plugin: <default plugin>), by client: omni.physics.physx.plugin. Add it to CARB_PLUGIN_IMPL_DEPS() macro of a client.
+2026-10-01T00:19:16Z [614ms] [Warning] [omni.isaac.dynamic_control] omni.isaac.dynamic_control is deprecated as of Isaac Sim 4.5. No action is needed from end-users.
+2026-10-01T00:19:19Z [3,651ms] [Warning] [gpu.foundation.plugin] nvidia-smi not found in '/usr/bin/'
+
+|---------------------------------------------------------------------------------------------|
+| Driver Version: 0             | Graphics API: Vulkan
+|=============================================================================================|
+| GPU | Name                             | Active | LDA | GPU Memory | Vendor-ID | LUID       |
+|     |                                  |        |     |            | Device-ID | UUID       |
+|     |                                  |        |     |            | Bus-ID    |            |
+|=============================================================================================|
+| OS: 26.04 (Resolute Raccoon) ubuntu, Version: 26.04.0, Kernel: 6.6.114.1-microsoft-standard-WSL2
+| XServer Vendor: The X.Org Foundation, XServer Version: 12401006 (1.24.1.6)
+| Processor: 13th Gen Intel(R) Core(TM) i5-13600KF
+| Cores: 10 | Logical Cores: 20
+|---------------------------------------------------------------------------------------------|
+| Total Memory (MB): 15919 | Free Memory: 14498
+| Total Page/Swap (MB): 4096 | Free Page/Swap: 4096
+|---------------------------------------------------------------------------------------------|
+2026-10-01T00:19:19Z [3,702ms] [Error] [gpu.foundation.plugin] No device could be created. Some known system issues:
+- The driver is not installed properly and requires a clean re-install.
+- Your GPUs do not support RayTracing: DXR or Vulkan ray_tracing, or hardware is excluded due to performance.
+- The driver cannot enumerate any GPU: driver, display, TCC mode or a docker issue. For Vulkan, test it with Vulkaninfo tool from Vulkan SDK, instead of nvidia-smi.
+- For Ubuntu, it requires server-xorg-core 1.20.7+ and a display to work without --no-window.
+- For Linux dockers, the setup is not complete. Install the latest driver, xServer and NVIDIA container runtime.
+
+2026-10-01T00:19:19Z [3,705ms] [Error] [gpu.foundation.plugin] Invalid getDeviceInfo parameters.
+/home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-G1-29dof-Velocity already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-Go2-Velocity already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-H1-Velocity already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-G1-29dof-Mimic-Dance-102 already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-G1-29dof-Mimic-Gangnanm-Style already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+[INFO][AppLauncher]: Using device: cuda:0
+[INFO][AppLauncher]: Loading experience file: /home/administrator/仿真/IsaacLab/apps/isaaclab.python.headless.kit
+[INFO]: Parsing configuration from: unitree_rl_lab.tasks.locomotion.robots.g1.29dof.velocity_env_cfg:RobotEnvCfg
+[INFO]: Parsing configuration from: unitree_rl_lab.tasks.locomotion.agents.rsl_rl_ppo_cfg:BasePPORunnerCfg
+/home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/rsl_rl/utils/utils.py:244: UserWarning: The observation configuration dictionary 'obs_groups' must contain the 'policy' key. As an observation group with the name 'policy' was found, this is assumed to be the observation set. Consider adding the 'policy' key to the 'obs_groups' dictionary for clarity. This behavior will be removed in a future version.
+  warnings.warn(
+/home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/rsl_rl/utils/utils.py:282: UserWarning: The observation configuration dictionary 'obs_groups' must contain the 'critic' key. As an observation group with the name 'critic' was found, this is assumed to be the observation set. Consider adding the 'critic' key to the 'obs_groups' dictionary for clarity. This behavior will be removed in a future version.
+  warnings.warn(
+[INFO] Logging experiment in directory: /home/administrator/仿真/unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity
+Exact experiment name requested from command line: 2026-10-01_08-19-20
+Setting seed: 42
+[INFO]: Base environment:
+	Environment device    : cuda:0
+	Environment seed      : 42
+	Physics step-size     : 0.005
+	Rendering step-size   : 0.02
+	Environment step-size : 0.02
+[INFO] Generating terrains based on curriculum took : 0.077011 seconds
+[INFO]: Time taken for scene creation : 4.165785 seconds
+[INFO]: Scene manager:  <class InteractiveScene>
+	Number of environments: 4096
+	Environment spacing   : 2.5
+	Source prim name      : /World/envs/env_0
+	Global prim paths     : ['/World/ground']
+	Replicate physics     : True
+[INFO]: Starting the simulation. This may take a few seconds. Please wait...
+[INFO]: Time taken for simulation start : 6.058511 seconds
+[INFO] Command Manager:  <CommandManager> contains 1 active terms.
++------------------------------------------------+
+|              Active Command Terms              |
++-------+---------------+------------------------+
+| Index | Name          |          Type          |
++-------+---------------+------------------------+
+|   0   | base_velocity | UniformVelocityCommand |
++-------+---------------+------------------------+
+
+[INFO] Event Manager:  <EventManager> contains 3 active terms.
++--------------------------------------+
+| Active Event Terms in Mode: 'startup' |
++----------+---------------------------+
+|  Index   | Name                      |
++----------+---------------------------+
+|    0     | physics_material          |
+|    1     | add_base_mass             |
++----------+---------------------------+
++---------------------------------------+
+|  Active Event Terms in Mode: 'reset'  |
++--------+------------------------------+
+| Index  | Name                         |
++--------+------------------------------+
+|   0    | base_external_force_torque   |
+|   1    | reset_base                   |
+|   2    | reset_robot_joints           |
++--------+------------------------------+
++----------------------------------------------+
+|    Active Event Terms in Mode: 'interval'    |
++-------+------------+-------------------------+
+| Index | Name       | Interval time range (s) |
++-------+------------+-------------------------+
+|   0   | push_robot |        (5.0, 5.0)       |
++-------+------------+-------------------------+
+
+[INFO] Recorder Manager:  <RecorderManager> contains 0 active terms.
++---------------------+
+| Active Recorder Terms |
++-----------+---------+
+|   Index   | Name    |
++-----------+---------+
++-----------+---------+
+
+[INFO] Action Manager:  <ActionManager> contains 1 active terms.
++-----------------------------------------+
+|     Active Action Terms (shape: 29)     |
++-------+---------------------+-----------+
+| Index | Name                | Dimension |
++-------+---------------------+-----------+
+|   0   | JointPositionAction |        29 |
++-------+---------------------+-----------+
+
+[INFO] Observation Manager: <ObservationManager> contains 2 groups.
++----------------------------------------------------------+
+| Active Observation Terms in Group: 'policy' (shape: (480,)) |
++-----------+--------------------------------+-------------+
+|   Index   | Name                           |    Shape    |
++-----------+--------------------------------+-------------+
+|     0     | base_ang_vel                   |    (15,)    |
+|     1     | projected_gravity              |    (15,)    |
+|     2     | velocity_commands              |    (15,)    |
+|     3     | joint_pos_rel                  |    (145,)   |
+|     4     | joint_vel_rel                  |    (145,)   |
+|     5     | last_action                    |    (145,)   |
++-----------+--------------------------------+-------------+
++----------------------------------------------------------+
+| Active Observation Terms in Group: 'critic' (shape: (495,)) |
++-----------+--------------------------------+-------------+
+|   Index   | Name                           |    Shape    |
++-----------+--------------------------------+-------------+
+|     0     | base_lin_vel                   |    (15,)    |
+|     1     | base_ang_vel                   |    (15,)    |
+|     2     | projected_gravity              |    (15,)    |
+|     3     | velocity_commands              |    (15,)    |
+|     4     | joint_pos_rel                  |    (145,)   |
+|     5     | joint_vel_rel                  |    (145,)   |
+|     6     | last_action                    |    (145,)   |
++-----------+--------------------------------+-------------+
+
+[INFO] Termination Manager:  <TerminationManager> contains 3 active terms.
++------------------------------------+
+|      Active Termination Terms      |
++-------+-----------------+----------+
+| Index | Name            | Time Out |
++-------+-----------------+----------+
+|   0   | time_out        |   True   |
+|   1   | base_height     |  False   |
+|   2   | bad_orientation |  False   |
++-------+-----------------+----------+
+
+[INFO] Reward Manager:  <RewardManager> contains 19 active terms.
++-------------------------------------------+
+|            Active Reward Terms            |
++-------+------------------------+----------+
+| Index | Name                   |   Weight |
++-------+------------------------+----------+
+|   0   | track_lin_vel_xy       |      1.0 |
+|   1   | track_ang_vel_z        |      0.5 |
+|   2   | alive                  |     0.15 |
+|   3   | base_linear_velocity   |     -2.0 |
+|   4   | base_angular_velocity  |    -0.05 |
+|   5   | joint_vel              |   -0.001 |
+|   6   | joint_acc              | -2.5e-07 |
+|   7   | action_rate            |    -0.05 |
+|   8   | dof_pos_limits         |     -5.0 |
+|   9   | energy                 |   -2e-05 |
+|   10  | joint_deviation_arms   |     -0.1 |
+|   11  | joint_deviation_waists |       -1 |
+|   12  | joint_deviation_legs   |     -1.0 |
+|   13  | flat_orientation_l2    |     -5.0 |
+|   14  | base_height            |      -10 |
+|   15  | gait                   |      0.5 |
+|   16  | feet_slide             |     -0.2 |
+|   17  | feet_clearance         |      1.0 |
+|   18  | undesired_contacts     |       -1 |
++-------+------------------------+----------+
+
+[INFO] Curriculum Manager:  <CurriculumManager> contains 2 active terms.
++----------------------------+
+|  Active Curriculum Terms   |
++-------+--------------------+
+| Index | Name               |
++-------+--------------------+
+|   0   | terrain_levels     |
+|   1   | lin_vel_cmd_levels |
++-------+--------------------+
+
+[INFO]: Completed setting up the environment...
+--------------------------------------------------------------------------------
+Resolved observation sets: 
+	 policy :  ['policy']
+	 critic :  ['critic']
+--------------------------------------------------------------------------------
+Actor MLP: MLP(
+  (0): Linear(in_features=480, out_features=512, bias=True)
+  (1): ELU(alpha=1.0)
+  (2): Linear(in_features=512, out_features=256, bias=True)
+  (3): ELU(alpha=1.0)
+  (4): Linear(in_features=256, out_features=128, bias=True)
+  (5): ELU(alpha=1.0)
+  (6): Linear(in_features=128, out_features=29, bias=True)
+)
+Critic MLP: MLP(
+  (0): Linear(in_features=495, out_features=512, bias=True)
+  (1): ELU(alpha=1.0)
+  (2): Linear(in_features=512, out_features=256, bias=True)
+  (3): ELU(alpha=1.0)
+  (4): Linear(in_features=256, out_features=128, bias=True)
+  (5): ELU(alpha=1.0)
+  (6): Linear(in_features=128, out_features=1, bias=True)
+)
+################################################################################
+                       [1m Learning iteration 0/10 [0m                        
+
+                       Computation: 20972 steps/s (collection: 4.261s, learning 0.427s)
+             Mean action noise std: 0.99
+          Mean value_function loss: 0.3537
+               Mean surrogate loss: -0.0168
+                 Mean entropy loss: 41.0539
+                       Mean reward: -0.86
+               Mean episode length: 11.95
+   Episode_Reward/track_lin_vel_xy: 0.0083
+    Episode_Reward/track_ang_vel_z: 0.0006
+              Episode_Reward/alive: 0.0019
+Episode_Reward/base_linear_velocity: -0.0011
+Episode_Reward/base_angular_velocity: -0.0062
+          Episode_Reward/joint_vel: -0.0095
+          Episode_Reward/joint_acc: -0.0045
+        Episode_Reward/action_rate: -0.0347
+     Episode_Reward/dof_pos_limits: -0.0001
+             Episode_Reward/energy: -0.0002
+Episode_Reward/joint_deviation_arms: -0.0019
+Episode_Reward/joint_deviation_waists: -0.0032
+Episode_Reward/joint_deviation_legs: -0.0046
+Episode_Reward/flat_orientation_l2: -0.0006
+        Episode_Reward/base_height: -0.0000
+               Episode_Reward/gait: 0.0041
+         Episode_Reward/feet_slide: -0.0019
+     Episode_Reward/feet_clearance: 0.0114
+ Episode_Reward/undesired_contacts: -0.0024
+         Curriculum/terrain_levels: 4.3800
+     Curriculum/lin_vel_cmd_levels: 0.1000
+Metrics/base_velocity/error_vel_xy: 0.0070
+Metrics/base_velocity/error_vel_yaw: 0.0708
+      Episode_Termination/time_out: 0.0122
+   Episode_Termination/base_height: 0.0000
+Episode_Termination/bad_orientation: 0.0000
+--------------------------------------------------------------------------------
+                   Total timesteps: 98304
+                    Iteration time: 4.69s
+                      Time elapsed: 00:00:04
+                               ETA: 00:00:46
+
+Could not find git repository in /home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/rsl_rl/__init__.py. Skipping.
+Storing git diff for 'unitree_rl_lab' in: /home/administrator/仿真/unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_08-19-20/git/unitree_rl_lab.diff
+################################################################################
+                       [1m Learning iteration 1/10 [0m                        
+
+                       Computation: 28290 steps/s (collection: 3.253s, learning 0.222s)
+             Mean action noise std: 0.99
+          Mean value_function loss: 0.4247
+               Mean surrogate loss: -0.0155
+                 Mean entropy loss: 40.9152
+                       Mean reward: -4.55
+               Mean episode length: 47.96
+   Episode_Reward/track_lin_vel_xy: 0.0188
+    Episode_Reward/track_ang_vel_z: 0.0016
+              Episode_Reward/alive: 0.0054
+Episode_Reward/base_linear_velocity: -0.0039
+Episode_Reward/base_angular_velocity: -0.0236
+          Episode_Reward/joint_vel: -0.0298
+          Episode_Reward/joint_acc: -0.0126
+        Episode_Reward/action_rate: -0.1044
+     Episode_Reward/dof_pos_limits: -0.0007
+             Episode_Reward/energy: -0.0007
+Episode_Reward/joint_deviation_arms: -0.0059
+Episode_Reward/joint_deviation_waists: -0.0122
+Episode_Reward/joint_deviation_legs: -0.0157
+Episode_Reward/flat_orientation_l2: -0.0167
+        Episode_Reward/base_height: -0.0017
+               Episode_Reward/gait: 0.0093
+         Episode_Reward/feet_slide: -0.0071
+     Episode_Reward/feet_clearance: 0.0338
+ Episode_Reward/undesired_contacts: -0.0087
+         Curriculum/terrain_levels: 4.2019
+     Curriculum/lin_vel_cmd_levels: 0.1000
+Metrics/base_velocity/error_vel_xy: 0.0343
+Metrics/base_velocity/error_vel_yaw: 0.2234
+      Episode_Termination/time_out: 0.0325
+   Episode_Termination/base_height: 0.0000
+Episode_Termination/bad_orientation: 0.2070
+--------------------------------------------------------------------------------
+                   Total timesteps: 196608
+                    Iteration time: 3.47s
+                      Time elapsed: 00:00:08
+                               ETA: 00:00:36
+
+################################################################################
+                       [1m Learning iteration 2/10 [0m                        
+
+                       Computation: 27857 steps/s (collection: 3.306s, learning 0.223s)
+             Mean action noise std: 0.99
+          Mean value_function loss: 0.3750
+               Mean surrogate loss: -0.0079
+                 Mean entropy loss: 40.8688
+                       Mean reward: -4.67
+               Mean episode length: 48.43
+   Episode_Reward/track_lin_vel_xy: 0.0267
+    Episode_Reward/track_ang_vel_z: 0.0024
+              Episode_Reward/alive: 0.0079
+Episode_Reward/base_linear_velocity: -0.0048
+Episode_Reward/base_angular_velocity: -0.0328
+          Episode_Reward/joint_vel: -0.0430
+          Episode_Reward/joint_acc: -0.0182
+        Episode_Reward/action_rate: -0.1526
+     Episode_Reward/dof_pos_limits: -0.0011
+             Episode_Reward/energy: -0.0011
+Episode_Reward/joint_deviation_arms: -0.0088
+Episode_Reward/joint_deviation_waists: -0.0194
+Episode_Reward/joint_deviation_legs: -0.0235
+Episode_Reward/flat_orientation_l2: -0.0234
+        Episode_Reward/base_height: -0.0026
+               Episode_Reward/gait: 0.0125
+         Episode_Reward/feet_slide: -0.0099
+     Episode_Reward/feet_clearance: 0.0495
+ Episode_Reward/undesired_contacts: -0.0129
+         Curriculum/terrain_levels: 3.6651
+     Curriculum/lin_vel_cmd_levels: 0.1000
+Metrics/base_velocity/error_vel_xy: 0.0527
+Metrics/base_velocity/error_vel_yaw: 0.3301
+      Episode_Termination/time_out: 0.0279
+   Episode_Termination/base_height: 0.0000
+Episode_Termination/bad_orientation: 0.9230
+--------------------------------------------------------------------------------
+                   Total timesteps: 294912
+                    Iteration time: 3.53s
+                      Time elapsed: 00:00:11
+                               ETA: 00:00:31
+
+################################################################################
+                       [1m Learning iteration 3/10 [0m                        
+
+                       Computation: 28282 steps/s (collection: 3.258s, learning 0.218s)
+             Mean action noise std: 0.99
+          Mean value_function loss: 0.1945
+               Mean surrogate loss: -0.0131
+                 Mean entropy loss: 40.7905
+                       Mean reward: -4.49
+               Mean episode length: 47.83
+   Episode_Reward/track_lin_vel_xy: 0.0214
+    Episode_Reward/track_ang_vel_z: 0.0019
+              Episode_Reward/alive: 0.0063
+Episode_Reward/base_linear_velocity: -0.0042
+Episode_Reward/base_angular_velocity: -0.0266
+          Episode_Reward/joint_vel: -0.0342
+          Episode_Reward/joint_acc: -0.0145
+        Episode_Reward/action_rate: -0.1204
+     Episode_Reward/dof_pos_limits: -0.0008
+             Episode_Reward/energy: -0.0008
+Episode_Reward/joint_deviation_arms: -0.0070
+Episode_Reward/joint_deviation_waists: -0.0145
+Episode_Reward/joint_deviation_legs: -0.0184
+Episode_Reward/flat_orientation_l2: -0.0219
+        Episode_Reward/base_height: -0.0022
+               Episode_Reward/gait: 0.0107
+         Episode_Reward/feet_slide: -0.0083
+     Episode_Reward/feet_clearance: 0.0398
+ Episode_Reward/undesired_contacts: -0.0096
+         Curriculum/terrain_levels: 3.3970
+     Curriculum/lin_vel_cmd_levels: 0.1000
+Metrics/base_velocity/error_vel_xy: 0.0426
+Metrics/base_velocity/error_vel_yaw: 0.2610
+      Episode_Termination/time_out: 0.0076
+   Episode_Termination/base_height: 0.0000
+Episode_Termination/bad_orientation: 0.9918
+--------------------------------------------------------------------------------
+                   Total timesteps: 393216
+                    Iteration time: 3.48s
+                      Time elapsed: 00:00:15
+                               ETA: 00:00:26
+
+################################################################################
+                       [1m Learning iteration 4/10 [0m                        
+
+                       Computation: 28488 steps/s (collection: 3.230s, learning 0.221s)
+             Mean action noise std: 0.98
+          Mean value_function loss: 0.1539
+               Mean surrogate loss: -0.0116
+                 Mean entropy loss: 40.7023
+                       Mean reward: -4.00
+               Mean episode length: 42.53
+   Episode_Reward/track_lin_vel_xy: 0.0240
+    Episode_Reward/track_ang_vel_z: 0.0022
+              Episode_Reward/alive: 0.0070
+Episode_Reward/base_linear_velocity: -0.0044
+Episode_Reward/base_angular_velocity: -0.0286
+          Episode_Reward/joint_vel: -0.0378
+          Episode_Reward/joint_acc: -0.0160
+        Episode_Reward/action_rate: -0.1334
+     Episode_Reward/dof_pos_limits: -0.0010
+             Episode_Reward/energy: -0.0009
+Episode_Reward/joint_deviation_arms: -0.0078
+Episode_Reward/joint_deviation_waists: -0.0165
+Episode_Reward/joint_deviation_legs: -0.0207
+Episode_Reward/flat_orientation_l2: -0.0227
+        Episode_Reward/base_height: -0.0023
+               Episode_Reward/gait: 0.0112
+         Episode_Reward/feet_slide: -0.0090
+     Episode_Reward/feet_clearance: 0.0443
+ Episode_Reward/undesired_contacts: -0.0100
+         Curriculum/terrain_levels: 2.9895
+     Curriculum/lin_vel_cmd_levels: 0.1000
+Metrics/base_velocity/error_vel_xy: 0.0471
+Metrics/base_velocity/error_vel_yaw: 0.2913
+      Episode_Termination/time_out: 0.0003
+   Episode_Termination/base_height: 0.0000
+Episode_Termination/bad_orientation: 0.9997
+--------------------------------------------------------------------------------
+                   Total timesteps: 491520
+                    Iteration time: 3.45s
+                      Time elapsed: 00:00:18
+                               ETA: 00:00:22
+
+################################################################################
+                       [1m Learning iteration 5/10 [0m                        
+
+                       Computation: 28091 steps/s (collection: 3.271s, learning 0.229s)
+             Mean action noise std: 0.98
+          Mean value_function loss: 0.1005
+               Mean surrogate loss: -0.0117
+                 Mean entropy loss: 40.6089
+                       Mean reward: -4.36
+               Mean episode length: 47.46
+   Episode_Reward/track_lin_vel_xy: 0.0224
+    Episode_Reward/track_ang_vel_z: 0.0020
+              Episode_Reward/alive: 0.0065
+Episode_Reward/base_linear_velocity: -0.0041
+Episode_Reward/base_angular_velocity: -0.0263
+          Episode_Reward/joint_vel: -0.0351
+          Episode_Reward/joint_acc: -0.0149
+        Episode_Reward/action_rate: -0.1232
+     Episode_Reward/dof_pos_limits: -0.0008
+             Episode_Reward/energy: -0.0008
+Episode_Reward/joint_deviation_arms: -0.0072
+Episode_Reward/joint_deviation_waists: -0.0146
+Episode_Reward/joint_deviation_legs: -0.0189
+Episode_Reward/flat_orientation_l2: -0.0221
+        Episode_Reward/base_height: -0.0022
+               Episode_Reward/gait: 0.0107
+         Episode_Reward/feet_slide: -0.0084
+     Episode_Reward/feet_clearance: 0.0412
+ Episode_Reward/undesired_contacts: -0.0087
+         Curriculum/terrain_levels: 2.6919
+     Curriculum/lin_vel_cmd_levels: 0.1000
+Metrics/base_velocity/error_vel_xy: 0.0437
+Metrics/base_velocity/error_vel_yaw: 0.2687
+      Episode_Termination/time_out: 0.0000
+   Episode_Termination/base_height: 0.0000
+Episode_Termination/bad_orientation: 1.0000
+--------------------------------------------------------------------------------
+                   Total timesteps: 589824
+                    Iteration time: 3.50s
+                      Time elapsed: 00:00:22
+                               ETA: 00:00:18
+
+################################################################################
+                       [1m Learning iteration 6/10 [0m                        
+
+                       Computation: 27022 steps/s (collection: 3.416s, learning 0.222s)
+             Mean action noise std: 0.98
+          Mean value_function loss: 0.0897
+               Mean surrogate loss: -0.0101
+                 Mean entropy loss: 40.5274
+                       Mean reward: -3.91
+               Mean episode length: 42.98
+   Episode_Reward/track_lin_vel_xy: 0.0235
+    Episode_Reward/track_ang_vel_z: 0.0021
+              Episode_Reward/alive: 0.0067
+Episode_Reward/base_linear_velocity: -0.0040
+Episode_Reward/base_angular_velocity: -0.0266
+          Episode_Reward/joint_vel: -0.0359
+          Episode_Reward/joint_acc: -0.0152
+        Episode_Reward/action_rate: -0.1263
+     Episode_Reward/dof_pos_limits: -0.0009
+             Episode_Reward/energy: -0.0009
+Episode_Reward/joint_deviation_arms: -0.0075
+Episode_Reward/joint_deviation_waists: -0.0148
+Episode_Reward/joint_deviation_legs: -0.0195
+Episode_Reward/flat_orientation_l2: -0.0222
+        Episode_Reward/base_height: -0.0020
+               Episode_Reward/gait: 0.0106
+         Episode_Reward/feet_slide: -0.0086
+     Episode_Reward/feet_clearance: 0.0425
+ Episode_Reward/undesired_contacts: -0.0086
+         Curriculum/terrain_levels: 2.3634
+     Curriculum/lin_vel_cmd_levels: 0.1000
+Metrics/base_velocity/error_vel_xy: 0.0442
+Metrics/base_velocity/error_vel_yaw: 0.2768
+      Episode_Termination/time_out: 0.0000
+   Episode_Termination/base_height: 0.0000
+Episode_Termination/bad_orientation: 1.0000
+--------------------------------------------------------------------------------
+                   Total timesteps: 688128
+                    Iteration time: 3.64s
+                      Time elapsed: 00:00:25
+                               ETA: 00:00:14
+
+################################################################################
+                       [1m Learning iteration 7/10 [0m                        
+
+                       Computation: 28064 steps/s (collection: 3.279s, learning 0.223s)
+             Mean action noise std: 0.97
+          Mean value_function loss: 0.0845
+               Mean surrogate loss: -0.0136
+                 Mean entropy loss: 40.4153
+                       Mean reward: -4.14
+               Mean episode length: 47.31
+   Episode_Reward/track_lin_vel_xy: 0.0228
+    Episode_Reward/track_ang_vel_z: 0.0021
+              Episode_Reward/alive: 0.0066
+Episode_Reward/base_linear_velocity: -0.0040
+Episode_Reward/base_angular_velocity: -0.0256
+          Episode_Reward/joint_vel: -0.0348
+          Episode_Reward/joint_acc: -0.0148
+        Episode_Reward/action_rate: -0.1220
+     Episode_Reward/dof_pos_limits: -0.0009
+             Episode_Reward/energy: -0.0008
+Episode_Reward/joint_deviation_arms: -0.0073
+Episode_Reward/joint_deviation_waists: -0.0142
+Episode_Reward/joint_deviation_legs: -0.0189
+Episode_Reward/flat_orientation_l2: -0.0223
+        Episode_Reward/base_height: -0.0020
+               Episode_Reward/gait: 0.0109
+         Episode_Reward/feet_slide: -0.0083
+     Episode_Reward/feet_clearance: 0.0415
+ Episode_Reward/undesired_contacts: -0.0078
+         Curriculum/terrain_levels: 2.0620
+     Curriculum/lin_vel_cmd_levels: 0.1000
+Metrics/base_velocity/error_vel_xy: 0.0433
+Metrics/base_velocity/error_vel_yaw: 0.2679
+      Episode_Termination/time_out: 0.0000
+   Episode_Termination/base_height: 0.0000
+Episode_Termination/bad_orientation: 1.0000
+--------------------------------------------------------------------------------
+                   Total timesteps: 786432
+                    Iteration time: 3.50s
+                      Time elapsed: 00:00:29
+                               ETA: 00:00:10
+
+################################################################################
+                       [1m Learning iteration 8/10 [0m                        
+
+                       Computation: 28076 steps/s (collection: 3.280s, learning 0.221s)
+             Mean action noise std: 0.97
+          Mean value_function loss: 0.0680
+               Mean surrogate loss: -0.0135
+                 Mean entropy loss: 40.3204
+                       Mean reward: -3.74
+               Mean episode length: 42.77
+   Episode_Reward/track_lin_vel_xy: 0.0230
+    Episode_Reward/track_ang_vel_z: 0.0020
+              Episode_Reward/alive: 0.0065
+Episode_Reward/base_linear_velocity: -0.0039
+Episode_Reward/base_angular_velocity: -0.0249
+          Episode_Reward/joint_vel: -0.0341
+          Episode_Reward/joint_acc: -0.0144
+        Episode_Reward/action_rate: -0.1191
+     Episode_Reward/dof_pos_limits: -0.0009
+             Episode_Reward/energy: -0.0008
+Episode_Reward/joint_deviation_arms: -0.0072
+Episode_Reward/joint_deviation_waists: -0.0139
+Episode_Reward/joint_deviation_legs: -0.0187
+Episode_Reward/flat_orientation_l2: -0.0221
+        Episode_Reward/base_height: -0.0018
+               Episode_Reward/gait: 0.0109
+         Episode_Reward/feet_slide: -0.0082
+     Episode_Reward/feet_clearance: 0.0410
+ Episode_Reward/undesired_contacts: -0.0072
+         Curriculum/terrain_levels: 1.7834
+     Curriculum/lin_vel_cmd_levels: 0.1000
+Metrics/base_velocity/error_vel_xy: 0.0417
+Metrics/base_velocity/error_vel_yaw: 0.2639
+      Episode_Termination/time_out: 0.0000
+   Episode_Termination/base_height: 0.0000
+Episode_Termination/bad_orientation: 1.0000
+--------------------------------------------------------------------------------
+                   Total timesteps: 884736
+                    Iteration time: 3.50s
+                      Time elapsed: 00:00:32
+                               ETA: 00:00:07
+
+################################################################################
+                       [1m Learning iteration 9/10 [0m                        
+
+                       Computation: 27928 steps/s (collection: 3.301s, learning 0.219s)
+             Mean action noise std: 0.97
+          Mean value_function loss: 0.0677
+               Mean surrogate loss: -0.0137
+                 Mean entropy loss: 40.2246
+                       Mean reward: -3.69
+               Mean episode length: 43.22
+   Episode_Reward/track_lin_vel_xy: 0.0227
+    Episode_Reward/track_ang_vel_z: 0.0020
+              Episode_Reward/alive: 0.0064
+Episode_Reward/base_linear_velocity: -0.0038
+Episode_Reward/base_angular_velocity: -0.0244
+          Episode_Reward/joint_vel: -0.0336
+          Episode_Reward/joint_acc: -0.0143
+        Episode_Reward/action_rate: -0.1171
+     Episode_Reward/dof_pos_limits: -0.0009
+             Episode_Reward/energy: -0.0008
+Episode_Reward/joint_deviation_arms: -0.0072
+Episode_Reward/joint_deviation_waists: -0.0136
+Episode_Reward/joint_deviation_legs: -0.0185
+Episode_Reward/flat_orientation_l2: -0.0220
+        Episode_Reward/base_height: -0.0018
+               Episode_Reward/gait: 0.0103
+         Episode_Reward/feet_slide: -0.0080
+     Episode_Reward/feet_clearance: 0.0407
+ Episode_Reward/undesired_contacts: -0.0064
+         Curriculum/terrain_levels: 1.5041
+     Curriculum/lin_vel_cmd_levels: 0.1000
+Metrics/base_velocity/error_vel_xy: 0.0414
+Metrics/base_velocity/error_vel_yaw: 0.2606
+      Episode_Termination/time_out: 0.0000
+   Episode_Termination/base_height: 0.0000
+Episode_Termination/bad_orientation: 1.0000
+--------------------------------------------------------------------------------
+                   Total timesteps: 983040
+                    Iteration time: 3.52s
+                      Time elapsed: 00:00:36
+                               ETA: 00:00:03
+
+2026-10-01T00:19:19Z [3,705ms] [Warning] [omni.physx.foundation.plugin] PhysXFoundation: Couldn't get driver version, failed to getDeviceInfo
+2026-10-01T00:19:19Z [3,705ms] [Warning] [omni.physx.foundation.plugin] PhysXFoundation: Unable to get IGpuFoundation, GpuDevices or Graphics!
+2026-10-01T00:19:32Z [16,645ms] [Warning] [rtx.neuraylib.plugin] [GPU:RENDER]   0.1   GPU    rend warn : It appears that the "nvidia" kernel module is not loaded.
+2026-10-01T00:19:32Z [16,645ms] [Warning] [rtx.neuraylib.plugin] [GPU:RENDER]   0.1   GPU    rend warn : It appears that there are no "nvidia" device nodes. This configuration is unlikely to work at all. Verify that your runlevel is sufficient and "nvidia" device nodes are present, e.g., /dev/nvidia0.
+2026-10-01T00:19:33Z [17,470ms] [Warning] [omni.physx.fabric.plugin] FabricManager::initializePointInstancer mismatched prototypes on point instancer: /Visuals/Command/velocity_goal.
+2026-10-01T00:19:33Z [17,470ms] [Warning] [omni.physx.fabric.plugin] FabricManager::initializePointInstancer mismatched prototypes on point instancer: /Visuals/Command/velocity_current.
+2026-10-01T00:20:11Z [55,184ms] [Warning] [omni.physx.foundation.plugin] PhysXFoundation: Calling createGpuFoundation without first releasing already acquired instances with releaseGpuFoundation!
+2026-10-01T00:20:11Z [55,184ms] [Warning] [gpu.foundation.plugin] nvidia-smi not found in '/usr/bin/'
+
+|---------------------------------------------------------------------------------------------|
+| Driver Version: 0             | Graphics API: Vulkan
+|=============================================================================================|
+| GPU | Name                             | Active | LDA | GPU Memory | Vendor-ID | LUID       |
+|     |                                  |        |     |            | Device-ID | UUID       |
+|     |                                  |        |     |            | Bus-ID    |            |
+|=============================================================================================|
+| OS: 26.04 (Resolute Raccoon) ubuntu, Version: 26.04.0, Kernel: 6.6.114.1-microsoft-standard-WSL2
+| XServer Vendor: The X.Org Foundation, XServer Version: 12401006 (1.24.1.6)
+| Processor: 13th Gen Intel(R) Core(TM) i5-13600KF
+| Cores: 10 | Logical Cores: 20
+|---------------------------------------------------------------------------------------------|
+| Total Memory (MB): 15919 | Free Memory: 11401
+| Total Page/Swap (MB): 4096 | Free Page/Swap: 4096
+|---------------------------------------------------------------------------------------------|
+2026-10-01T00:20:11Z [55,204ms] [Error] [gpu.foundation.plugin] No device could be created. Some known system issues:
+- The driver is not installed properly and requires a clean re-install.
+- Your GPUs do not support RayTracing: DXR or Vulkan ray_tracing, or hardware is excluded due to performance.
+- The driver cannot enumerate any GPU: driver, display, TCC mode or a docker issue. For Vulkan, test it with Vulkaninfo tool from Vulkan SDK, instead of nvidia-smi.
+- For Ubuntu, it requires server-xorg-core 1.20.7+ and a display to work without --no-window.
+- For Linux dockers, the setup is not complete. Install the latest driver, xServer and NVIDIA container runtime.
+
+2026-10-01T00:20:11Z [55,206ms] [Error] [gpu.foundation.plugin] Invalid getDeviceInfo parameters.
+2026-10-01T00:20:11Z [55,206ms] [Warning] [omni.physx.foundation.plugin] PhysXFoundation: Couldn't get driver version, failed to getDeviceInfo
+2026-10-01T00:20:11Z [55,206ms] [Warning] [omni.physx.foundation.plugin] PhysXFoundation: Unable to get IGpuFoundation, GpuDevices or Graphics!

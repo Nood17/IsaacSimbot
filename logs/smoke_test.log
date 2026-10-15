@@ -1,0 +1,20 @@
+[Info] [carb] Logging to file: /home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/kit/logs/Kit/Isaac-Sim/5.1/kit_20261001_073020.log
+2026-09-30T23:30:20Z [292ms] [Warning] [omni.usd_config.extension] Enable omni.materialx.libs extension to use MaterialX
+2026-09-30T23:30:20Z [443ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+69cbf6ad.lx64.r.cp311/bin/libMaterialXRenderHw.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-09-30T23:30:20Z [466ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+69cbf6ad.lx64.r.cp311/bin/libMaterialXRenderGlsl.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-09-30T23:30:20Z [485ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+69cbf6ad.lx64.r.cp311/bin/libusd_usdBakeMtlx.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-09-30T23:30:20Z [543ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/extscache/omni.iray.libs-0.0.0+69cbf6ad.lx64.r/bin/iray/libneuray.so. Error: libGLU.so.1: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+/home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-G1-29dof-Velocity already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-Go2-Velocity already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-H1-Velocity already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-G1-29dof-Mimic-Dance-102 already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-G1-29dof-Mimic-Gangnanm-Style already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+[INFO][AppLauncher]: Using device: cuda:0
+[INFO][AppLauncher]: Loading experience file: /home/administrator/仿真/IsaacLab/apps/isaaclab.python.headless.kit
+[INFO]: Parsing configuration from: unitree_rl_lab.tasks.locomotion.robots.g1.29dof.velocity_env_cfg:RobotEnvCfg
+[INFO]: Parsing configuration from: unitree_rl_lab.tasks.locomotion.agents.rsl_rl_ppo_cfg:BasePPORunnerCfg

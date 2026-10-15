@@ -1,17 +1,39 @@
 {
-  "project_name": "lunar-grav-loco",
-  "target_venue": "ICRA/IROS (主论文) + CoRL/RSS workshop (基准)",
-  "current_phase": "literature",
-  "selected_idea_index": 0,
-  "phases": {
-    "idea": {"status": "completed", "output_path": "idea_output.json"},
-    "literature": {"status": "pending", "output_path": null},
-    "method": {"status": "pending", "output_path": null},
-    "experiment": {"status": "pending", "output_path": null},
-    "writing": {"status": "pending", "output_path": null},
-    "review": {"status": "pending", "output_path": null},
-    "rebuttal": {"status": "pending", "output_path": null}
+ "project_name": "lunar-grav-loco",
+ "target_venue": "ICRA/IROS (主论文) + CoRL/RSS workshop (基准)",
+ "current_phase": "paused-baseline-diagnosis",
+ "selected_idea_index": 0,
+ "phases": {
+  "idea": {
+   "status": "completed",
+   "output_path": "idea_output.json"
   },
-  "created_at": "2026-09-30",
-  "updated_at": "2026-09-30"
+  "literature": {
+   "status": "completed",
+   "output_path": "papers_zh/"
+  },
+  "method": {
+   "status": "in_progress",
+   "output_path": null
+  },
+  "experiment": {
+   "status": "pending",
+   "output_path": null
+  },
+  "writing": {
+   "status": "pending",
+   "output_path": null
+  },
+  "review": {
+   "status": "pending",
+   "output_path": null
+  },
+  "rebuttal": {
+   "status": "pending",
+   "output_path": null
+  }
+ },
+ "created_at": "2026-09-30",
+ "updated_at": "2026-10-01",
+ "_status_note": "2026-10-15 暂停：基线纸面指标正常但实际行为差，转入诊断阶段（见 I:/仿真/docs/biped/）。原 M1-M4/论文规划已降级为远期设想。恢复条件见 docs/biped/状态-G1基线诊断.md"
 }

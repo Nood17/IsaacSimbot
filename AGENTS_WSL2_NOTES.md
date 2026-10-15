@@ -1,5 +1,7 @@
 # 环境说明（WSL2 新机器，DESKTOP-9S36E5P）
 
+> **2026-10-15 项目重整**：工作区分为两条任务线（任务 A：Go2 四足复杂地形训练=当前主线；任务 B：G1 双足 lunar-grav-loco=暂停待诊断），详见 `README.md` 与 `docs/`。iteration/watchdog 定时器已停用。脚本移至 `scripts/`、日志移至 `logs/`、调研报告在 `docs/research/`。
+
 ## 环境就绪状态（2026-10-01）
 
 - GPU: RTX 4070 Ti 12GB（Ada/sm_89），驱动 591.74，CUDA 13.1
@@ -18,7 +20,7 @@ cd ~/仿真/unitree_rl_lab && ./unitree_rl_lab.sh -t --task Unitree-G1-29dof-Vel
 
 ## 本机特有的坑（WSL2）
 
-1. **exec 工具外层会预展开 `$var`/`$(...)`**：复杂命令写脚本文件执行；文件工具的 `/tmp` = Windows `C:\tmp`，脚本放 `I:\仿真\`（WSL 内 `/mnt/i/仿真/`）。
+1. **exec 工具外层会预展开 `$var`/`$(...)`**：复杂命令写脚本文件执行；文件工具的 `/tmp` = Windows `C:\tmp`，脚本放 `I:\仿真\scripts\`（WSL 内 `/mnt/i/仿真/scripts/`）。
 2. **PhysX GPU 需要 `libcuda.so`（无版本号）**：WSL 的 `/usr/lib/wsl/lib` 只有 `libcuda.so.1`。已建 `~/仿真/wsl_lib_links/`（libcuda.so、libnvidia-ml.so 软链），setenv.sh 已加进 LD_LIBRARY_PATH。
 3. **缺 X11/GLU 库**：`libneuray.so` 需要 `libGLU.so.1`，MaterialX 需要 `libXt.so.6`，已 conda 装 `libglu xorg-libxt`（无 sudo，apt 不可用），LD_LIBRARY_PATH 含 `$CONDA_PREFIX/lib`。
 4. **gpu.foundation "No device could be created"**：WSL2 无 Vulkan RT，RTX 渲染器起不来——**不影响 headless RL 训练**（物理走 CUDA，渲染报错发生在退出阶段）。可视化播放（`-p`）需要宿主 Windows 端 Isaac Sim 或原生 Linux。
@@ -28,6 +30,8 @@ cd ~/仿真/unitree_rl_lab && ./unitree_rl_lab.sh -t --task Unitree-G1-29dof-Vel
 8. **文件工具的绝对路径是 Windows 命名空间**：`/home/...` 会落到 `C:\home\...`；写 WSL 内文件用 `\\wsl.localhost\Ubuntu\home\administrator\...`。
 
 ## 长线自主迭代循环（2026-10-01 已建）
+
+⚠️ **2026-10-15：`iteration.timer`/`watchdog.timer` 已 stop+disable**（旧使命指向已暂停的 lunar-grav-loco 路线）。恢复前确认 `iteration-prompt.md` 使命（已改为四足优先）并执行：`systemctl --user enable --now iteration.timer watchdog.timer`。
 
 仓库根 = `~/仿真`（WSL）。机制：systemd --user timer 接力 `devin -p` / `devin -r <id> -p "continue"`（同 session 续 ≤5 次后自动开新会话），watchdog 每 2min 巡检日志 ≥25min 静默则 kill 接力，handoff 出现 `MISSION-COMPLETE` 行则自停。
 

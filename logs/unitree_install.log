@@ -1,0 +1,26 @@
+Updated Git hooks.
+Git LFS initialized.
+Obtaining file:///home/administrator/%E4%BB%BF%E7%9C%9F/unitree_rl_lab/source/unitree_rl_lab
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Collecting argcomplete (from unitree_rl_lab==0.2.1)
+  Downloading argcomplete-3.7.2-py3-none-any.whl.metadata (16 kB)
+Downloading argcomplete-3.7.2-py3-none-any.whl (43 kB)
+Building wheels for collected packages: unitree_rl_lab
+  Building editable for unitree_rl_lab (pyproject.toml): started
+  Building editable for unitree_rl_lab (pyproject.toml): finished with status 'done'
+  Created wheel for unitree_rl_lab: filename=unitree_rl_lab-0.2.1-0.editable-py3-none-any.whl size=2986 sha256=5936f8a4f923bda529811deadb92f53cace2eb82e8e3047f7218c67afec1d214
+  Stored in directory: /home/administrator/pip_tmp/pip-ephem-wheel-cache-m8gw_wv1/wheels/b0/fe/a9/0baf1e2464e798b82c9a4f3ccb0b88a0954e92f7c42d3b8400
+Successfully built unitree_rl_lab
+Installing collected packages: argcomplete, unitree_rl_lab
+
+Successfully installed argcomplete-3.7.2 unitree_rl_lab-0.2.1
+Defaulting to system-wide installation.
+usage: activate-global-python-argcomplete [-h] [-y] [--dest DEST] [--user]
+activate-global-python-argcomplete: error: path /usr/local/share/zsh/site-functions does not exist and could not be created: [Errno 13] Permission denied: '/usr/local/share/zsh'. Please run this command using sudo, or see --help for more options.

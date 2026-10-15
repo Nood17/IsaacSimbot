@@ -1,0 +1,51 @@
+Loading user config located at: '/home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/kit/data/Kit/Isaac-Sim/5.1/user.config.json'
+[Info] [carb] Logging to file: /home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/kit/logs/Kit/Isaac-Sim/5.1/kit_20261001_075134.log
+2026-09-30T23:51:35Z [121ms] [Warning] [omni.usd_config.extension] Enable omni.materialx.libs extension to use MaterialX
+2026-09-30T23:51:35Z [158ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+69cbf6ad.lx64.r.cp311/bin/libMaterialXRenderHw.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-09-30T23:51:35Z [166ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+69cbf6ad.lx64.r.cp311/bin/libMaterialXRenderGlsl.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-09-30T23:51:35Z [172ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+69cbf6ad.lx64.r.cp311/bin/libusd_usdBakeMtlx.so. Error: libXt.so.6: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-09-30T23:51:35Z [194ms] [Error] [omni.ext.plugin] Could not load the dynamic library from /home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/extscache/omni.iray.libs-0.0.0+69cbf6ad.lx64.r/bin/iray/libneuray.so. Error: libGLU.so.1: cannot open shared object file: No such file or directory (note that this may be caused by a dependent library)
+2026-09-30T23:51:35Z [435ms] [Warning] [carb] Acquiring non optional plugin interface which is not listed as dependency: [omni::physx::IPhysxBenchmarks v1.0] (plugin: <default plugin>), by client: omni.physics.physx.plugin. Add it to CARB_PLUGIN_IMPL_DEPS() macro of a client.
+2026-09-30T23:51:35Z [591ms] [Warning] [omni.isaac.dynamic_control] omni.isaac.dynamic_control is deprecated as of Isaac Sim 4.5. No action is needed from end-users.
+2026-09-30T23:51:38Z [3,810ms] [Warning] [gpu.foundation.plugin] nvidia-smi not found in '/usr/bin/'
+
+|---------------------------------------------------------------------------------------------|
+| Driver Version: 0             | Graphics API: Vulkan
+|=============================================================================================|
+| GPU | Name                             | Active | LDA | GPU Memory | Vendor-ID | LUID       |
+|     |                                  |        |     |            | Device-ID | UUID       |
+|     |                                  |        |     |            | Bus-ID    |            |
+|=============================================================================================|
+| OS: 26.04 (Resolute Raccoon) ubuntu, Version: 26.04.0, Kernel: 6.6.114.1-microsoft-standard-WSL2
+| XServer Vendor: The X.Org Foundation, XServer Version: 12401006 (1.24.1.6)
+| Processor: 13th Gen Intel(R) Core(TM) i5-13600KF
+| Cores: 10 | Logical Cores: 20
+|---------------------------------------------------------------------------------------------|
+| Total Memory (MB): 15919 | Free Memory: 14493
+| Total Page/Swap (MB): 4096 | Free Page/Swap: 4096
+|---------------------------------------------------------------------------------------------|
+2026-09-30T23:51:38Z [3,861ms] [Error] [gpu.foundation.plugin] No device could be created. Some known system issues:
+- The driver is not installed properly and requires a clean re-install.
+- Your GPUs do not support RayTracing: DXR or Vulkan ray_tracing, or hardware is excluded due to performance.
+- The driver cannot enumerate any GPU: driver, display, TCC mode or a docker issue. For Vulkan, test it with Vulkaninfo tool from Vulkan SDK, instead of nvidia-smi.
+- For Ubuntu, it requires server-xorg-core 1.20.7+ and a display to work without --no-window.
+- For Linux dockers, the setup is not complete. Install the latest driver, xServer and NVIDIA container runtime.
+
+2026-09-30T23:51:38Z [3,863ms] [Error] [gpu.foundation.plugin] Invalid getDeviceInfo parameters.
+/home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-G1-29dof-Velocity already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-Go2-Velocity already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-H1-Velocity already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-G1-29dof-Mimic-Dance-102 already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-G1-29dof-Mimic-Gangnanm-Style already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+[INFO][AppLauncher]: Using device: cuda:0
+[INFO][AppLauncher]: Loading experience file: /home/administrator/仿真/IsaacLab/apps/isaaclab.python.headless.kit
+[INFO]: Parsing configuration from: unitree_rl_lab.tasks.locomotion.robots.g1.29dof.velocity_env_cfg:RobotEnvCfg
+[INFO]: Parsing configuration from: unitree_rl_lab.tasks.locomotion.agents.rsl_rl_ppo_cfg:BasePPORunnerCfg
+2026-09-30T23:51:38Z [3,863ms] [Warning] [omni.physx.foundation.plugin] PhysXFoundation: Couldn't get driver version, failed to getDeviceInfo
+2026-09-30T23:51:38Z [3,863ms] [Warning] [omni.physx.foundation.plugin] PhysXFoundation: Unable to get IGpuFoundation, GpuDevices or Graphics!
+2026-09-30T23:51:51Z [16,523ms] [Error] [rtx.neuraylib.plugin] Failed to open /home/administrator/miniconda3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/extscache/omni.iray.libs-0.0.0+69cbf6ad.lx64.r/bin/iray/libneuray.so: libGLU.so.1: cannot open shared object file: No such file or directory
