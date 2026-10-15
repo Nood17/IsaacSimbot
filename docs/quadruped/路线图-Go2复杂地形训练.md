@@ -15,7 +15,9 @@
 | **A0 基线复现** | 跑通 `Unitree-Go2-Velocity` flat，理解 reward/curriculum/event 三个 manager 的每一项 | 能逐条解释每个奖励项的作用；tensorboard 分项曲线无异常 |
 | **A1 盲走 rough** | 放开 random_rough + pyramid_slope（保留 10% flat），加 feet_air_time / 接触惩罚 / 地形课程 | rough 地形上速度跟踪误差 <10%，摔倒率 <5%，3 seeds 一致 |
 | **A2 诊断练习** | 故意制造一个失败（如删掉某惩罚项/地形难度拉满），观察并记录失效模式 | 能用调研报告的诊断表定位到根因 |
-| **A3 楼梯/离散地形** | 启用 pyramid_stairs + boxes；盲走不够时二选一：历史堆叠（GRU，DreamWaQ 路线）或 height scanner | 15cm 台阶能上 |
+| **A3 楼梯/离散地形** | 启用 pyramid_stairs + boxes；盲走不够时 ~~二选一：历史堆叠（GRU，DreamWaQ 路线）~~ 或 height scanner | 15cm 台阶能上 |
+
+> 2026-10-15 决定：**暂缓 DreamWaQ/GRU 隐式估计路线**，A3 默认走 height scanner + Teacher-Student 蒸馏（rsl_rl `distillation.py`/`student_teacher` 内置）。RMA 式在线适应同属储备知识，暂不实施。
 | **A4 扩展（可选）** | 沟壑/跳跃地形、teacher-student 蒸馏、分层策略 | 视兴趣 |
 
 ## 训练纪律（每阶段必做）
