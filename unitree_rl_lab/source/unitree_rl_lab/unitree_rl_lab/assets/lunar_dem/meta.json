@@ -1,0 +1,346 @@
+{
+  "source": "NASA GSFC PGDA LOLA 5mpp south-polar site DEMs (https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/)",
+  "resolution_m_per_px": 5.0,
+  "crop_px": 64,
+  "crop_m": 320.0,
+  "units": "meters",
+  "reference": "Barker et al. 2021, PSS 203, doi:10.1016/j.pss.2020.105119",
+  "crops": [
+    {
+      "file": "Site01_crop00.npy",
+      "site": "Site01",
+      "x": 1984,
+      "y": 512,
+      "mean_slope_deg": 2.018
+    },
+    {
+      "file": "Site01_crop01.npy",
+      "site": "Site01",
+      "x": 1888,
+      "y": 2016,
+      "mean_slope_deg": 4.145
+    },
+    {
+      "file": "Site01_crop02.npy",
+      "site": "Site01",
+      "x": 1312,
+      "y": 576,
+      "mean_slope_deg": 4.953
+    },
+    {
+      "file": "Site01_crop03.npy",
+      "site": "Site01",
+      "x": 1760,
+      "y": 2112,
+      "mean_slope_deg": 5.765
+    },
+    {
+      "file": "Site01_crop04.npy",
+      "site": "Site01",
+      "x": 384,
+      "y": 1024,
+      "mean_slope_deg": 7.015
+    },
+    {
+      "file": "Site01_crop05.npy",
+      "site": "Site01",
+      "x": 2720,
+      "y": 1984,
+      "mean_slope_deg": 8.815
+    },
+    {
+      "file": "Site01_crop06.npy",
+      "site": "Site01",
+      "x": 1696,
+      "y": 2528,
+      "mean_slope_deg": 9.043
+    },
+    {
+      "file": "Site01_crop07.npy",
+      "site": "Site01",
+      "x": 2336,
+      "y": 2592,
+      "mean_slope_deg": 9.381
+    },
+    {
+      "file": "Site01_crop08.npy",
+      "site": "Site01",
+      "x": 1984,
+      "y": 1664,
+      "mean_slope_deg": 11.273
+    },
+    {
+      "file": "Site01_crop09.npy",
+      "site": "Site01",
+      "x": 224,
+      "y": 3040,
+      "mean_slope_deg": 12.59
+    },
+    {
+      "file": "Site01_crop10.npy",
+      "site": "Site01",
+      "x": 128,
+      "y": 704,
+      "mean_slope_deg": 13.58
+    },
+    {
+      "file": "Site01_crop11.npy",
+      "site": "Site01",
+      "x": 2880,
+      "y": 2784,
+      "mean_slope_deg": 14.643
+    },
+    {
+      "file": "Site01_crop12.npy",
+      "site": "Site01",
+      "x": 608,
+      "y": 1952,
+      "mean_slope_deg": 15.931
+    },
+    {
+      "file": "Site01_crop13.npy",
+      "site": "Site01",
+      "x": 384,
+      "y": 2496,
+      "mean_slope_deg": 19.123
+    },
+    {
+      "file": "Site01_crop14.npy",
+      "site": "Site01",
+      "x": 3040,
+      "y": 480,
+      "mean_slope_deg": 19.321
+    },
+    {
+      "file": "Site01_crop15.npy",
+      "site": "Site01",
+      "x": 864,
+      "y": 1664,
+      "mean_slope_deg": 29.562
+    },
+    {
+      "file": "Site04_crop00.npy",
+      "site": "Site04",
+      "x": 32,
+      "y": 1600,
+      "mean_slope_deg": 2.188
+    },
+    {
+      "file": "Site04_crop01.npy",
+      "site": "Site04",
+      "x": 192,
+      "y": 1184,
+      "mean_slope_deg": 4.745
+    },
+    {
+      "file": "Site04_crop02.npy",
+      "site": "Site04",
+      "x": 96,
+      "y": 2976,
+      "mean_slope_deg": 6.094
+    },
+    {
+      "file": "Site04_crop03.npy",
+      "site": "Site04",
+      "x": 1024,
+      "y": 3008,
+      "mean_slope_deg": 7.611
+    },
+    {
+      "file": "Site04_crop04.npy",
+      "site": "Site04",
+      "x": 3104,
+      "y": 1920,
+      "mean_slope_deg": 9.64
+    },
+    {
+      "file": "Site04_crop05.npy",
+      "site": "Site04",
+      "x": 800,
+      "y": 32,
+      "mean_slope_deg": 12.452
+    },
+    {
+      "file": "Site04_crop06.npy",
+      "site": "Site04",
+      "x": 672,
+      "y": 1696,
+      "mean_slope_deg": 12.808
+    },
+    {
+      "file": "Site04_crop07.npy",
+      "site": "Site04",
+      "x": 1472,
+      "y": 352,
+      "mean_slope_deg": 13.343
+    },
+    {
+      "file": "Site04_crop08.npy",
+      "site": "Site04",
+      "x": 96,
+      "y": 32,
+      "mean_slope_deg": 17.204
+    },
+    {
+      "file": "Site04_crop09.npy",
+      "site": "Site04",
+      "x": 1440,
+      "y": 32,
+      "mean_slope_deg": 22.089
+    },
+    {
+      "file": "Site04_crop10.npy",
+      "site": "Site04",
+      "x": 3072,
+      "y": 2240,
+      "mean_slope_deg": 27.105
+    },
+    {
+      "file": "Site04_crop11.npy",
+      "site": "Site04",
+      "x": 1536,
+      "y": 832,
+      "mean_slope_deg": 31.271
+    },
+    {
+      "file": "Site04_crop12.npy",
+      "site": "Site04",
+      "x": 1600,
+      "y": 2048,
+      "mean_slope_deg": 33.768
+    },
+    {
+      "file": "Site04_crop13.npy",
+      "site": "Site04",
+      "x": 2080,
+      "y": 2208,
+      "mean_slope_deg": 35.54
+    },
+    {
+      "file": "Site04_crop14.npy",
+      "site": "Site04",
+      "x": 2304,
+      "y": 288,
+      "mean_slope_deg": 35.606
+    },
+    {
+      "file": "Site04_crop15.npy",
+      "site": "Site04",
+      "x": 1632,
+      "y": 1088,
+      "mean_slope_deg": 40.703
+    },
+    {
+      "file": "Site11_crop00.npy",
+      "site": "Site11",
+      "x": 608,
+      "y": 192,
+      "mean_slope_deg": 2.103
+    },
+    {
+      "file": "Site11_crop01.npy",
+      "site": "Site11",
+      "x": 1472,
+      "y": 1600,
+      "mean_slope_deg": 4.696
+    },
+    {
+      "file": "Site11_crop02.npy",
+      "site": "Site11",
+      "x": 1952,
+      "y": 32,
+      "mean_slope_deg": 5.985
+    },
+    {
+      "file": "Site11_crop03.npy",
+      "site": "Site11",
+      "x": 512,
+      "y": 2368,
+      "mean_slope_deg": 7.14
+    },
+    {
+      "file": "Site11_crop04.npy",
+      "site": "Site11",
+      "x": 1920,
+      "y": 1824,
+      "mean_slope_deg": 8.959
+    },
+    {
+      "file": "Site11_crop05.npy",
+      "site": "Site11",
+      "x": 2240,
+      "y": 736,
+      "mean_slope_deg": 11.501
+    },
+    {
+      "file": "Site11_crop06.npy",
+      "site": "Site11",
+      "x": 1568,
+      "y": 384,
+      "mean_slope_deg": 11.75
+    },
+    {
+      "file": "Site11_crop07.npy",
+      "site": "Site11",
+      "x": 1664,
+      "y": 416,
+      "mean_slope_deg": 12.07
+    },
+    {
+      "file": "Site11_crop08.npy",
+      "site": "Site11",
+      "x": 2944,
+      "y": 832,
+      "mean_slope_deg": 13.801
+    },
+    {
+      "file": "Site11_crop09.npy",
+      "site": "Site11",
+      "x": 2656,
+      "y": 1024,
+      "mean_slope_deg": 14.993
+    },
+    {
+      "file": "Site11_crop10.npy",
+      "site": "Site11",
+      "x": 544,
+      "y": 704,
+      "mean_slope_deg": 15.85
+    },
+    {
+      "file": "Site11_crop11.npy",
+      "site": "Site11",
+      "x": 1696,
+      "y": 2592,
+      "mean_slope_deg": 16.69
+    },
+    {
+      "file": "Site11_crop12.npy",
+      "site": "Site11",
+      "x": 448,
+      "y": 896,
+      "mean_slope_deg": 17.689
+    },
+    {
+      "file": "Site11_crop13.npy",
+      "site": "Site11",
+      "x": 2112,
+      "y": 2336,
+      "mean_slope_deg": 20.365
+    },
+    {
+      "file": "Site11_crop14.npy",
+      "site": "Site11",
+      "x": 288,
+      "y": 1440,
+      "mean_slope_deg": 20.558
+    },
+    {
+      "file": "Site11_crop15.npy",
+      "site": "Site11",
+      "x": 1824,
+      "y": 2144,
+      "mean_slope_deg": 30.08
+    }
+  ]
+}
