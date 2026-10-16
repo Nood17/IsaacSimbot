@@ -25,6 +25,11 @@ parser.add_argument(
 parser.add_argument("--num_envs", type=int, default=None, help="Number of environments to simulate.")
 parser.add_argument("--task", type=str, default=None, help="Name of the task.")
 parser.add_argument(
+    "--keyboard", action="store_true", default=False,
+    help="WASD teleop: override the velocity command from the keyboard "
+         "(W/S fwd/back, A/D turn, Q/E strafe, X stop).",
+)
+parser.add_argument(
     "--use_pretrained_checkpoint",
     action="store_true",
     help="Use the pre-trained checkpoint from Nucleus.",
@@ -153,6 +158,51 @@ def main():
 
     dt = env.unwrapped.step_dt
 
+    # --- optional keyboard teleop -------------------------------------------
+    # Pressed-key set fed by carb events; each iteration overwrites the
+    # velocity-command buffer before stepping, so resampling never wins.
+    kb_pressed: set[str] = set()
+    kb_cmd_term = None
+    if args_cli.keyboard:
+        import carb
+        import omni.appwindow
+
+        _kb = omni.appwindow.get_default_app_window().get_keyboard()
+        _input_iface = carb.input.acquire_input_interface()
+
+        def _on_kb(ev):
+            if ev.type == carb.input.KeyboardEventType.KEY_PRESS:
+                kb_pressed.add(ev.input.name)
+            elif ev.type == carb.input.KeyboardEventType.KEY_RELEASE:
+                kb_pressed.discard(ev.input.name)
+            return True
+
+        _kb_sub = _input_iface.subscribe_to_keyboard_events(_kb, _on_kb)
+        kb_cmd_term = env.unwrapped.command_manager.get_term("base_velocity")
+        # per-key magnitudes (m/s, rad/s); clamped to the task's limit_ranges
+        KB_VEL = {"vx": 0.8, "vy": 0.4, "yaw": 1.0}
+        lim = kb_cmd_term.cfg.limit_ranges or kb_cmd_term.cfg.ranges
+        print("[INFO] Keyboard teleop: W/S fwd/back, A/D turn L/R, "
+              "Q/E strafe, X = zero command")
+        kb_prev = [None]
+
+        def _apply_kb_command():
+            vx = KB_VEL["vx"] * (("W" in kb_pressed) - ("S" in kb_pressed))
+            vy = KB_VEL["vy"] * (("Q" in kb_pressed) - ("E" in kb_pressed))
+            yaw = KB_VEL["yaw"] * (("A" in kb_pressed) - ("D" in kb_pressed))
+            if "X" in kb_pressed:
+                vx = vy = yaw = 0.0
+            vx = max(min(vx, lim.lin_vel_x[1]), lim.lin_vel_x[0])
+            vy = max(min(vy, lim.lin_vel_y[1]), lim.lin_vel_y[0])
+            yaw = max(min(yaw, lim.ang_vel_z[1]), lim.ang_vel_z[0])
+            kb_cmd_term.vel_command_b[:, 0] = vx
+            kb_cmd_term.vel_command_b[:, 1] = vy
+            kb_cmd_term.vel_command_b[:, 2] = yaw
+            cur = (vx, vy, yaw)
+            if cur != kb_prev[0]:
+                kb_prev[0] = cur
+                print(f"[KB] cmd vx={vx:+.2f} vy={vy:+.2f} yaw={yaw:+.2f}")
+
     # reset environment
     obs = env.get_observations()
     if version("rsl-rl-lib").startswith("2.3."):
@@ -163,6 +213,8 @@ def main():
         start_time = time.time()
         # run everything in inference mode
         with torch.inference_mode():
+            if kb_cmd_term is not None:
+                _apply_kb_command()
             # agent stepping
             actions = policy(obs)
             # env stepping
