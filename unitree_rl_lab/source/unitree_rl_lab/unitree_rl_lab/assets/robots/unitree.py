@@ -17,8 +17,11 @@ from isaaclab.utils import configclass
 
 from unitree_rl_lab.assets.robots import unitree_actuators
 
-UNITREE_MODEL_DIR = os.environ.get("UNITREE_MODEL_DIR", "/home/ubuntu/nood/unitree_model")
-UNITREE_ROS_DIR = os.environ.get("UNITREE_ROS_DIR", "/home/ubuntu/nood/unitree_ros")
+# repo-local defaults: unitree_model/ is committed at the repo root, so the
+# default resolves identically on every machine; env vars still override.
+_REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), *[".."] * 6))
+UNITREE_MODEL_DIR = os.environ.get("UNITREE_MODEL_DIR", os.path.join(_REPO_ROOT, "unitree_model"))
+UNITREE_ROS_DIR = os.environ.get("UNITREE_ROS_DIR", os.path.join(_REPO_ROOT, "unitree_ros"))
 
 
 @configclass

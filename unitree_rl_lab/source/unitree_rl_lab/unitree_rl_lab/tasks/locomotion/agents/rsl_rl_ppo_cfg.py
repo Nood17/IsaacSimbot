@@ -16,7 +16,6 @@ class BasePPORunnerCfg(RslRlOnPolicyRunnerCfg):
     empirical_normalization = True
     policy = RslRlPpoActorCriticCfg(
         init_noise_std=1.0,
-        noise_std_type="log",  # exp(log_std) keeps std strictly positive (scalar can go negative on domain shift)
         actor_hidden_dims=[512, 256, 128],
         critic_hidden_dims=[512, 256, 128],
         activation="elu",
@@ -35,3 +34,14 @@ class BasePPORunnerCfg(RslRlOnPolicyRunnerCfg):
         desired_kl=0.01,
         max_grad_norm=1.0,
     )
+
+
+@configclass
+class G1PPORunnerCfg(BasePPORunnerCfg):
+    def __post_init__(self):
+        super().__post_init__()
+        # G1 checkpoints were trained with log-std policy noise (exp(log_std)
+        # keeps std strictly positive; scalar can go negative on domain shift).
+        # Go2/H1 checkpoints use the library default "scalar" — keep those on
+        # BasePPORunnerCfg so play/resume stays compatible across both.
+        self.policy.noise_std_type = "log"
