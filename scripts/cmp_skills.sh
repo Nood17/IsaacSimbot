@@ -1,5 +1,5 @@
 #!/bin/bash
-BASE=/home/administrator/仿真
+BASE=/home/ubuntu/nood
 for s in deep-research academic-paper academic-paper-reviewer academic-pipeline research-paper-pipeline; do
   echo "=== OLD $s ==="
   grep -m3 -E "version:|name:" "$BASE/.devin/skills/$s/SKILL.md" 2>/dev/null

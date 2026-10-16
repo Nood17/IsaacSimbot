@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-BASE=/home/administrator/仿真
+BASE=/home/ubuntu/nood
 SKILLS=$BASE/.devin/skills
 ALT=$BASE/alterlab-academic-skills/skills
 ARS=$BASE/ars-upstream

@@ -46,7 +46,7 @@ import importlib.util  # noqa: E402
 
 spec = importlib.util.spec_from_file_location(
     "lunar_terrain",
-    "/home/nood/IsaacSimbot/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/lunar_terrain.py",
+    "/home/ubuntu/nood/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/lunar_terrain.py",
 )
 lt = importlib.util.module_from_spec(spec)
 sys.modules["lunar_terrain"] = lt

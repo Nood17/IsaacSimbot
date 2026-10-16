@@ -1,0 +1,4372 @@
+--- git status ---
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   lunar_panel.py
+	modified:   run_lunar_surface_3runs.sh
+	modified:   run_lunar_surface_3runs_v2.sh
+	modified:   scripts/cmp_skills.sh
+	modified:   scripts/dl_lfs.sh
+	modified:   scripts/dl_torch.sh
+	modified:   scripts/install_alterlab.sh
+	modified:   scripts/install_isaacsim.sh
+	modified:   scripts/run_g1_earth.sh
+	modified:   scripts/run_smoke.sh
+	modified:   scripts/setenv.sh
+	modified:   scripts/stage_results.sh
+	modified:   scripts/verify.sh
+	deleted:    unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31/events.out.tfevents.1790830964.DESKTOP-9S36E5P.459.0
+	deleted:    unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31/git/unitree_rl_lab.diff
+	deleted:    unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31/model_6900.pt
+	deleted:    unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31/model_7000.pt
+	deleted:    unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31/model_7100.pt
+	deleted:    unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/events.out.tfevents.1790762021.robot.53018.0
+	deleted:    unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/git/unitree_rl_lab.diff
+	deleted:    unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/model_0.pt
+	deleted:    unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/model_3.pt
+	deleted:    unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/params/agent.yaml
+	deleted:    unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/params/deploy.yaml
+	deleted:    unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/params/env.yaml
+	deleted:    unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/params/velocity_env_cfg.py
+	deleted:    unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/events.out.tfevents.1790763904.robot.60656.0
+	deleted:    unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/git/unitree_rl_lab.diff
+	deleted:    unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/model_0.pt
+	deleted:    unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/params/agent.yaml
+	deleted:    unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/params/deploy.yaml
+	deleted:    unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/params/env.yaml
+	deleted:    unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/params/velocity_env_cfg.py
+	modified:   unitree_rl_lab/scripts/__pycache__/list_envs.cpython-311.pyc
+	modified:   unitree_rl_lab/scripts/lunar_dem/prepare_dem_crops.py
+	modified:   unitree_rl_lab/scripts/lunar_dem/test_lunar_terrain.py
+	modified:   unitree_rl_lab/scripts/rsl_rl/__pycache__/cli_args.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/__pycache__/unitree.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/__pycache__/unitree_actuators.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/__pycache__/rsl_rl_ppo_cfg.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/rsl_rl_ppo_cfg.py
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/curriculums.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/observations.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/rewards.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/commands/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/commands/__pycache__/velocity_command.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/curriculums.py
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/29dof/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/29dof/velocity_env_cfg.py
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__pycache__/velocity_env_cfg.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/velocity_env_cfg.py
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/h1/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/agents/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/commands.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/events.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/observations.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/rewards.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/terminations.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/dance_102/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/gangnanm_style/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/utils/__pycache__/export_deploy_cfg.cpython-311.pyc
+
+no changes added to commit (use "git add" and/or "git commit -a") 
+
+
+--- git diff ---
+diff --git a/lunar_panel.py b/lunar_panel.py
+index f048052..a21f51f 100644
+--- a/lunar_panel.py
++++ b/lunar_panel.py
+@@ -14,8 +14,8 @@ Single-file tkinter GUI for the Unitree-G1 lunar-surface experiments.
+                 last N iterations; every curve is toggleable via checkboxes.
+ 
+ Usage:
+-    source ~/miniconda3/etc/profile.d/conda.sh && conda activate env_isaaclab
+-    python /home/nood/IsaacSimbot/lunar_panel.py
++    source ~/miniconda3/etc/profile.d/conda.sh && conda activate /home/ubuntu/nood/env_isaaclab
++    python /home/ubuntu/nood/lunar_panel.py
+ """
+ 
+ from __future__ import annotations
+@@ -50,8 +50,10 @@ TERRAIN_PY = os.path.join(SRC, "tasks/locomotion/lunar_terrain.py")
+ PPO_CFG = os.path.join(SRC, "tasks/locomotion/agents/rsl_rl_ppo_cfg.py")
+ LOGROOT = os.path.join(LAB, "logs/rsl_rl/unitree_g1_29dof_velocity_lunarsurface")
+ OLD_LOGROOT = os.path.join(LAB, "logs/rsl_rl/unitree_g1_29dof_velocity")
++GO2_LOGROOT = os.path.join(LAB, "logs/rsl_rl/unitree_go2_velocity")
+ TASK = "Unitree-G1-29dof-Velocity-LunarSurface"
+-ENV_ACT = "source ~/miniconda3/etc/profile.d/conda.sh && conda activate env_isaaclab"
++TASKS = [TASK, "Unitree-G1-29dof-Velocity", "Unitree-Go2-Velocity"]
++ENV_ACT = "source ~/miniconda3/etc/profile.d/conda.sh && conda activate /home/ubuntu/nood/env_isaaclab"
+ 
+ # --------------------------------------------------------------------------
+ # Knob registry.
+@@ -218,7 +220,7 @@ def knob_set(knob, new_value: str) -> bool:
+ def scan_checkpoints() -> list[tuple[str, str, str, str]]:
+     """Return list of (display_label, log_root, load_run, checkpoint)."""
+     out = []
+-    for root in (LOGROOT, OLD_LOGROOT):
++    for root in (LOGROOT, OLD_LOGROOT, GO2_LOGROOT):
+         for d in sorted(glob.glob(os.path.join(root, "*/"))):
+             run = os.path.basename(d.rstrip("/"))
+             cks = []
+@@ -235,7 +237,8 @@ def scan_checkpoints() -> list[tuple[str, str, str, str]]:
+                 plain = [c for c in cks if re.fullmatch(r"model_\d+\.pt", c[1])]
+                 pool = plain if plain else cks
+                 it, ck = pool[-1]
+-                root_tag = "lunarsurface" if "lunarsurface" in root else "velocity"
++                root_tag = ("lunarsurface" if "lunarsurface" in root
++                            else "go2" if "go2" in root else "g1_velocity")
+                 label = f"{run} / {ck}  (iter {it}, {len(cks)} ckpts)"
+                 out.append((f"[{root_tag}] {label}", root, run, ck))
+                 for it2, ck2 in pool[:-1]:
+@@ -285,6 +288,7 @@ PLOT_GROUPS = [
+         ("Episode_Reward/track_ang_vel_z", "left"),
+         ("Episode_Reward/gait", "left"),
+         ("Episode_Reward/feet_clearance", "left"),
++        ("Episode_Reward/feet_air_time", "left"),
+         ("Episode_Reward/alive", "left"),
+         ("Metrics/base_velocity/error_vel_xy", "left"),
+         ("Metrics/base_velocity/error_vel_yaw", "left"),
+@@ -308,6 +312,10 @@ PLOT_GROUPS = [
+         ("Episode_Reward/flat_orientation_l2", "left"),
+         ("Episode_Reward/base_height", "left"),
+         ("Episode_Reward/feet_slide", "left"),
++        ("Episode_Reward/feet_stumble", "left"),
++        ("Episode_Reward/air_time_variance", "left"),
++        ("Episode_Reward/joint_pos", "left"),
++        ("Episode_Reward/joint_torques", "left"),
+         ("Episode_Reward/energy", "left"),
+         ("Episode_Reward/dof_pos_limits", "left"),
+         ("Episode_Reward/undesired_contacts", "left"),
+@@ -488,9 +496,9 @@ class Panel(tk.Tk):
+         ttk.Label(r, text="任务", width=16).pack(side="left")
+         self.task_var = tk.StringVar(value=TASK)
+         ttk.Combobox(r, textvariable=self.task_var, width=48, state="readonly",
+-                     values=[TASK, "Unitree-G1-29dof-Velocity"]).pack(side="left")
++                     values=TASKS).pack(side="left")
+         ttk.Label(r, text="num_envs").pack(side="left", padx=(12, 2))
+-        self.nenv_var = tk.StringVar(value="4096")
++        self.nenv_var = tk.StringVar(value="16384")
+         ttk.Entry(r, textvariable=self.nenv_var, width=7).pack(side="left")
+         ttk.Label(r, text="run_name").pack(side="left", padx=(12, 2))
+         self.runname_var = tk.StringVar(value="panel_run")
+@@ -619,7 +627,7 @@ class Panel(tk.Tk):
+         f = self.tab_metrics
+         top = ttk.Frame(f); top.pack(fill="x", padx=6, pady=4)
+         ttk.Label(top, text="解析日志：").pack(side="left")
+-        self.metric_log = tk.StringVar(value=os.path.join(BASE, "g1_lsurface_earth.log"))
++        self.metric_log = tk.StringVar(value=os.path.join(LAB, "logs/A1_rough_blind_16k_console.log"))
+         ttk.Entry(top, textvariable=self.metric_log, width=60).pack(side="left", padx=4)
+         ttk.Button(top, text="浏览…", command=self._pick_log).pack(side="left")
+         ttk.Button(top, text="跟随训练日志", command=lambda: self.metric_log.set(self.log_file.get())).pack(side="left", padx=6)
+@@ -671,7 +679,11 @@ class Panel(tk.Tk):
+                 self.curve_vars[key] = v
+ 
+         # right: figure grid, one subplot per group (+ pre-made right twin)
+-        matplotlib.rcParams.update({"font.size": 11})
++        matplotlib.rcParams.update({
++            "font.size": 11,
++            "font.sans-serif": ["Noto Sans CJK JP", "Droid Sans Fallback", "DejaVu Sans"],
++            "axes.unicode_minus": False,
++        })
+         self.fig = Figure(figsize=(14, 8), dpi=100)
+         self.axes = []
+         self.axes_r = []
+diff --git a/run_lunar_surface_3runs.sh b/run_lunar_surface_3runs.sh
+index f8efe5f..3a3941d 100755
+--- a/run_lunar_surface_3runs.sh
++++ b/run_lunar_surface_3runs.sh
+@@ -1,3 +1,3 @@
+ #!/usr/bin/env bash
+ # Kept for backward compatibility; the real supervisor is v2.
+-exec bash /home/nood/IsaacSimbot/run_lunar_surface_3runs_v2.sh "$@"
++exec bash /home/ubuntu/nood/run_lunar_surface_3runs_v2.sh "$@"
+diff --git a/run_lunar_surface_3runs_v2.sh b/run_lunar_surface_3runs_v2.sh
+index e712c06..ecc711b 100755
+--- a/run_lunar_surface_3runs_v2.sh
++++ b/run_lunar_surface_3runs_v2.sh
+@@ -15,7 +15,7 @@
+ #  - waits until the GPU is actually free before each launch
+ #  - exits rc=1 if any run failed (loop sessions can detect failure)
+ set -u
+-BASE=/home/nood/IsaacSimbot
++BASE=/home/ubuntu/nood
+ LAB=$BASE/unitree_rl_lab
+ LOGROOT=$LAB/logs/rsl_rl/unitree_g1_29dof_velocity_lunarsurface
+ OLDLOG=$LAB/logs/rsl_rl/unitree_g1_29dof_velocity
+@@ -39,7 +39,7 @@ until compgen -G "$LAB/source/unitree_rl_lab/unitree_rl_lab/assets/lunar_dem/*.n
+ done
+ 
+ source ~/miniconda3/etc/profile.d/conda.sh
+-conda activate env_isaaclab
++conda activate /home/ubuntu/nood/env_isaaclab
+ cd "$LAB"
+ 
+ wait_gpu_free() {
+diff --git a/scripts/cmp_skills.sh b/scripts/cmp_skills.sh
+index 2e76e9e..7d83333 100755
+--- a/scripts/cmp_skills.sh
++++ b/scripts/cmp_skills.sh
+@@ -1,5 +1,5 @@
+ #!/bin/bash
+-BASE=/home/administrator/仿真
++BASE=/home/ubuntu/nood
+ for s in deep-research academic-paper academic-paper-reviewer academic-pipeline research-paper-pipeline; do
+   echo "=== OLD $s ==="
+   grep -m3 -E "version:|name:" "$BASE/.devin/skills/$s/SKILL.md" 2>/dev/null
+diff --git a/scripts/dl_lfs.sh b/scripts/dl_lfs.sh
+index c04e652..35ebdf7 100755
+--- a/scripts/dl_lfs.sh
++++ b/scripts/dl_lfs.sh
+@@ -1,5 +1,5 @@
+ #!/bin/bash
+-cd /home/administrator/仿真/unitree_model || exit 1
++cd /home/ubuntu/nood/unitree_model || exit 1
+ BASE="https://hf-mirror.com/datasets/unitreerobotics/unitree_model/resolve/main"
+ files=(
+ "B2/usd/configuration/b2_description_base.usd"
+diff --git a/scripts/dl_torch.sh b/scripts/dl_torch.sh
+index 247927b..7ca4b0f 100755
+--- a/scripts/dl_torch.sh
++++ b/scripts/dl_torch.sh
+@@ -1,15 +1,15 @@
+ #!/bin/bash
+-source /home/administrator/miniconda3/etc/profile.d/conda.sh
+-conda activate env_isaaclab
+-export TMPDIR=/home/administrator/pip_tmp
+-mkdir -p /home/administrator/pip_wheels
++source /home/ubuntu/miniconda3/etc/profile.d/conda.sh
++conda activate /home/ubuntu/nood/env_isaaclab
++export TMPDIR=/home/ubuntu/nood/.pip_tmp
++mkdir -p /home/ubuntu/nood/pip_wheels
+ for i in 1 2 3 4 5 6 7 8 9 10; do
+   echo "===== torch download attempt $i ====="
+   pip download torch==2.7.0 torchvision==0.22.0 \
+     --index-url https://mirror.sjtu.edu.cn/pytorch-wheels/cu128 \
+-    -d /home/administrator/pip_wheels \
++    -d /home/ubuntu/nood/pip_wheels \
+     --retries 30 --resume-retries 30 --timeout 60 && break
+   echo "attempt $i failed, sleeping 10s"
+   sleep 10
+ done
+-ls -la /home/administrator/pip_wheels/
++ls -la /home/ubuntu/nood/pip_wheels/
+diff --git a/scripts/install_alterlab.sh b/scripts/install_alterlab.sh
+index 4cdc688..c8944b5 100755
+--- a/scripts/install_alterlab.sh
++++ b/scripts/install_alterlab.sh
+@@ -1,6 +1,6 @@
+ #!/bin/bash
+ set -e
+-BASE=/home/administrator/仿真
++BASE=/home/ubuntu/nood
+ SKILLS=$BASE/.devin/skills
+ ALT=$BASE/alterlab-academic-skills/skills
+ ARS=$BASE/ars-upstream
+diff --git a/scripts/install_isaacsim.sh b/scripts/install_isaacsim.sh
+index a0e2f29..c77cef3 100755
+--- a/scripts/install_isaacsim.sh
++++ b/scripts/install_isaacsim.sh
+@@ -1,7 +1,7 @@
+ #!/bin/bash
+-source /home/administrator/miniconda3/etc/profile.d/conda.sh
+-conda activate env_isaaclab
+-export TMPDIR=/home/administrator/pip_tmp
++source /home/ubuntu/miniconda3/etc/profile.d/conda.sh
++conda activate /home/ubuntu/nood/env_isaaclab
++export TMPDIR=/home/ubuntu/nood/.pip_tmp
+ for i in 1 2 3 4 5 6 7 8 9 10; do
+   echo "===== pip attempt $i ====="
+   pip install "isaacsim[all,extscache]==5.1.0" \
+diff --git a/scripts/run_g1_earth.sh b/scripts/run_g1_earth.sh
+index 905224d..216eeae 100755
+--- a/scripts/run_g1_earth.sh
++++ b/scripts/run_g1_earth.sh
+@@ -1,7 +1,7 @@
+ #!/bin/bash
+-source /home/administrator/miniconda3/etc/profile.d/conda.sh
+-conda activate env_isaaclab
+-export LD_LIBRARY_PATH=/home/administrator/仿真/wsl_lib_links:/usr/lib/wsl/lib:${CONDA_PREFIX}/lib
++source /home/ubuntu/miniconda3/etc/profile.d/conda.sh
++conda activate /home/ubuntu/nood/env_isaaclab
++export LD_LIBRARY_PATH=${CONDA_PREFIX}/lib:${LD_LIBRARY_PATH}
+ export OMNI_KIT_ACCEPT_EULA=Yes
+-cd /home/administrator/仿真/unitree_rl_lab
++cd /home/ubuntu/nood/unitree_rl_lab
+ exec python scripts/rsl_rl/train.py --task Unitree-G1-29dof-Velocity --headless --num_envs 4096 --max_iterations 15000 --seed 42
+diff --git a/scripts/run_smoke.sh b/scripts/run_smoke.sh
+index 9609731..ca9033d 100755
+--- a/scripts/run_smoke.sh
++++ b/scripts/run_smoke.sh
+@@ -1,7 +1,7 @@
+ #!/bin/bash
+-source /home/administrator/miniconda3/etc/profile.d/conda.sh
+-conda activate env_isaaclab
+-export LD_LIBRARY_PATH=/home/administrator/仿真/wsl_lib_links:/usr/lib/wsl/lib:${CONDA_PREFIX}/lib
++source /home/ubuntu/miniconda3/etc/profile.d/conda.sh
++conda activate /home/ubuntu/nood/env_isaaclab
++export LD_LIBRARY_PATH=${CONDA_PREFIX}/lib:${LD_LIBRARY_PATH}
+ export OMNI_KIT_ACCEPT_EULA=Yes
+-cd /home/administrator/仿真/unitree_rl_lab
++cd /home/ubuntu/nood/unitree_rl_lab
+ exec python scripts/rsl_rl/train.py --task Unitree-G1-29dof-Velocity --headless --max_iterations 10
+diff --git a/scripts/setenv.sh b/scripts/setenv.sh
+index f735950..5c0ac65 100755
+--- a/scripts/setenv.sh
++++ b/scripts/setenv.sh
+@@ -1,18 +1,18 @@
+ #!/usr/bin/env bash
+ 
+ # for Isaac Lab
+-export ISAACLAB_PATH=/home/administrator/仿真/IsaacLab
+-alias isaaclab=/home/administrator/仿真/IsaacLab/isaaclab.sh
++export ISAACLAB_PATH=/home/ubuntu/nood/IsaacLab
++alias isaaclab=/home/ubuntu/nood/IsaacLab/isaaclab.sh
+ 
+ # show icon if not running headless
+ export RESOURCE_NAME="IsaacSim"
+ 
+ # for unitree_rl_lab
+-source /home/administrator/仿真/unitree_rl_lab/unitree_rl_lab.sh
++source /home/ubuntu/nood/unitree_rl_lab/unitree_rl_lab.sh
+ 
+ # non-interactive EULA acceptance
+ export OMNI_KIT_ACCEPT_EULA=Yes
+ 
+ # WSL: PhysX dlopen("libcuda.so") / getDeviceInfo need unversioned driver libs;
+ # kit plugins need libGLU/libXt from conda env
+-export LD_LIBRARY_PATH=/home/administrator/仿真/wsl_lib_links:/usr/lib/wsl/lib:${CONDA_PREFIX}/lib:${LD_LIBRARY_PATH}
++export LD_LIBRARY_PATH=${CONDA_PREFIX}/lib:${LD_LIBRARY_PATH}
+diff --git a/scripts/stage_results.sh b/scripts/stage_results.sh
+index 629f73d..569a78d 100755
+--- a/scripts/stage_results.sh
++++ b/scripts/stage_results.sh
+@@ -1,6 +1,6 @@
+ #!/bin/bash
+-SRC=/home/administrator/仿真/unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31
+-DST=/home/administrator/仿真/IsaacSimbot/unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31
++SRC=/home/ubuntu/nood/unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31
++DST=/home/ubuntu/nood/IsaacSimbot/unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31
+ mkdir -p "$DST"
+ cp "$SRC/model_6900.pt" "$SRC/model_7000.pt" "$SRC/model_7100.pt" "$DST/"
+ cp "$SRC"/events.out.tfevents.* "$DST/"
+@@ -8,4 +8,4 @@ cp -r "$SRC/git" "$DST/" 2>/dev/null
+ ls -la "$DST"
+ du -sh "$DST"
+ echo "=== git status ==="
+-cd /home/administrator/仿真/IsaacSimbot && git status --short | head -20
++cd /home/ubuntu/nood/IsaacSimbot && git status --short | head -20
+diff --git a/scripts/verify.sh b/scripts/verify.sh
+index 809a58d..8bc13be 100755
+--- a/scripts/verify.sh
++++ b/scripts/verify.sh
+@@ -1,6 +1,6 @@
+ #!/bin/bash
+ echo "===== 1. USD magic check (should be PXR-USDC) ====="
+-find /home/administrator/仿真/unitree_model -name "*.usd" -size +1k | while read f; do
++find /home/ubuntu/nood/unitree_model -name "*.usd" -size +1k | while read f; do
+   magic=$(head -c 8 "$f")
+   size=$(stat -c%s "$f")
+   echo "$size  [$magic]  $f"
+@@ -9,7 +9,7 @@ done
+ echo ""
+ echo "===== 2. git repo integrity (fsck) ====="
+ for repo in IsaacLab unitree_rl_lab unitree_ros unitree_model; do
+-  d="/home/administrator/仿真/$repo"
++  d="/home/ubuntu/nood/$repo"
+   if [ -d "$d/.git" ]; then
+     echo "--- $repo ---"
+     git -C "$d" fsck --no-progress 2>&1 | head -5
+@@ -19,13 +19,13 @@ done
+ 
+ echo ""
+ echo "===== 3. unitree_rl_lab structure ====="
+-ls /home/administrator/仿真/unitree_rl_lab/
++ls /home/ubuntu/nood/unitree_rl_lab/
+ echo "---"
+-ls /home/administrator/仿真/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/ 2>/dev/null
++ls /home/ubuntu/nood/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/ 2>/dev/null
+ 
+ echo ""
+ echo "===== 4. IsaacLab structure ====="
+-ls /home/administrator/仿真/IsaacLab/source/ 2>/dev/null
++ls /home/ubuntu/nood/IsaacLab/source/ 2>/dev/null
+ 
+ echo ""
+ echo "===== 5. isaacsim pip progress ====="
+diff --git a/unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31/events.out.tfevents.1790830964.DESKTOP-9S36E5P.459.0 b/unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31/events.out.tfevents.1790830964.DESKTOP-9S36E5P.459.0
+deleted file mode 100644
+index bc0f516..0000000
+Binary files a/unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31/events.out.tfevents.1790830964.DESKTOP-9S36E5P.459.0 and /dev/null differ
+diff --git a/unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31/git/unitree_rl_lab.diff b/unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31/git/unitree_rl_lab.diff
+deleted file mode 100644
+index 1d3b24d..0000000
+--- a/unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31/git/unitree_rl_lab.diff
++++ /dev/null
+@@ -1,26 +0,0 @@
+---- git status ---
+-HEAD detached at 4960b84
+-Changes not staged for commit:
+-  (use "git add <file>..." to update what will be committed)
+-  (use "git restore <file>..." to discard changes in working directory)
+-	modified:   source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py
+-
+-no changes added to commit (use "git add" and/or "git commit -a") 
+-
+-
+---- git diff ---
+-diff --git a/source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py b/source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py
+-index e78413a..c004ae6 100644
+---- a/source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py
+-+++ b/source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py
+-@@ -17,8 +17,8 @@ from isaaclab.utils import configclass
+- 
+- from unitree_rl_lab.assets.robots import unitree_actuators
+- 
+--UNITREE_MODEL_DIR = "path/to/unitree_model"  # Replace with the actual path to your unitree_model directory
+--UNITREE_ROS_DIR = "path/to/unitree_ros"  # Replace with the actual path to your unitree_ros package
+-+UNITREE_MODEL_DIR = "/home/administrator/仿真/unitree_model"
+-+UNITREE_ROS_DIR = "/home/administrator/仿真/unitree_ros"
+- 
+- 
+- @configclass
+\ No newline at end of file
+diff --git a/unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31/model_6900.pt b/unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31/model_6900.pt
+deleted file mode 100644
+index 5c4ecfb..0000000
+Binary files a/unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31/model_6900.pt and /dev/null differ
+diff --git a/unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31/model_7000.pt b/unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31/model_7000.pt
+deleted file mode 100644
+index 6c68c66..0000000
+Binary files a/unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31/model_7000.pt and /dev/null differ
+diff --git a/unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31/model_7100.pt b/unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31/model_7100.pt
+deleted file mode 100644
+index b3f6f8f..0000000
+Binary files a/unitree_rl_lab/logs/rsl_rl/unitree_g1_29dof_velocity/2026-10-01_13-02-31/model_7100.pt and /dev/null differ
+diff --git a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/events.out.tfevents.1790762021.robot.53018.0 b/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/events.out.tfevents.1790762021.robot.53018.0
+deleted file mode 100644
+index 94fcac3..0000000
+Binary files a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/events.out.tfevents.1790762021.robot.53018.0 and /dev/null differ
+diff --git a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/git/unitree_rl_lab.diff b/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/git/unitree_rl_lab.diff
+deleted file mode 100644
+index 8853baf..0000000
+--- a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/git/unitree_rl_lab.diff
++++ /dev/null
+@@ -1,28 +0,0 @@
+---- git status ---
+-On branch main
+-Your branch is up to date with 'origin/main'.
+-
+-Changes not staged for commit:
+-  (use "git add <file>..." to update what will be committed)
+-  (use "git restore <file>..." to discard changes in working directory)
+-	modified:   source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py
+-
+-no changes added to commit (use "git add" and/or "git commit -a") 
+-
+-
+---- git diff ---
+-diff --git a/source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py b/source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py
+-index e78413a..ff1545f 100644
+---- a/source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py
+-+++ b/source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py
+-@@ -17,8 +17,8 @@ from isaaclab.utils import configclass
+- 
+- from unitree_rl_lab.assets.robots import unitree_actuators
+- 
+--UNITREE_MODEL_DIR = "path/to/unitree_model"  # Replace with the actual path to your unitree_model directory
+--UNITREE_ROS_DIR = "path/to/unitree_ros"  # Replace with the actual path to your unitree_ros package
+-+UNITREE_MODEL_DIR = "/home/nood/仿真/unitree_model"  # Replace with the actual path to your unitree_model directory
+-+UNITREE_ROS_DIR = "/home/nood/仿真/unitree_ros"  # Replace with the actual path to your unitree_ros package
+- 
+- 
+- @configclass
+\ No newline at end of file
+diff --git a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/model_0.pt b/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/model_0.pt
+deleted file mode 100644
+index ee6ea9b..0000000
+Binary files a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/model_0.pt and /dev/null differ
+diff --git a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/model_3.pt b/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/model_3.pt
+deleted file mode 100644
+index 87cd6d0..0000000
+Binary files a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/model_3.pt and /dev/null differ
+diff --git a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/params/agent.yaml b/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/params/agent.yaml
+deleted file mode 100644
+index b3b72ef..0000000
+--- a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/params/agent.yaml
++++ /dev/null
+@@ -1,49 +0,0 @@
+-seed: 42
+-device: cuda:0
+-num_steps_per_env: 24
+-max_iterations: 4
+-empirical_normalization: false
+-obs_groups: {}
+-clip_actions: null
+-save_interval: 100
+-experiment_name: unitree_go2_velocity
+-run_name: ''
+-logger: tensorboard
+-neptune_project: isaaclab
+-wandb_project: isaaclab
+-resume: false
+-load_run: .*
+-load_checkpoint: model_.*.pt
+-class_name: OnPolicyRunner
+-policy:
+-  class_name: ActorCritic
+-  init_noise_std: 1.0
+-  noise_std_type: scalar
+-  actor_obs_normalization: {}
+-  critic_obs_normalization: {}
+-  actor_hidden_dims:
+-  - 512
+-  - 256
+-  - 128
+-  critic_hidden_dims:
+-  - 512
+-  - 256
+-  - 128
+-  activation: elu
+-algorithm:
+-  class_name: PPO
+-  num_learning_epochs: 5
+-  num_mini_batches: 4
+-  learning_rate: 0.001
+-  schedule: adaptive
+-  gamma: 0.99
+-  lam: 0.95
+-  entropy_coef: 0.01
+-  desired_kl: 0.01
+-  max_grad_norm: 1.0
+-  value_loss_coef: 1.0
+-  use_clipped_value_loss: true
+-  clip_param: 0.2
+-  normalize_advantage_per_mini_batch: false
+-  rnd_cfg: null
+-  symmetry_cfg: null
+diff --git a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/params/deploy.yaml b/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/params/deploy.yaml
+deleted file mode 100644
+index d39d1c3..0000000
+--- a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/params/deploy.yaml
++++ /dev/null
+@@ -1,62 +0,0 @@
+-joint_ids_map: [3, 0, 9, 6, 4, 1, 10, 7, 5, 2, 11, 8]
+-step_dt: 0.02
+-stiffness: [25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0]
+-damping: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
+-default_joint_pos: [0.1, -0.1, 0.1, -0.1, 0.8, 0.8, 1.0, 1.0, -1.5, -1.5, -1.5, -1.5]
+-commands:
+-  base_velocity:
+-    ranges:
+-      lin_vel_x: [-1.0, 1.0]
+-      lin_vel_y: [-0.4, 0.4]
+-      ang_vel_z: [-1.0, 1.0]
+-      heading: null
+-actions:
+-  JointPositionAction:
+-    clip:
+-    - [-100.0, 100.0]
+-    - [-100.0, 100.0]
+-    - [-100.0, 100.0]
+-    - [-100.0, 100.0]
+-    - [-100.0, 100.0]
+-    - [-100.0, 100.0]
+-    - [-100.0, 100.0]
+-    - [-100.0, 100.0]
+-    - [-100.0, 100.0]
+-    - [-100.0, 100.0]
+-    - [-100.0, 100.0]
+-    - [-100.0, 100.0]
+-    joint_names: [.*]
+-    scale: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25]
+-    offset: [0.1, -0.1, 0.1, -0.1, 0.8, 0.8, 1.0, 1.0, -1.5, -1.5, -1.5, -1.5]
+-    joint_ids: null
+-observations:
+-  base_ang_vel:
+-    params: {}
+-    clip: [-100, 100]
+-    scale: [0.2, 0.2, 0.2]
+-    history_length: 1
+-  projected_gravity:
+-    params: {}
+-    clip: [-100, 100]
+-    scale: [1.0, 1.0, 1.0]
+-    history_length: 1
+-  velocity_commands:
+-    params: {command_name: base_velocity}
+-    clip: [-100, 100]
+-    scale: [1.0, 1.0, 1.0]
+-    history_length: 1
+-  joint_pos_rel:
+-    params: {}
+-    clip: [-100, 100]
+-    scale: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+-    history_length: 1
+-  joint_vel_rel:
+-    params: {}
+-    clip: [-100, 100]
+-    scale: [0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05]
+-    history_length: 1
+-  last_action:
+-    params: {}
+-    clip: [-100, 100]
+-    scale: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+-    history_length: 1
+diff --git a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/params/env.yaml b/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/params/env.yaml
+deleted file mode 100644
+index c687a4f..0000000
+--- a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/params/env.yaml
++++ /dev/null
+@@ -1,1192 +0,0 @@
+-viewer:
+-  eye: !!python/tuple
+-  - 7.5
+-  - 7.5
+-  - 7.5
+-  lookat: !!python/tuple
+-  - 0.0
+-  - 0.0
+-  - 0.0
+-  cam_prim_path: /OmniverseKit_Persp
+-  resolution: !!python/tuple
+-  - 1280
+-  - 720
+-  origin_type: world
+-  env_index: 0
+-  asset_name: null
+-  body_name: null
+-sim:
+-  physics_prim_path: /physicsScene
+-  device: cuda:0
+-  dt: 0.005
+-  render_interval: 4
+-  gravity: !!python/tuple
+-  - 0.0
+-  - 0.0
+-  - -9.81
+-  enable_scene_query_support: false
+-  use_fabric: true
+-  physx:
+-    solver_type: 1
+-    min_position_iteration_count: 1
+-    max_position_iteration_count: 255
+-    min_velocity_iteration_count: 0
+-    max_velocity_iteration_count: 255
+-    enable_ccd: false
+-    enable_stabilization: false
+-    enable_enhanced_determinism: false
+-    bounce_threshold_velocity: 0.5
+-    friction_offset_threshold: 0.04
+-    friction_correlation_distance: 0.025
+-    gpu_max_rigid_contact_count: 8388608
+-    gpu_max_rigid_patch_count: 327680
+-    gpu_found_lost_pairs_capacity: 2097152
+-    gpu_found_lost_aggregate_pairs_capacity: 33554432
+-    gpu_total_aggregate_pairs_capacity: 2097152
+-    gpu_collision_stack_size: 67108864
+-    gpu_heap_capacity: 67108864
+-    gpu_temp_buffer_capacity: 16777216
+-    gpu_max_num_partitions: 8
+-    gpu_max_soft_body_contacts: 1048576
+-    gpu_max_particle_contacts: 1048576
+-    solve_articulation_contact_last: false
+-  physics_material:
+-    func: isaaclab.sim.spawners.materials.physics_materials:spawn_rigid_body_material
+-    static_friction: 1.0
+-    dynamic_friction: 1.0
+-    restitution: 0.0
+-    friction_combine_mode: multiply
+-    restitution_combine_mode: multiply
+-    compliant_contact_stiffness: 0.0
+-    compliant_contact_damping: 0.0
+-  render:
+-    enable_translucency: null
+-    enable_reflections: null
+-    enable_global_illumination: null
+-    antialiasing_mode: null
+-    enable_dlssg: null
+-    enable_dl_denoiser: null
+-    dlss_mode: null
+-    enable_direct_lighting: null
+-    samples_per_pixel: null
+-    enable_shadows: null
+-    enable_ambient_occlusion: null
+-    dome_light_upper_lower_strategy: null
+-    carb_settings: null
+-    rendering_mode: null
+-  create_stage_in_memory: false
+-ui_window_class_type: isaaclab.envs.ui.manager_based_rl_env_window:ManagerBasedRLEnvWindow
+-seed: 42
+-decimation: 4
+-scene:
+-  num_envs: 16
+-  env_spacing: 2.5
+-  lazy_sensor_update: true
+-  replicate_physics: true
+-  filter_collisions: true
+-  clone_in_fabric: false
+-  robot:
+-    class_type: isaaclab.assets.articulation.articulation:Articulation
+-    prim_path: /World/envs/env_.*/Robot
+-    spawn:
+-      func: isaaclab.sim.spawners.from_files.from_files:spawn_from_usd
+-      visible: true
+-      semantic_tags: null
+-      copy_from_source: true
+-      mass_props: null
+-      deformable_props: null
+-      rigid_props:
+-        rigid_body_enabled: null
+-        kinematic_enabled: null
+-        disable_gravity: false
+-        linear_damping: 0.0
+-        angular_damping: 0.0
+-        max_linear_velocity: 1000.0
+-        max_angular_velocity: 1000.0
+-        max_depenetration_velocity: 1.0
+-        max_contact_impulse: null
+-        enable_gyroscopic_forces: null
+-        retain_accelerations: false
+-        solver_position_iteration_count: null
+-        solver_velocity_iteration_count: null
+-        sleep_threshold: null
+-        stabilization_threshold: null
+-      collision_props: null
+-      activate_contact_sensors: true
+-      scale: null
+-      articulation_props:
+-        articulation_enabled: null
+-        enabled_self_collisions: true
+-        solver_position_iteration_count: 8
+-        solver_velocity_iteration_count: 4
+-        sleep_threshold: null
+-        stabilization_threshold: null
+-        fix_root_link: null
+-      fixed_tendons_props: null
+-      spatial_tendons_props: null
+-      joint_drive_props: null
+-      visual_material_path: material
+-      visual_material: null
+-      usd_path: "/home/nood/\u4EFF\u771F/unitree_model/Go2/usd/go2.usd"
+-      variants: null
+-    init_state:
+-      pos: !!python/tuple
+-      - 0.0
+-      - 0.0
+-      - 0.4
+-      rot: !!python/tuple
+-      - 1.0
+-      - 0.0
+-      - 0.0
+-      - 0.0
+-      lin_vel: !!python/tuple
+-      - 0.0
+-      - 0.0
+-      - 0.0
+-      ang_vel: !!python/tuple
+-      - 0.0
+-      - 0.0
+-      - 0.0
+-      joint_pos:
+-        .*R_hip_joint: -0.1
+-        .*L_hip_joint: 0.1
+-        F[L,R]_thigh_joint: 0.8
+-        R[L,R]_thigh_joint: 1.0
+-        .*_calf_joint: -1.5
+-      joint_vel:
+-        .*: 0.0
+-    collision_group: 0
+-    debug_vis: false
+-    articulation_root_prim_path: null
+-    soft_joint_pos_limit_factor: 0.9
+-    actuators:
+-      GO2HV:
+-        class_type: unitree_rl_lab.assets.robots.unitree_actuators:UnitreeActuator
+-        joint_names_expr:
+-        - .*
+-        effort_limit: null
+-        velocity_limit: null
+-        effort_limit_sim: null
+-        velocity_limit_sim: null
+-        stiffness: 25.0
+-        damping: 0.5
+-        armature: null
+-        friction: 0.01
+-        dynamic_friction: null
+-        viscous_friction: null
+-        min_delay: 0
+-        max_delay: 0
+-        X1: 13.5
+-        X2: 30
+-        Y1: 20.2
+-        Y2: 23.4
+-        Fs: 0.0
+-        Fd: 0.0
+-        Va: 0.01
+-    actuator_value_resolution_debug_print: false
+-    joint_sdk_names:
+-    - FR_hip_joint
+-    - FR_thigh_joint
+-    - FR_calf_joint
+-    - FL_hip_joint
+-    - FL_thigh_joint
+-    - FL_calf_joint
+-    - RR_hip_joint
+-    - RR_thigh_joint
+-    - RR_calf_joint
+-    - RL_hip_joint
+-    - RL_thigh_joint
+-    - RL_calf_joint
+-  terrain:
+-    class_type: isaaclab.terrains.terrain_importer:TerrainImporter
+-    collision_group: -1
+-    prim_path: /World/ground
+-    num_envs: 16
+-    terrain_type: generator
+-    terrain_generator:
+-      class_type: isaaclab.terrains.terrain_generator:TerrainGenerator
+-      seed: null
+-      curriculum: true
+-      size: !!python/tuple
+-      - 8.0
+-      - 8.0
+-      border_width: 20.0
+-      border_height: 1.0
+-      num_rows: 10
+-      num_cols: 20
+-      color_scheme: none
+-      horizontal_scale: 0.1
+-      vertical_scale: 0.005
+-      slope_threshold: 0.75
+-      sub_terrains:
+-        flat:
+-          function: isaaclab.terrains.trimesh.mesh_terrains:flat_terrain
+-          proportion: 0.1
+-          size: !!python/tuple
+-          - 8.0
+-          - 8.0
+-          flat_patch_sampling: null
+-      difficulty_range: !!python/tuple
+-      - 0.0
+-      - 1.0
+-      use_cache: false
+-      cache_dir: /tmp/isaaclab/terrains
+-    usd_path: null
+-    env_spacing: 2.5
+-    visual_material:
+-      func: isaaclab.sim.spawners.materials.visual_materials:spawn_from_mdl_file
+-      mdl_path: https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned.mdl
+-      project_uvw: true
+-      albedo_brightness: null
+-      texture_scale: !!python/tuple
+-      - 0.25
+-      - 0.25
+-    physics_material:
+-      func: isaaclab.sim.spawners.materials.physics_materials:spawn_rigid_body_material
+-      static_friction: 1.0
+-      dynamic_friction: 1.0
+-      restitution: 0.0
+-      friction_combine_mode: multiply
+-      restitution_combine_mode: multiply
+-      compliant_contact_stiffness: 0.0
+-      compliant_contact_damping: 0.0
+-    max_init_terrain_level: 1
+-    debug_vis: false
+-  height_scanner:
+-    class_type: isaaclab.sensors.ray_caster.ray_caster:RayCaster
+-    prim_path: /World/envs/env_.*/Robot/base
+-    update_period: 0.02
+-    history_length: 0
+-    debug_vis: false
+-    mesh_prim_paths:
+-    - /World/ground
+-    offset:
+-      pos: !!python/tuple
+-      - 0.0
+-      - 0.0
+-      - 20.0
+-      rot: !!python/tuple
+-      - 1.0
+-      - 0.0
+-      - 0.0
+-      - 0.0
+-    attach_yaw_only: null
+-    ray_alignment: yaw
+-    pattern_cfg:
+-      func: isaaclab.sensors.ray_caster.patterns.patterns:grid_pattern
+-      resolution: 0.1
+-      size:
+-      - 1.6
+-      - 1.0
+-      direction: !!python/tuple
+-      - 0.0
+-      - 0.0
+-      - -1.0
+-      ordering: xy
+-    max_distance: 1000000.0
+-    drift_range: !!python/tuple
+-    - 0.0
+-    - 0.0
+-    ray_cast_drift_range:
+-      x: !!python/tuple
+-      - 0.0
+-      - 0.0
+-      y: !!python/tuple
+-      - 0.0
+-      - 0.0
+-      z: !!python/tuple
+-      - 0.0
+-      - 0.0
+-    visualizer_cfg:
+-      prim_path: /Visuals/RayCaster
+-      markers:
+-        hit:
+-          func: isaaclab.sim.spawners.shapes.shapes:spawn_sphere
+-          visible: true
+-          semantic_tags: null
+-          copy_from_source: true
+-          mass_props: null
+-          rigid_props: null
+-          collision_props: null
+-          activate_contact_sensors: false
+-          visual_material_path: material
+-          visual_material:
+-            func: isaaclab.sim.spawners.materials.visual_materials:spawn_preview_surface
+-            diffuse_color: !!python/tuple
+-            - 1.0
+-            - 0.0
+-            - 0.0
+-            emissive_color: !!python/tuple
+-            - 0.0
+-            - 0.0
+-            - 0.0
+-            roughness: 0.5
+-            metallic: 0.0
+-            opacity: 1.0
+-          physics_material_path: material
+-          physics_material: null
+-          radius: 0.02
+-  contact_forces:
+-    class_type: isaaclab.sensors.contact_sensor.contact_sensor:ContactSensor
+-    prim_path: /World/envs/env_.*/Robot/.*
+-    update_period: 0.005
+-    history_length: 3
+-    debug_vis: false
+-    track_pose: false
+-    track_contact_points: false
+-    max_contact_data_count_per_prim: 4
+-    track_air_time: true
+-    force_threshold: 1.0
+-    filter_prim_paths_expr: []
+-    visualizer_cfg:
+-      prim_path: /Visuals/ContactSensor
+-      markers:
+-        contact:
+-          func: isaaclab.sim.spawners.shapes.shapes:spawn_sphere
+-          visible: true
+-          semantic_tags: null
+-          copy_from_source: true
+-          mass_props: null
+-          rigid_props: null
+-          collision_props: null
+-          activate_contact_sensors: false
+-          visual_material_path: material
+-          visual_material:
+-            func: isaaclab.sim.spawners.materials.visual_materials:spawn_preview_surface
+-            diffuse_color: !!python/tuple
+-            - 1.0
+-            - 0.0
+-            - 0.0
+-            emissive_color: !!python/tuple
+-            - 0.0
+-            - 0.0
+-            - 0.0
+-            roughness: 0.5
+-            metallic: 0.0
+-            opacity: 1.0
+-          physics_material_path: material
+-          physics_material: null
+-          radius: 0.02
+-        no_contact:
+-          func: isaaclab.sim.spawners.shapes.shapes:spawn_sphere
+-          visible: false
+-          semantic_tags: null
+-          copy_from_source: true
+-          mass_props: null
+-          rigid_props: null
+-          collision_props: null
+-          activate_contact_sensors: false
+-          visual_material_path: material
+-          visual_material:
+-            func: isaaclab.sim.spawners.materials.visual_materials:spawn_preview_surface
+-            diffuse_color: !!python/tuple
+-            - 0.0
+-            - 1.0
+-            - 0.0
+-            emissive_color: !!python/tuple
+-            - 0.0
+-            - 0.0
+-            - 0.0
+-            roughness: 0.5
+-            metallic: 0.0
+-            opacity: 1.0
+-          physics_material_path: material
+-          physics_material: null
+-          radius: 0.02
+-  sky_light:
+-    class_type: null
+-    prim_path: /World/skyLight
+-    spawn:
+-      func: isaaclab.sim.spawners.lights.lights:spawn_light
+-      visible: true
+-      semantic_tags: null
+-      copy_from_source: true
+-      prim_type: DomeLight
+-      color: !!python/tuple
+-      - 1.0
+-      - 1.0
+-      - 1.0
+-      enable_color_temperature: false
+-      color_temperature: 6500.0
+-      normalize: false
+-      exposure: 0.0
+-      intensity: 750.0
+-      texture_file: https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Materials/Textures/Skies/PolyHaven/kloofendal_43d_clear_puresky_4k.hdr
+-      texture_format: automatic
+-      visible_in_primary_ray: true
+-    init_state:
+-      pos: !!python/tuple
+-      - 0.0
+-      - 0.0
+-      - 0.0
+-      rot: !!python/tuple
+-      - 1.0
+-      - 0.0
+-      - 0.0
+-      - 0.0
+-    collision_group: 0
+-    debug_vis: false
+-recorders:
+-  dataset_file_handler_class_type: isaaclab.utils.datasets.hdf5_dataset_file_handler:HDF5DatasetFileHandler
+-  dataset_export_dir_path: /tmp/isaaclab/logs
+-  dataset_filename: dataset
+-  dataset_export_mode:
+-    _value_: 1
+-    _name_: EXPORT_ALL
+-    _sort_order_: 1
+-  export_in_record_pre_reset: true
+-observations:
+-  policy:
+-    concatenate_terms: true
+-    concatenate_dim: -1
+-    enable_corruption: true
+-    history_length: null
+-    flatten_history_dim: true
+-    base_ang_vel:
+-      func: isaaclab.envs.mdp.observations:base_ang_vel
+-      params: {}
+-      modifiers: null
+-      noise:
+-        func: isaaclab.utils.noise.noise_model:uniform_noise
+-        operation: add
+-        n_min: -0.2
+-        n_max: 0.2
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: 0.2
+-      history_length: 0
+-      flatten_history_dim: true
+-    projected_gravity:
+-      func: isaaclab.envs.mdp.observations:projected_gravity
+-      params: {}
+-      modifiers: null
+-      noise:
+-        func: isaaclab.utils.noise.noise_model:uniform_noise
+-        operation: add
+-        n_min: -0.05
+-        n_max: 0.05
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: null
+-      history_length: 0
+-      flatten_history_dim: true
+-    velocity_commands:
+-      func: isaaclab.envs.mdp.observations:generated_commands
+-      params:
+-        command_name: base_velocity
+-      modifiers: null
+-      noise: null
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: null
+-      history_length: 0
+-      flatten_history_dim: true
+-    joint_pos_rel:
+-      func: isaaclab.envs.mdp.observations:joint_pos_rel
+-      params: {}
+-      modifiers: null
+-      noise:
+-        func: isaaclab.utils.noise.noise_model:uniform_noise
+-        operation: add
+-        n_min: -0.01
+-        n_max: 0.01
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: null
+-      history_length: 0
+-      flatten_history_dim: true
+-    joint_vel_rel:
+-      func: isaaclab.envs.mdp.observations:joint_vel_rel
+-      params: {}
+-      modifiers: null
+-      noise:
+-        func: isaaclab.utils.noise.noise_model:uniform_noise
+-        operation: add
+-        n_min: -1.5
+-        n_max: 1.5
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: 0.05
+-      history_length: 0
+-      flatten_history_dim: true
+-    last_action:
+-      func: isaaclab.envs.mdp.observations:last_action
+-      params: {}
+-      modifiers: null
+-      noise: null
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: null
+-      history_length: 0
+-      flatten_history_dim: true
+-  critic:
+-    concatenate_terms: true
+-    concatenate_dim: -1
+-    enable_corruption: false
+-    history_length: null
+-    flatten_history_dim: true
+-    base_lin_vel:
+-      func: isaaclab.envs.mdp.observations:base_lin_vel
+-      params: {}
+-      modifiers: null
+-      noise: null
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: null
+-      history_length: 0
+-      flatten_history_dim: true
+-    base_ang_vel:
+-      func: isaaclab.envs.mdp.observations:base_ang_vel
+-      params: {}
+-      modifiers: null
+-      noise: null
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: 0.2
+-      history_length: 0
+-      flatten_history_dim: true
+-    projected_gravity:
+-      func: isaaclab.envs.mdp.observations:projected_gravity
+-      params: {}
+-      modifiers: null
+-      noise: null
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: null
+-      history_length: 0
+-      flatten_history_dim: true
+-    velocity_commands:
+-      func: isaaclab.envs.mdp.observations:generated_commands
+-      params:
+-        command_name: base_velocity
+-      modifiers: null
+-      noise: null
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: null
+-      history_length: 0
+-      flatten_history_dim: true
+-    joint_pos_rel:
+-      func: isaaclab.envs.mdp.observations:joint_pos_rel
+-      params: {}
+-      modifiers: null
+-      noise: null
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: null
+-      history_length: 0
+-      flatten_history_dim: true
+-    joint_vel_rel:
+-      func: isaaclab.envs.mdp.observations:joint_vel_rel
+-      params: {}
+-      modifiers: null
+-      noise: null
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: 0.05
+-      history_length: 0
+-      flatten_history_dim: true
+-    joint_effort:
+-      func: isaaclab.envs.mdp.observations:joint_effort
+-      params: {}
+-      modifiers: null
+-      noise: null
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: 0.01
+-      history_length: 0
+-      flatten_history_dim: true
+-    last_action:
+-      func: isaaclab.envs.mdp.observations:last_action
+-      params: {}
+-      modifiers: null
+-      noise: null
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: null
+-      history_length: 0
+-      flatten_history_dim: true
+-actions:
+-  JointPositionAction:
+-    class_type: isaaclab.envs.mdp.actions.joint_actions:JointPositionAction
+-    asset_name: robot
+-    debug_vis: false
+-    clip:
+-      .*: !!python/tuple
+-      - -100.0
+-      - 100.0
+-    joint_names:
+-    - .*
+-    scale: 0.25
+-    offset: 0.0
+-    preserve_order: false
+-    use_default_offset: true
+-events:
+-  physics_material:
+-    func: isaaclab.envs.mdp.events:randomize_rigid_body_material
+-    params:
+-      asset_cfg:
+-        name: robot
+-        joint_names: null
+-        joint_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        fixed_tendon_names: null
+-        fixed_tendon_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        body_names: .*
+-        body_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        object_collection_names: null
+-        object_collection_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        preserve_order: false
+-      static_friction_range: !!python/tuple
+-      - 0.3
+-      - 1.2
+-      dynamic_friction_range: !!python/tuple
+-      - 0.3
+-      - 1.2
+-      restitution_range: !!python/tuple
+-      - 0.0
+-      - 0.15
+-      num_buckets: 64
+-    mode: startup
+-    interval_range_s: null
+-    is_global_time: false
+-    min_step_count_between_reset: 0
+-  add_base_mass:
+-    func: isaaclab.envs.mdp.events:randomize_rigid_body_mass
+-    params:
+-      asset_cfg:
+-        name: robot
+-        joint_names: null
+-        joint_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        fixed_tendon_names: null
+-        fixed_tendon_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        body_names: base
+-        body_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        object_collection_names: null
+-        object_collection_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        preserve_order: false
+-      mass_distribution_params: !!python/tuple
+-      - -1.0
+-      - 3.0
+-      operation: add
+-    mode: startup
+-    interval_range_s: null
+-    is_global_time: false
+-    min_step_count_between_reset: 0
+-  base_external_force_torque:
+-    func: isaaclab.envs.mdp.events:apply_external_force_torque
+-    params:
+-      asset_cfg:
+-        name: robot
+-        joint_names: null
+-        joint_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        fixed_tendon_names: null
+-        fixed_tendon_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        body_names: base
+-        body_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        object_collection_names: null
+-        object_collection_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        preserve_order: false
+-      force_range: !!python/tuple
+-      - 0.0
+-      - 0.0
+-      torque_range: !!python/tuple
+-      - -0.0
+-      - 0.0
+-    mode: reset
+-    interval_range_s: null
+-    is_global_time: false
+-    min_step_count_between_reset: 0
+-  reset_base:
+-    func: isaaclab.envs.mdp.events:reset_root_state_uniform
+-    params:
+-      pose_range:
+-        x: !!python/tuple
+-        - -0.5
+-        - 0.5
+-        y: !!python/tuple
+-        - -0.5
+-        - 0.5
+-        yaw: !!python/tuple
+-        - -3.14
+-        - 3.14
+-      velocity_range:
+-        x: !!python/tuple
+-        - 0.0
+-        - 0.0
+-        y: !!python/tuple
+-        - 0.0
+-        - 0.0
+-        z: !!python/tuple
+-        - 0.0
+-        - 0.0
+-        roll: !!python/tuple
+-        - 0.0
+-        - 0.0
+-        pitch: !!python/tuple
+-        - 0.0
+-        - 0.0
+-        yaw: !!python/tuple
+-        - 0.0
+-        - 0.0
+-    mode: reset
+-    interval_range_s: null
+-    is_global_time: false
+-    min_step_count_between_reset: 0
+-  reset_robot_joints:
+-    func: isaaclab.envs.mdp.events:reset_joints_by_scale
+-    params:
+-      position_range: !!python/tuple
+-      - 1.0
+-      - 1.0
+-      velocity_range: !!python/tuple
+-      - -1.0
+-      - 1.0
+-    mode: reset
+-    interval_range_s: null
+-    is_global_time: false
+-    min_step_count_between_reset: 0
+-  push_robot:
+-    func: isaaclab.envs.mdp.events:push_by_setting_velocity
+-    params:
+-      velocity_range:
+-        x: !!python/tuple
+-        - -0.5
+-        - 0.5
+-        y: !!python/tuple
+-        - -0.5
+-        - 0.5
+-    mode: interval
+-    interval_range_s: !!python/tuple
+-    - 5.0
+-    - 10.0
+-    is_global_time: false
+-    min_step_count_between_reset: 0
+-rerender_on_reset: false
+-wait_for_textures: true
+-xr: null
+-teleop_devices:
+-  devices: {}
+-export_io_descriptors: false
+-io_descriptors_output_dir: null
+-log_dir: null
+-is_finite_horizon: false
+-episode_length_s: 20.0
+-rewards:
+-  track_lin_vel_xy:
+-    func: isaaclab.envs.mdp.rewards:track_lin_vel_xy_exp
+-    params:
+-      command_name: base_velocity
+-      std: 0.5
+-    weight: 1.5
+-  track_ang_vel_z:
+-    func: isaaclab.envs.mdp.rewards:track_ang_vel_z_exp
+-    params:
+-      command_name: base_velocity
+-      std: 0.5
+-    weight: 0.75
+-  base_linear_velocity:
+-    func: isaaclab.envs.mdp.rewards:lin_vel_z_l2
+-    params: {}
+-    weight: -2.0
+-  base_angular_velocity:
+-    func: isaaclab.envs.mdp.rewards:ang_vel_xy_l2
+-    params: {}
+-    weight: -0.05
+-  joint_vel:
+-    func: isaaclab.envs.mdp.rewards:joint_vel_l2
+-    params: {}
+-    weight: -0.001
+-  joint_acc:
+-    func: isaaclab.envs.mdp.rewards:joint_acc_l2
+-    params: {}
+-    weight: -2.5e-07
+-  joint_torques:
+-    func: isaaclab.envs.mdp.rewards:joint_torques_l2
+-    params: {}
+-    weight: -0.0002
+-  action_rate:
+-    func: isaaclab.envs.mdp.rewards:action_rate_l2
+-    params: {}
+-    weight: -0.1
+-  dof_pos_limits:
+-    func: isaaclab.envs.mdp.rewards:joint_pos_limits
+-    params: {}
+-    weight: -10.0
+-  energy:
+-    func: unitree_rl_lab.tasks.locomotion.mdp.rewards:energy
+-    params: {}
+-    weight: -2.0e-05
+-  flat_orientation_l2:
+-    func: isaaclab.envs.mdp.rewards:flat_orientation_l2
+-    params: {}
+-    weight: -2.5
+-  joint_pos:
+-    func: unitree_rl_lab.tasks.locomotion.mdp.rewards:joint_position_penalty
+-    params:
+-      asset_cfg:
+-        name: robot
+-        joint_names: .*
+-        joint_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        fixed_tendon_names: null
+-        fixed_tendon_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        body_names: null
+-        body_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        object_collection_names: null
+-        object_collection_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        preserve_order: false
+-      stand_still_scale: 5.0
+-      velocity_threshold: 0.3
+-    weight: -0.7
+-  feet_air_time:
+-    func: isaaclab_tasks.manager_based.locomotion.velocity.mdp.rewards:feet_air_time
+-    params:
+-      sensor_cfg:
+-        name: contact_forces
+-        joint_names: null
+-        joint_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        fixed_tendon_names: null
+-        fixed_tendon_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        body_names: .*_foot
+-        body_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        object_collection_names: null
+-        object_collection_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        preserve_order: false
+-      command_name: base_velocity
+-      threshold: 0.5
+-    weight: 0.1
+-  air_time_variance:
+-    func: unitree_rl_lab.tasks.locomotion.mdp.rewards:air_time_variance_penalty
+-    params:
+-      sensor_cfg:
+-        name: contact_forces
+-        joint_names: null
+-        joint_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        fixed_tendon_names: null
+-        fixed_tendon_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        body_names: .*_foot
+-        body_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        object_collection_names: null
+-        object_collection_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        preserve_order: false
+-    weight: -1.0
+-  feet_slide:
+-    func: isaaclab_tasks.manager_based.locomotion.velocity.mdp.rewards:feet_slide
+-    params:
+-      asset_cfg:
+-        name: robot
+-        joint_names: null
+-        joint_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        fixed_tendon_names: null
+-        fixed_tendon_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        body_names: .*_foot
+-        body_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        object_collection_names: null
+-        object_collection_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        preserve_order: false
+-      sensor_cfg:
+-        name: contact_forces
+-        joint_names: null
+-        joint_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        fixed_tendon_names: null
+-        fixed_tendon_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        body_names: .*_foot
+-        body_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        object_collection_names: null
+-        object_collection_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        preserve_order: false
+-    weight: -0.1
+-  undesired_contacts:
+-    func: isaaclab.envs.mdp.rewards:undesired_contacts
+-    params:
+-      threshold: 1
+-      sensor_cfg:
+-        name: contact_forces
+-        joint_names: null
+-        joint_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        fixed_tendon_names: null
+-        fixed_tendon_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        body_names:
+-        - Head_.*
+-        - .*_hip
+-        - .*_thigh
+-        - .*_calf
+-        body_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        object_collection_names: null
+-        object_collection_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        preserve_order: false
+-    weight: -1
+-terminations:
+-  time_out:
+-    func: isaaclab.envs.mdp.terminations:time_out
+-    params: {}
+-    time_out: true
+-  base_contact:
+-    func: isaaclab.envs.mdp.terminations:illegal_contact
+-    params:
+-      sensor_cfg:
+-        name: contact_forces
+-        joint_names: null
+-        joint_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        fixed_tendon_names: null
+-        fixed_tendon_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        body_names: base
+-        body_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        object_collection_names: null
+-        object_collection_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        preserve_order: false
+-      threshold: 1.0
+-    time_out: false
+-  bad_orientation:
+-    func: isaaclab.envs.mdp.terminations:bad_orientation
+-    params:
+-      limit_angle: 0.8
+-    time_out: false
+-curriculum:
+-  terrain_levels:
+-    func: isaaclab_tasks.manager_based.locomotion.velocity.mdp.curriculums:terrain_levels_vel
+-    params: {}
+-  lin_vel_cmd_levels:
+-    func: unitree_rl_lab.tasks.locomotion.mdp.curriculums:lin_vel_cmd_levels
+-    params: {}
+-commands:
+-  base_velocity:
+-    class_type: isaaclab.envs.mdp.commands.velocity_command:UniformVelocityCommand
+-    resampling_time_range: !!python/tuple
+-    - 10.0
+-    - 10.0
+-    debug_vis: true
+-    asset_name: robot
+-    heading_command: false
+-    heading_control_stiffness: 1.0
+-    rel_standing_envs: 0.1
+-    rel_heading_envs: 1.0
+-    ranges:
+-      lin_vel_x: !!python/tuple
+-      - -0.1
+-      - 0.1
+-      lin_vel_y: !!python/tuple
+-      - -0.1
+-      - 0.1
+-      ang_vel_z: !!python/tuple
+-      - -1
+-      - 1
+-      heading: null
+-    goal_vel_visualizer_cfg:
+-      prim_path: /Visuals/Command/velocity_goal
+-      markers:
+-        arrow:
+-          func: isaaclab.sim.spawners.from_files.from_files:spawn_from_usd
+-          visible: true
+-          semantic_tags: null
+-          copy_from_source: true
+-          mass_props: null
+-          deformable_props: null
+-          rigid_props: null
+-          collision_props: null
+-          activate_contact_sensors: false
+-          scale: !!python/tuple
+-          - 0.5
+-          - 0.5
+-          - 0.5
+-          articulation_props: null
+-          fixed_tendons_props: null
+-          spatial_tendons_props: null
+-          joint_drive_props: null
+-          visual_material_path: material
+-          visual_material:
+-            func: isaaclab.sim.spawners.materials.visual_materials:spawn_preview_surface
+-            diffuse_color: !!python/tuple
+-            - 0.0
+-            - 1.0
+-            - 0.0
+-            emissive_color: !!python/tuple
+-            - 0.0
+-            - 0.0
+-            - 0.0
+-            roughness: 0.5
+-            metallic: 0.0
+-            opacity: 1.0
+-          usd_path: https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Props/UIElements/arrow_x.usd
+-          variants: null
+-    current_vel_visualizer_cfg:
+-      prim_path: /Visuals/Command/velocity_current
+-      markers:
+-        arrow:
+-          func: isaaclab.sim.spawners.from_files.from_files:spawn_from_usd
+-          visible: true
+-          semantic_tags: null
+-          copy_from_source: true
+-          mass_props: null
+-          deformable_props: null
+-          rigid_props: null
+-          collision_props: null
+-          activate_contact_sensors: false
+-          scale: !!python/tuple
+-          - 0.5
+-          - 0.5
+-          - 0.5
+-          articulation_props: null
+-          fixed_tendons_props: null
+-          spatial_tendons_props: null
+-          joint_drive_props: null
+-          visual_material_path: material
+-          visual_material:
+-            func: isaaclab.sim.spawners.materials.visual_materials:spawn_preview_surface
+-            diffuse_color: !!python/tuple
+-            - 0.0
+-            - 0.0
+-            - 1.0
+-            emissive_color: !!python/tuple
+-            - 0.0
+-            - 0.0
+-            - 0.0
+-            roughness: 0.5
+-            metallic: 0.0
+-            opacity: 1.0
+-          usd_path: https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Props/UIElements/arrow_x.usd
+-          variants: null
+-    limit_ranges:
+-      lin_vel_x: !!python/tuple
+-      - -1.0
+-      - 1.0
+-      lin_vel_y: !!python/tuple
+-      - -0.4
+-      - 0.4
+-      ang_vel_z: !!python/tuple
+-      - -1.0
+-      - 1.0
+-      heading: null
+diff --git a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/params/velocity_env_cfg.py b/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/params/velocity_env_cfg.py
+deleted file mode 100644
+index 7496d76..0000000
+--- a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_17-53-36/params/velocity_env_cfg.py
++++ /dev/null
+@@ -1,415 +0,0 @@
+-import math
+-
+-import isaaclab.sim as sim_utils
+-import isaaclab.terrains as terrain_gen
+-from isaaclab.assets import ArticulationCfg, AssetBaseCfg
+-from isaaclab.envs import ManagerBasedRLEnvCfg
+-from isaaclab.managers import CurriculumTermCfg as CurrTerm
+-from isaaclab.managers import EventTermCfg as EventTerm
+-from isaaclab.managers import ObservationGroupCfg as ObsGroup
+-from isaaclab.managers import ObservationTermCfg as ObsTerm
+-from isaaclab.managers import RewardTermCfg as RewTerm
+-from isaaclab.managers import SceneEntityCfg
+-from isaaclab.managers import TerminationTermCfg as DoneTerm
+-from isaaclab.scene import InteractiveSceneCfg
+-from isaaclab.sensors import ContactSensorCfg, RayCasterCfg, patterns
+-from isaaclab.terrains import TerrainImporterCfg
+-from isaaclab.utils import configclass
+-from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR, ISAACLAB_NUCLEUS_DIR
+-from isaaclab.utils.noise import AdditiveUniformNoiseCfg as Unoise
+-
+-from unitree_rl_lab.assets.robots.unitree import UNITREE_GO2_CFG as ROBOT_CFG
+-from unitree_rl_lab.tasks.locomotion import mdp
+-
+-COBBLESTONE_ROAD_CFG = terrain_gen.TerrainGeneratorCfg(
+-    size=(8.0, 8.0),
+-    border_width=20.0,
+-    num_rows=10,
+-    num_cols=20,
+-    horizontal_scale=0.1,
+-    vertical_scale=0.005,
+-    slope_threshold=0.75,
+-    difficulty_range=(0.0, 1.0),
+-    use_cache=False,
+-    sub_terrains={
+-        "flat": terrain_gen.MeshPlaneTerrainCfg(proportion=0.1),
+-        # "random_rough": terrain_gen.HfRandomUniformTerrainCfg(
+-        #     proportion=0.1, noise_range=(0.01, 0.06), noise_step=0.01, border_width=0.25
+-        # ),
+-        # "hf_pyramid_slope": terrain_gen.HfPyramidSlopedTerrainCfg(
+-        #     proportion=0.1, slope_range=(0.0, 0.4), platform_width=2.0, border_width=0.25
+-        # ),
+-        # "hf_pyramid_slope_inv": terrain_gen.HfInvertedPyramidSlopedTerrainCfg(
+-        #     proportion=0.1, slope_range=(0.0, 0.4), platform_width=2.0, border_width=0.25
+-        # ),
+-        # "boxes": terrain_gen.MeshRandomGridTerrainCfg(
+-        #     proportion=0.2, grid_width=0.45, grid_height_range=(0.05, 0.2), platform_width=2.0
+-        # ),
+-        # "pyramid_stairs": terrain_gen.MeshPyramidStairsTerrainCfg(
+-        #     proportion=0.2,
+-        #     step_height_range=(0.05, 0.23),
+-        #     step_width=0.3,
+-        #     platform_width=3.0,
+-        #     border_width=1.0,
+-        #     holes=False,
+-        # ),
+-        # "pyramid_stairs_inv": terrain_gen.MeshInvertedPyramidStairsTerrainCfg(
+-        #     proportion=0.2,
+-        #     step_height_range=(0.05, 0.23),
+-        #     step_width=0.3,
+-        #     platform_width=3.0,
+-        #     border_width=1.0,
+-        #     holes=False,
+-        # ),
+-    },
+-)
+-
+-
+-@configclass
+-class RobotSceneCfg(InteractiveSceneCfg):
+-    """Configuration for the terrain scene with a legged robot."""
+-
+-    # ground terrain
+-    terrain = TerrainImporterCfg(
+-        prim_path="/World/ground",
+-        terrain_type="generator",  # "plane", "generator"
+-        terrain_generator=COBBLESTONE_ROAD_CFG,  # None, ROUGH_TERRAINS_CFG
+-        max_init_terrain_level=1,
+-        collision_group=-1,
+-        physics_material=sim_utils.RigidBodyMaterialCfg(
+-            friction_combine_mode="multiply",
+-            restitution_combine_mode="multiply",
+-            static_friction=1.0,
+-            dynamic_friction=1.0,
+-        ),
+-        visual_material=sim_utils.MdlFileCfg(
+-            mdl_path=f"{ISAACLAB_NUCLEUS_DIR}/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned.mdl",
+-            project_uvw=True,
+-            texture_scale=(0.25, 0.25),
+-        ),
+-        debug_vis=False,
+-    )
+-    # robots
+-    robot: ArticulationCfg = ROBOT_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
+-
+-    # sensors
+-    height_scanner = RayCasterCfg(
+-        prim_path="{ENV_REGEX_NS}/Robot/base",
+-        offset=RayCasterCfg.OffsetCfg(pos=(0.0, 0.0, 20.0)),
+-        ray_alignment="yaw",
+-        pattern_cfg=patterns.GridPatternCfg(resolution=0.1, size=[1.6, 1.0]),
+-        debug_vis=False,
+-        mesh_prim_paths=["/World/ground"],
+-    )
+-    contact_forces = ContactSensorCfg(prim_path="{ENV_REGEX_NS}/Robot/.*", history_length=3, track_air_time=True)
+-    # lights
+-    sky_light = AssetBaseCfg(
+-        prim_path="/World/skyLight",
+-        spawn=sim_utils.DomeLightCfg(
+-            intensity=750.0,
+-            texture_file=f"{ISAAC_NUCLEUS_DIR}/Materials/Textures/Skies/PolyHaven/kloofendal_43d_clear_puresky_4k.hdr",
+-        ),
+-    )
+-
+-
+-@configclass
+-class EventCfg:
+-    """Configuration for events."""
+-
+-    # startup
+-    physics_material = EventTerm(
+-        func=mdp.randomize_rigid_body_material,
+-        mode="startup",
+-        params={
+-            "asset_cfg": SceneEntityCfg("robot", body_names=".*"),
+-            "static_friction_range": (0.3, 1.2),
+-            "dynamic_friction_range": (0.3, 1.2),
+-            "restitution_range": (0.0, 0.15),
+-            "num_buckets": 64,
+-        },
+-    )
+-
+-    add_base_mass = EventTerm(
+-        func=mdp.randomize_rigid_body_mass,
+-        mode="startup",
+-        params={
+-            "asset_cfg": SceneEntityCfg("robot", body_names="base"),
+-            "mass_distribution_params": (-1.0, 3.0),
+-            "operation": "add",
+-        },
+-    )
+-
+-    # reset
+-    base_external_force_torque = EventTerm(
+-        func=mdp.apply_external_force_torque,
+-        mode="reset",
+-        params={
+-            "asset_cfg": SceneEntityCfg("robot", body_names="base"),
+-            "force_range": (0.0, 0.0),
+-            "torque_range": (-0.0, 0.0),
+-        },
+-    )
+-
+-    reset_base = EventTerm(
+-        func=mdp.reset_root_state_uniform,
+-        mode="reset",
+-        params={
+-            "pose_range": {"x": (-0.5, 0.5), "y": (-0.5, 0.5), "yaw": (-3.14, 3.14)},
+-            "velocity_range": {
+-                "x": (0.0, 0.0),
+-                "y": (0.0, 0.0),
+-                "z": (0.0, 0.0),
+-                "roll": (0.0, 0.0),
+-                "pitch": (0.0, 0.0),
+-                "yaw": (0.0, 0.0),
+-            },
+-        },
+-    )
+-
+-    reset_robot_joints = EventTerm(
+-        func=mdp.reset_joints_by_scale,
+-        mode="reset",
+-        params={
+-            "position_range": (1.0, 1.0),
+-            "velocity_range": (-1.0, 1.0),
+-        },
+-    )
+-
+-    # interval
+-    push_robot = EventTerm(
+-        func=mdp.push_by_setting_velocity,
+-        mode="interval",
+-        interval_range_s=(5.0, 10.0),
+-        params={"velocity_range": {"x": (-0.5, 0.5), "y": (-0.5, 0.5)}},
+-    )
+-
+-
+-@configclass
+-class CommandsCfg:
+-    """Command specifications for the MDP."""
+-
+-    base_velocity = mdp.UniformLevelVelocityCommandCfg(
+-        asset_name="robot",
+-        resampling_time_range=(10.0, 10.0),
+-        rel_standing_envs=0.1,
+-        debug_vis=True,
+-        ranges=mdp.UniformLevelVelocityCommandCfg.Ranges(
+-            lin_vel_x=(-0.1, 0.1), lin_vel_y=(-0.1, 0.1), ang_vel_z=(-1, 1)
+-        ),
+-        limit_ranges=mdp.UniformLevelVelocityCommandCfg.Ranges(
+-            lin_vel_x=(-1.0, 1.0), lin_vel_y=(-0.4, 0.4), ang_vel_z=(-1.0, 1.0)
+-        ),
+-    )
+-
+-
+-@configclass
+-class ActionsCfg:
+-    """Action specifications for the MDP."""
+-
+-    JointPositionAction = mdp.JointPositionActionCfg(
+-        asset_name="robot", joint_names=[".*"], scale=0.25, use_default_offset=True, clip={".*": (-100.0, 100.0)}
+-    )
+-
+-
+-@configclass
+-class ObservationsCfg:
+-    """Observation specifications for the MDP."""
+-
+-    @configclass
+-    class PolicyCfg(ObsGroup):
+-        """Observations for policy group."""
+-
+-        # observation terms (order preserved)
+-        base_ang_vel = ObsTerm(func=mdp.base_ang_vel, scale=0.2, clip=(-100, 100), noise=Unoise(n_min=-0.2, n_max=0.2))
+-        projected_gravity = ObsTerm(func=mdp.projected_gravity, clip=(-100, 100), noise=Unoise(n_min=-0.05, n_max=0.05))
+-        velocity_commands = ObsTerm(
+-            func=mdp.generated_commands, clip=(-100, 100), params={"command_name": "base_velocity"}
+-        )
+-        joint_pos_rel = ObsTerm(func=mdp.joint_pos_rel, clip=(-100, 100), noise=Unoise(n_min=-0.01, n_max=0.01))
+-        joint_vel_rel = ObsTerm(
+-            func=mdp.joint_vel_rel, scale=0.05, clip=(-100, 100), noise=Unoise(n_min=-1.5, n_max=1.5)
+-        )
+-        last_action = ObsTerm(func=mdp.last_action, clip=(-100, 100))
+-
+-        def __post_init__(self):
+-            # self.history_length = 5
+-            self.enable_corruption = True
+-            self.concatenate_terms = True
+-
+-    # observation groups
+-    policy: PolicyCfg = PolicyCfg()
+-
+-    @configclass
+-    class CriticCfg(ObsGroup):
+-        """Observations for critic group."""
+-
+-        base_lin_vel = ObsTerm(func=mdp.base_lin_vel, clip=(-100, 100))
+-        base_ang_vel = ObsTerm(func=mdp.base_ang_vel, scale=0.2, clip=(-100, 100))
+-        projected_gravity = ObsTerm(func=mdp.projected_gravity, clip=(-100, 100))
+-        velocity_commands = ObsTerm(
+-            func=mdp.generated_commands, clip=(-100, 100), params={"command_name": "base_velocity"}
+-        )
+-        joint_pos_rel = ObsTerm(func=mdp.joint_pos_rel, clip=(-100, 100))
+-        joint_vel_rel = ObsTerm(func=mdp.joint_vel_rel, scale=0.05, clip=(-100, 100))
+-        joint_effort = ObsTerm(func=mdp.joint_effort, scale=0.01, clip=(-100, 100))
+-        last_action = ObsTerm(func=mdp.last_action, clip=(-100, 100))
+-        # height_scanner = ObsTerm(func=mdp.height_scan,
+-        #     params={"sensor_cfg": SceneEntityCfg("height_scanner")},
+-        #     clip=(-1.0, 5.0),
+-        # )
+-
+-        # def __post_init__(self):
+-        #     self.history_length = 5
+-
+-    # privileged observations
+-    critic: CriticCfg = CriticCfg()
+-
+-
+-@configclass
+-class RewardsCfg:
+-    """Reward terms for the MDP."""
+-
+-    # -- task
+-    track_lin_vel_xy = RewTerm(
+-        func=mdp.track_lin_vel_xy_exp, weight=1.5, params={"command_name": "base_velocity", "std": math.sqrt(0.25)}
+-    )
+-    track_ang_vel_z = RewTerm(
+-        func=mdp.track_ang_vel_z_exp, weight=0.75, params={"command_name": "base_velocity", "std": math.sqrt(0.25)}
+-    )
+-
+-    # -- base
+-    base_linear_velocity = RewTerm(func=mdp.lin_vel_z_l2, weight=-2.0)
+-    base_angular_velocity = RewTerm(func=mdp.ang_vel_xy_l2, weight=-0.05)
+-    joint_vel = RewTerm(func=mdp.joint_vel_l2, weight=-0.001)
+-    joint_acc = RewTerm(func=mdp.joint_acc_l2, weight=-2.5e-7)
+-    joint_torques = RewTerm(func=mdp.joint_torques_l2, weight=-2e-4)
+-    action_rate = RewTerm(func=mdp.action_rate_l2, weight=-0.1)
+-    dof_pos_limits = RewTerm(func=mdp.joint_pos_limits, weight=-10.0)
+-    energy = RewTerm(func=mdp.energy, weight=-2e-5)
+-
+-    # -- robot
+-    flat_orientation_l2 = RewTerm(func=mdp.flat_orientation_l2, weight=-2.5)
+-
+-    joint_pos = RewTerm(
+-        func=mdp.joint_position_penalty,
+-        weight=-0.7,
+-        params={
+-            "asset_cfg": SceneEntityCfg("robot", joint_names=".*"),
+-            "stand_still_scale": 5.0,
+-            "velocity_threshold": 0.3,
+-        },
+-    )
+-
+-    # -- feet
+-    feet_air_time = RewTerm(
+-        func=mdp.feet_air_time,
+-        weight=0.1,
+-        params={
+-            "sensor_cfg": SceneEntityCfg("contact_forces", body_names=".*_foot"),
+-            "command_name": "base_velocity",
+-            "threshold": 0.5,
+-        },
+-    )
+-    air_time_variance = RewTerm(
+-        func=mdp.air_time_variance_penalty,
+-        weight=-1.0,
+-        params={"sensor_cfg": SceneEntityCfg("contact_forces", body_names=".*_foot")},
+-    )
+-    feet_slide = RewTerm(
+-        func=mdp.feet_slide,
+-        weight=-0.1,
+-        params={
+-            "asset_cfg": SceneEntityCfg("robot", body_names=".*_foot"),
+-            "sensor_cfg": SceneEntityCfg("contact_forces", body_names=".*_foot"),
+-        },
+-    )
+-    # feet_contact_forces = RewTerm(
+-    #     func=mdp.contact_forces,
+-    #     weight=-0.02,
+-    #     params={
+-    #         "threshold": 100.0,
+-    #         "sensor_cfg": SceneEntityCfg("contact_forces", body_names=".*_foot"),
+-    #     },
+-    # )
+-
+-    # -- other
+-    undesired_contacts = RewTerm(
+-        func=mdp.undesired_contacts,
+-        weight=-1,
+-        params={
+-            "threshold": 1,
+-            "sensor_cfg": SceneEntityCfg("contact_forces", body_names=["Head_.*", ".*_hip", ".*_thigh", ".*_calf"]),
+-        },
+-    )
+-
+-
+-@configclass
+-class TerminationsCfg:
+-    """Termination terms for the MDP."""
+-
+-    time_out = DoneTerm(func=mdp.time_out, time_out=True)
+-    base_contact = DoneTerm(
+-        func=mdp.illegal_contact,
+-        params={"sensor_cfg": SceneEntityCfg("contact_forces", body_names="base"), "threshold": 1.0},
+-    )
+-    bad_orientation = DoneTerm(func=mdp.bad_orientation, params={"limit_angle": 0.8})
+-
+-
+-@configclass
+-class CurriculumCfg:
+-    """Curriculum terms for the MDP."""
+-
+-    terrain_levels = CurrTerm(func=mdp.terrain_levels_vel)
+-    lin_vel_cmd_levels = CurrTerm(mdp.lin_vel_cmd_levels)
+-
+-
+-@configclass
+-class RobotEnvCfg(ManagerBasedRLEnvCfg):
+-    """Configuration for the locomotion velocity-tracking environment."""
+-
+-    # Scene settings
+-    scene: RobotSceneCfg = RobotSceneCfg(num_envs=4096, env_spacing=2.5)
+-    # Basic settings
+-    observations: ObservationsCfg = ObservationsCfg()
+-    actions: ActionsCfg = ActionsCfg()
+-    commands: CommandsCfg = CommandsCfg()
+-    # MDP settings
+-    rewards: RewardsCfg = RewardsCfg()
+-    terminations: TerminationsCfg = TerminationsCfg()
+-    events: EventCfg = EventCfg()
+-    curriculum: CurriculumCfg = CurriculumCfg()
+-
+-    def __post_init__(self):
+-        """Post initialization."""
+-        # general settings
+-        self.decimation = 4
+-        self.episode_length_s = 20.0
+-        # simulation settings
+-        self.sim.dt = 0.005
+-        self.sim.render_interval = self.decimation
+-        self.sim.physics_material = self.scene.terrain.physics_material
+-        self.sim.physx.gpu_max_rigid_patch_count = 10 * 2**15
+-
+-        # update sensor update periods
+-        # we tick all the sensors based on the smallest update period (physics update period)
+-        self.scene.contact_forces.update_period = self.sim.dt
+-        self.scene.height_scanner.update_period = self.decimation * self.sim.dt
+-
+-        # check if terrain levels curriculum is enabled - if so, enable curriculum for terrain generator
+-        # this generates terrains with increasing difficulty and is useful for training
+-        if getattr(self.curriculum, "terrain_levels", None) is not None:
+-            if self.scene.terrain.terrain_generator is not None:
+-                self.scene.terrain.terrain_generator.curriculum = True
+-        else:
+-            if self.scene.terrain.terrain_generator is not None:
+-                self.scene.terrain.terrain_generator.curriculum = False
+-
+-
+-@configclass
+-class RobotPlayEnvCfg(RobotEnvCfg):
+-    def __post_init__(self):
+-        super().__post_init__()
+-        self.scene.num_envs = 32
+-        self.scene.terrain.terrain_generator.num_rows = 2
+-        self.scene.terrain.terrain_generator.num_cols = 1
+-        self.commands.base_velocity.ranges = self.commands.base_velocity.limit_ranges
+diff --git a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/events.out.tfevents.1790763904.robot.60656.0 b/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/events.out.tfevents.1790763904.robot.60656.0
+deleted file mode 100644
+index 274dcc9..0000000
+Binary files a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/events.out.tfevents.1790763904.robot.60656.0 and /dev/null differ
+diff --git a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/git/unitree_rl_lab.diff b/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/git/unitree_rl_lab.diff
+deleted file mode 100644
+index 8853baf..0000000
+--- a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/git/unitree_rl_lab.diff
++++ /dev/null
+@@ -1,28 +0,0 @@
+---- git status ---
+-On branch main
+-Your branch is up to date with 'origin/main'.
+-
+-Changes not staged for commit:
+-  (use "git add <file>..." to update what will be committed)
+-  (use "git restore <file>..." to discard changes in working directory)
+-	modified:   source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py
+-
+-no changes added to commit (use "git add" and/or "git commit -a") 
+-
+-
+---- git diff ---
+-diff --git a/source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py b/source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py
+-index e78413a..ff1545f 100644
+---- a/source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py
+-+++ b/source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py
+-@@ -17,8 +17,8 @@ from isaaclab.utils import configclass
+- 
+- from unitree_rl_lab.assets.robots import unitree_actuators
+- 
+--UNITREE_MODEL_DIR = "path/to/unitree_model"  # Replace with the actual path to your unitree_model directory
+--UNITREE_ROS_DIR = "path/to/unitree_ros"  # Replace with the actual path to your unitree_ros package
+-+UNITREE_MODEL_DIR = "/home/nood/仿真/unitree_model"  # Replace with the actual path to your unitree_model directory
+-+UNITREE_ROS_DIR = "/home/nood/仿真/unitree_ros"  # Replace with the actual path to your unitree_ros package
+- 
+- 
+- @configclass
+\ No newline at end of file
+diff --git a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/model_0.pt b/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/model_0.pt
+deleted file mode 100644
+index 6a63cf8..0000000
+Binary files a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/model_0.pt and /dev/null differ
+diff --git a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/params/agent.yaml b/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/params/agent.yaml
+deleted file mode 100644
+index e1c2df3..0000000
+--- a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/params/agent.yaml
++++ /dev/null
+@@ -1,49 +0,0 @@
+-seed: 42
+-device: cuda:0
+-num_steps_per_env: 24
+-max_iterations: 15000
+-empirical_normalization: false
+-obs_groups: {}
+-clip_actions: null
+-save_interval: 100
+-experiment_name: unitree_go2_velocity
+-run_name: ''
+-logger: tensorboard
+-neptune_project: isaaclab
+-wandb_project: isaaclab
+-resume: false
+-load_run: .*
+-load_checkpoint: model_.*.pt
+-class_name: OnPolicyRunner
+-policy:
+-  class_name: ActorCritic
+-  init_noise_std: 1.0
+-  noise_std_type: scalar
+-  actor_obs_normalization: {}
+-  critic_obs_normalization: {}
+-  actor_hidden_dims:
+-  - 512
+-  - 256
+-  - 128
+-  critic_hidden_dims:
+-  - 512
+-  - 256
+-  - 128
+-  activation: elu
+-algorithm:
+-  class_name: PPO
+-  num_learning_epochs: 5
+-  num_mini_batches: 4
+-  learning_rate: 0.001
+-  schedule: adaptive
+-  gamma: 0.99
+-  lam: 0.95
+-  entropy_coef: 0.01
+-  desired_kl: 0.01
+-  max_grad_norm: 1.0
+-  value_loss_coef: 1.0
+-  use_clipped_value_loss: true
+-  clip_param: 0.2
+-  normalize_advantage_per_mini_batch: false
+-  rnd_cfg: null
+-  symmetry_cfg: null
+diff --git a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/params/deploy.yaml b/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/params/deploy.yaml
+deleted file mode 100644
+index d39d1c3..0000000
+--- a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/params/deploy.yaml
++++ /dev/null
+@@ -1,62 +0,0 @@
+-joint_ids_map: [3, 0, 9, 6, 4, 1, 10, 7, 5, 2, 11, 8]
+-step_dt: 0.02
+-stiffness: [25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0]
+-damping: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
+-default_joint_pos: [0.1, -0.1, 0.1, -0.1, 0.8, 0.8, 1.0, 1.0, -1.5, -1.5, -1.5, -1.5]
+-commands:
+-  base_velocity:
+-    ranges:
+-      lin_vel_x: [-1.0, 1.0]
+-      lin_vel_y: [-0.4, 0.4]
+-      ang_vel_z: [-1.0, 1.0]
+-      heading: null
+-actions:
+-  JointPositionAction:
+-    clip:
+-    - [-100.0, 100.0]
+-    - [-100.0, 100.0]
+-    - [-100.0, 100.0]
+-    - [-100.0, 100.0]
+-    - [-100.0, 100.0]
+-    - [-100.0, 100.0]
+-    - [-100.0, 100.0]
+-    - [-100.0, 100.0]
+-    - [-100.0, 100.0]
+-    - [-100.0, 100.0]
+-    - [-100.0, 100.0]
+-    - [-100.0, 100.0]
+-    joint_names: [.*]
+-    scale: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25]
+-    offset: [0.1, -0.1, 0.1, -0.1, 0.8, 0.8, 1.0, 1.0, -1.5, -1.5, -1.5, -1.5]
+-    joint_ids: null
+-observations:
+-  base_ang_vel:
+-    params: {}
+-    clip: [-100, 100]
+-    scale: [0.2, 0.2, 0.2]
+-    history_length: 1
+-  projected_gravity:
+-    params: {}
+-    clip: [-100, 100]
+-    scale: [1.0, 1.0, 1.0]
+-    history_length: 1
+-  velocity_commands:
+-    params: {command_name: base_velocity}
+-    clip: [-100, 100]
+-    scale: [1.0, 1.0, 1.0]
+-    history_length: 1
+-  joint_pos_rel:
+-    params: {}
+-    clip: [-100, 100]
+-    scale: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+-    history_length: 1
+-  joint_vel_rel:
+-    params: {}
+-    clip: [-100, 100]
+-    scale: [0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05]
+-    history_length: 1
+-  last_action:
+-    params: {}
+-    clip: [-100, 100]
+-    scale: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+-    history_length: 1
+diff --git a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/params/env.yaml b/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/params/env.yaml
+deleted file mode 100644
+index b4830cc..0000000
+--- a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/params/env.yaml
++++ /dev/null
+@@ -1,1192 +0,0 @@
+-viewer:
+-  eye: !!python/tuple
+-  - 7.5
+-  - 7.5
+-  - 7.5
+-  lookat: !!python/tuple
+-  - 0.0
+-  - 0.0
+-  - 0.0
+-  cam_prim_path: /OmniverseKit_Persp
+-  resolution: !!python/tuple
+-  - 1280
+-  - 720
+-  origin_type: world
+-  env_index: 0
+-  asset_name: null
+-  body_name: null
+-sim:
+-  physics_prim_path: /physicsScene
+-  device: cuda:0
+-  dt: 0.005
+-  render_interval: 4
+-  gravity: !!python/tuple
+-  - 0.0
+-  - 0.0
+-  - -9.81
+-  enable_scene_query_support: false
+-  use_fabric: true
+-  physx:
+-    solver_type: 1
+-    min_position_iteration_count: 1
+-    max_position_iteration_count: 255
+-    min_velocity_iteration_count: 0
+-    max_velocity_iteration_count: 255
+-    enable_ccd: false
+-    enable_stabilization: false
+-    enable_enhanced_determinism: false
+-    bounce_threshold_velocity: 0.5
+-    friction_offset_threshold: 0.04
+-    friction_correlation_distance: 0.025
+-    gpu_max_rigid_contact_count: 8388608
+-    gpu_max_rigid_patch_count: 327680
+-    gpu_found_lost_pairs_capacity: 2097152
+-    gpu_found_lost_aggregate_pairs_capacity: 33554432
+-    gpu_total_aggregate_pairs_capacity: 2097152
+-    gpu_collision_stack_size: 67108864
+-    gpu_heap_capacity: 67108864
+-    gpu_temp_buffer_capacity: 16777216
+-    gpu_max_num_partitions: 8
+-    gpu_max_soft_body_contacts: 1048576
+-    gpu_max_particle_contacts: 1048576
+-    solve_articulation_contact_last: false
+-  physics_material:
+-    func: isaaclab.sim.spawners.materials.physics_materials:spawn_rigid_body_material
+-    static_friction: 1.0
+-    dynamic_friction: 1.0
+-    restitution: 0.0
+-    friction_combine_mode: multiply
+-    restitution_combine_mode: multiply
+-    compliant_contact_stiffness: 0.0
+-    compliant_contact_damping: 0.0
+-  render:
+-    enable_translucency: null
+-    enable_reflections: null
+-    enable_global_illumination: null
+-    antialiasing_mode: null
+-    enable_dlssg: null
+-    enable_dl_denoiser: null
+-    dlss_mode: null
+-    enable_direct_lighting: null
+-    samples_per_pixel: null
+-    enable_shadows: null
+-    enable_ambient_occlusion: null
+-    dome_light_upper_lower_strategy: null
+-    carb_settings: null
+-    rendering_mode: null
+-  create_stage_in_memory: false
+-ui_window_class_type: isaaclab.envs.ui.manager_based_rl_env_window:ManagerBasedRLEnvWindow
+-seed: 42
+-decimation: 4
+-scene:
+-  num_envs: 4096
+-  env_spacing: 2.5
+-  lazy_sensor_update: true
+-  replicate_physics: true
+-  filter_collisions: true
+-  clone_in_fabric: false
+-  robot:
+-    class_type: isaaclab.assets.articulation.articulation:Articulation
+-    prim_path: /World/envs/env_.*/Robot
+-    spawn:
+-      func: isaaclab.sim.spawners.from_files.from_files:spawn_from_usd
+-      visible: true
+-      semantic_tags: null
+-      copy_from_source: true
+-      mass_props: null
+-      deformable_props: null
+-      rigid_props:
+-        rigid_body_enabled: null
+-        kinematic_enabled: null
+-        disable_gravity: false
+-        linear_damping: 0.0
+-        angular_damping: 0.0
+-        max_linear_velocity: 1000.0
+-        max_angular_velocity: 1000.0
+-        max_depenetration_velocity: 1.0
+-        max_contact_impulse: null
+-        enable_gyroscopic_forces: null
+-        retain_accelerations: false
+-        solver_position_iteration_count: null
+-        solver_velocity_iteration_count: null
+-        sleep_threshold: null
+-        stabilization_threshold: null
+-      collision_props: null
+-      activate_contact_sensors: true
+-      scale: null
+-      articulation_props:
+-        articulation_enabled: null
+-        enabled_self_collisions: true
+-        solver_position_iteration_count: 8
+-        solver_velocity_iteration_count: 4
+-        sleep_threshold: null
+-        stabilization_threshold: null
+-        fix_root_link: null
+-      fixed_tendons_props: null
+-      spatial_tendons_props: null
+-      joint_drive_props: null
+-      visual_material_path: material
+-      visual_material: null
+-      usd_path: "/home/nood/\u4EFF\u771F/unitree_model/Go2/usd/go2.usd"
+-      variants: null
+-    init_state:
+-      pos: !!python/tuple
+-      - 0.0
+-      - 0.0
+-      - 0.4
+-      rot: !!python/tuple
+-      - 1.0
+-      - 0.0
+-      - 0.0
+-      - 0.0
+-      lin_vel: !!python/tuple
+-      - 0.0
+-      - 0.0
+-      - 0.0
+-      ang_vel: !!python/tuple
+-      - 0.0
+-      - 0.0
+-      - 0.0
+-      joint_pos:
+-        .*R_hip_joint: -0.1
+-        .*L_hip_joint: 0.1
+-        F[L,R]_thigh_joint: 0.8
+-        R[L,R]_thigh_joint: 1.0
+-        .*_calf_joint: -1.5
+-      joint_vel:
+-        .*: 0.0
+-    collision_group: 0
+-    debug_vis: false
+-    articulation_root_prim_path: null
+-    soft_joint_pos_limit_factor: 0.9
+-    actuators:
+-      GO2HV:
+-        class_type: unitree_rl_lab.assets.robots.unitree_actuators:UnitreeActuator
+-        joint_names_expr:
+-        - .*
+-        effort_limit: null
+-        velocity_limit: null
+-        effort_limit_sim: null
+-        velocity_limit_sim: null
+-        stiffness: 25.0
+-        damping: 0.5
+-        armature: null
+-        friction: 0.01
+-        dynamic_friction: null
+-        viscous_friction: null
+-        min_delay: 0
+-        max_delay: 0
+-        X1: 13.5
+-        X2: 30
+-        Y1: 20.2
+-        Y2: 23.4
+-        Fs: 0.0
+-        Fd: 0.0
+-        Va: 0.01
+-    actuator_value_resolution_debug_print: false
+-    joint_sdk_names:
+-    - FR_hip_joint
+-    - FR_thigh_joint
+-    - FR_calf_joint
+-    - FL_hip_joint
+-    - FL_thigh_joint
+-    - FL_calf_joint
+-    - RR_hip_joint
+-    - RR_thigh_joint
+-    - RR_calf_joint
+-    - RL_hip_joint
+-    - RL_thigh_joint
+-    - RL_calf_joint
+-  terrain:
+-    class_type: isaaclab.terrains.terrain_importer:TerrainImporter
+-    collision_group: -1
+-    prim_path: /World/ground
+-    num_envs: 4096
+-    terrain_type: generator
+-    terrain_generator:
+-      class_type: isaaclab.terrains.terrain_generator:TerrainGenerator
+-      seed: null
+-      curriculum: true
+-      size: !!python/tuple
+-      - 8.0
+-      - 8.0
+-      border_width: 20.0
+-      border_height: 1.0
+-      num_rows: 10
+-      num_cols: 20
+-      color_scheme: none
+-      horizontal_scale: 0.1
+-      vertical_scale: 0.005
+-      slope_threshold: 0.75
+-      sub_terrains:
+-        flat:
+-          function: isaaclab.terrains.trimesh.mesh_terrains:flat_terrain
+-          proportion: 0.1
+-          size: !!python/tuple
+-          - 8.0
+-          - 8.0
+-          flat_patch_sampling: null
+-      difficulty_range: !!python/tuple
+-      - 0.0
+-      - 1.0
+-      use_cache: false
+-      cache_dir: /tmp/isaaclab/terrains
+-    usd_path: null
+-    env_spacing: 2.5
+-    visual_material:
+-      func: isaaclab.sim.spawners.materials.visual_materials:spawn_from_mdl_file
+-      mdl_path: https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned.mdl
+-      project_uvw: true
+-      albedo_brightness: null
+-      texture_scale: !!python/tuple
+-      - 0.25
+-      - 0.25
+-    physics_material:
+-      func: isaaclab.sim.spawners.materials.physics_materials:spawn_rigid_body_material
+-      static_friction: 1.0
+-      dynamic_friction: 1.0
+-      restitution: 0.0
+-      friction_combine_mode: multiply
+-      restitution_combine_mode: multiply
+-      compliant_contact_stiffness: 0.0
+-      compliant_contact_damping: 0.0
+-    max_init_terrain_level: 1
+-    debug_vis: false
+-  height_scanner:
+-    class_type: isaaclab.sensors.ray_caster.ray_caster:RayCaster
+-    prim_path: /World/envs/env_.*/Robot/base
+-    update_period: 0.02
+-    history_length: 0
+-    debug_vis: false
+-    mesh_prim_paths:
+-    - /World/ground
+-    offset:
+-      pos: !!python/tuple
+-      - 0.0
+-      - 0.0
+-      - 20.0
+-      rot: !!python/tuple
+-      - 1.0
+-      - 0.0
+-      - 0.0
+-      - 0.0
+-    attach_yaw_only: null
+-    ray_alignment: yaw
+-    pattern_cfg:
+-      func: isaaclab.sensors.ray_caster.patterns.patterns:grid_pattern
+-      resolution: 0.1
+-      size:
+-      - 1.6
+-      - 1.0
+-      direction: !!python/tuple
+-      - 0.0
+-      - 0.0
+-      - -1.0
+-      ordering: xy
+-    max_distance: 1000000.0
+-    drift_range: !!python/tuple
+-    - 0.0
+-    - 0.0
+-    ray_cast_drift_range:
+-      x: !!python/tuple
+-      - 0.0
+-      - 0.0
+-      y: !!python/tuple
+-      - 0.0
+-      - 0.0
+-      z: !!python/tuple
+-      - 0.0
+-      - 0.0
+-    visualizer_cfg:
+-      prim_path: /Visuals/RayCaster
+-      markers:
+-        hit:
+-          func: isaaclab.sim.spawners.shapes.shapes:spawn_sphere
+-          visible: true
+-          semantic_tags: null
+-          copy_from_source: true
+-          mass_props: null
+-          rigid_props: null
+-          collision_props: null
+-          activate_contact_sensors: false
+-          visual_material_path: material
+-          visual_material:
+-            func: isaaclab.sim.spawners.materials.visual_materials:spawn_preview_surface
+-            diffuse_color: !!python/tuple
+-            - 1.0
+-            - 0.0
+-            - 0.0
+-            emissive_color: !!python/tuple
+-            - 0.0
+-            - 0.0
+-            - 0.0
+-            roughness: 0.5
+-            metallic: 0.0
+-            opacity: 1.0
+-          physics_material_path: material
+-          physics_material: null
+-          radius: 0.02
+-  contact_forces:
+-    class_type: isaaclab.sensors.contact_sensor.contact_sensor:ContactSensor
+-    prim_path: /World/envs/env_.*/Robot/.*
+-    update_period: 0.005
+-    history_length: 3
+-    debug_vis: false
+-    track_pose: false
+-    track_contact_points: false
+-    max_contact_data_count_per_prim: 4
+-    track_air_time: true
+-    force_threshold: 1.0
+-    filter_prim_paths_expr: []
+-    visualizer_cfg:
+-      prim_path: /Visuals/ContactSensor
+-      markers:
+-        contact:
+-          func: isaaclab.sim.spawners.shapes.shapes:spawn_sphere
+-          visible: true
+-          semantic_tags: null
+-          copy_from_source: true
+-          mass_props: null
+-          rigid_props: null
+-          collision_props: null
+-          activate_contact_sensors: false
+-          visual_material_path: material
+-          visual_material:
+-            func: isaaclab.sim.spawners.materials.visual_materials:spawn_preview_surface
+-            diffuse_color: !!python/tuple
+-            - 1.0
+-            - 0.0
+-            - 0.0
+-            emissive_color: !!python/tuple
+-            - 0.0
+-            - 0.0
+-            - 0.0
+-            roughness: 0.5
+-            metallic: 0.0
+-            opacity: 1.0
+-          physics_material_path: material
+-          physics_material: null
+-          radius: 0.02
+-        no_contact:
+-          func: isaaclab.sim.spawners.shapes.shapes:spawn_sphere
+-          visible: false
+-          semantic_tags: null
+-          copy_from_source: true
+-          mass_props: null
+-          rigid_props: null
+-          collision_props: null
+-          activate_contact_sensors: false
+-          visual_material_path: material
+-          visual_material:
+-            func: isaaclab.sim.spawners.materials.visual_materials:spawn_preview_surface
+-            diffuse_color: !!python/tuple
+-            - 0.0
+-            - 1.0
+-            - 0.0
+-            emissive_color: !!python/tuple
+-            - 0.0
+-            - 0.0
+-            - 0.0
+-            roughness: 0.5
+-            metallic: 0.0
+-            opacity: 1.0
+-          physics_material_path: material
+-          physics_material: null
+-          radius: 0.02
+-  sky_light:
+-    class_type: null
+-    prim_path: /World/skyLight
+-    spawn:
+-      func: isaaclab.sim.spawners.lights.lights:spawn_light
+-      visible: true
+-      semantic_tags: null
+-      copy_from_source: true
+-      prim_type: DomeLight
+-      color: !!python/tuple
+-      - 1.0
+-      - 1.0
+-      - 1.0
+-      enable_color_temperature: false
+-      color_temperature: 6500.0
+-      normalize: false
+-      exposure: 0.0
+-      intensity: 750.0
+-      texture_file: https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Materials/Textures/Skies/PolyHaven/kloofendal_43d_clear_puresky_4k.hdr
+-      texture_format: automatic
+-      visible_in_primary_ray: true
+-    init_state:
+-      pos: !!python/tuple
+-      - 0.0
+-      - 0.0
+-      - 0.0
+-      rot: !!python/tuple
+-      - 1.0
+-      - 0.0
+-      - 0.0
+-      - 0.0
+-    collision_group: 0
+-    debug_vis: false
+-recorders:
+-  dataset_file_handler_class_type: isaaclab.utils.datasets.hdf5_dataset_file_handler:HDF5DatasetFileHandler
+-  dataset_export_dir_path: /tmp/isaaclab/logs
+-  dataset_filename: dataset
+-  dataset_export_mode:
+-    _value_: 1
+-    _name_: EXPORT_ALL
+-    _sort_order_: 1
+-  export_in_record_pre_reset: true
+-observations:
+-  policy:
+-    concatenate_terms: true
+-    concatenate_dim: -1
+-    enable_corruption: true
+-    history_length: null
+-    flatten_history_dim: true
+-    base_ang_vel:
+-      func: isaaclab.envs.mdp.observations:base_ang_vel
+-      params: {}
+-      modifiers: null
+-      noise:
+-        func: isaaclab.utils.noise.noise_model:uniform_noise
+-        operation: add
+-        n_min: -0.2
+-        n_max: 0.2
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: 0.2
+-      history_length: 0
+-      flatten_history_dim: true
+-    projected_gravity:
+-      func: isaaclab.envs.mdp.observations:projected_gravity
+-      params: {}
+-      modifiers: null
+-      noise:
+-        func: isaaclab.utils.noise.noise_model:uniform_noise
+-        operation: add
+-        n_min: -0.05
+-        n_max: 0.05
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: null
+-      history_length: 0
+-      flatten_history_dim: true
+-    velocity_commands:
+-      func: isaaclab.envs.mdp.observations:generated_commands
+-      params:
+-        command_name: base_velocity
+-      modifiers: null
+-      noise: null
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: null
+-      history_length: 0
+-      flatten_history_dim: true
+-    joint_pos_rel:
+-      func: isaaclab.envs.mdp.observations:joint_pos_rel
+-      params: {}
+-      modifiers: null
+-      noise:
+-        func: isaaclab.utils.noise.noise_model:uniform_noise
+-        operation: add
+-        n_min: -0.01
+-        n_max: 0.01
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: null
+-      history_length: 0
+-      flatten_history_dim: true
+-    joint_vel_rel:
+-      func: isaaclab.envs.mdp.observations:joint_vel_rel
+-      params: {}
+-      modifiers: null
+-      noise:
+-        func: isaaclab.utils.noise.noise_model:uniform_noise
+-        operation: add
+-        n_min: -1.5
+-        n_max: 1.5
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: 0.05
+-      history_length: 0
+-      flatten_history_dim: true
+-    last_action:
+-      func: isaaclab.envs.mdp.observations:last_action
+-      params: {}
+-      modifiers: null
+-      noise: null
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: null
+-      history_length: 0
+-      flatten_history_dim: true
+-  critic:
+-    concatenate_terms: true
+-    concatenate_dim: -1
+-    enable_corruption: false
+-    history_length: null
+-    flatten_history_dim: true
+-    base_lin_vel:
+-      func: isaaclab.envs.mdp.observations:base_lin_vel
+-      params: {}
+-      modifiers: null
+-      noise: null
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: null
+-      history_length: 0
+-      flatten_history_dim: true
+-    base_ang_vel:
+-      func: isaaclab.envs.mdp.observations:base_ang_vel
+-      params: {}
+-      modifiers: null
+-      noise: null
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: 0.2
+-      history_length: 0
+-      flatten_history_dim: true
+-    projected_gravity:
+-      func: isaaclab.envs.mdp.observations:projected_gravity
+-      params: {}
+-      modifiers: null
+-      noise: null
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: null
+-      history_length: 0
+-      flatten_history_dim: true
+-    velocity_commands:
+-      func: isaaclab.envs.mdp.observations:generated_commands
+-      params:
+-        command_name: base_velocity
+-      modifiers: null
+-      noise: null
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: null
+-      history_length: 0
+-      flatten_history_dim: true
+-    joint_pos_rel:
+-      func: isaaclab.envs.mdp.observations:joint_pos_rel
+-      params: {}
+-      modifiers: null
+-      noise: null
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: null
+-      history_length: 0
+-      flatten_history_dim: true
+-    joint_vel_rel:
+-      func: isaaclab.envs.mdp.observations:joint_vel_rel
+-      params: {}
+-      modifiers: null
+-      noise: null
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: 0.05
+-      history_length: 0
+-      flatten_history_dim: true
+-    joint_effort:
+-      func: isaaclab.envs.mdp.observations:joint_effort
+-      params: {}
+-      modifiers: null
+-      noise: null
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: 0.01
+-      history_length: 0
+-      flatten_history_dim: true
+-    last_action:
+-      func: isaaclab.envs.mdp.observations:last_action
+-      params: {}
+-      modifiers: null
+-      noise: null
+-      clip: !!python/tuple
+-      - -100
+-      - 100
+-      scale: null
+-      history_length: 0
+-      flatten_history_dim: true
+-actions:
+-  JointPositionAction:
+-    class_type: isaaclab.envs.mdp.actions.joint_actions:JointPositionAction
+-    asset_name: robot
+-    debug_vis: false
+-    clip:
+-      .*: !!python/tuple
+-      - -100.0
+-      - 100.0
+-    joint_names:
+-    - .*
+-    scale: 0.25
+-    offset: 0.0
+-    preserve_order: false
+-    use_default_offset: true
+-events:
+-  physics_material:
+-    func: isaaclab.envs.mdp.events:randomize_rigid_body_material
+-    params:
+-      asset_cfg:
+-        name: robot
+-        joint_names: null
+-        joint_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        fixed_tendon_names: null
+-        fixed_tendon_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        body_names: .*
+-        body_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        object_collection_names: null
+-        object_collection_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        preserve_order: false
+-      static_friction_range: !!python/tuple
+-      - 0.3
+-      - 1.2
+-      dynamic_friction_range: !!python/tuple
+-      - 0.3
+-      - 1.2
+-      restitution_range: !!python/tuple
+-      - 0.0
+-      - 0.15
+-      num_buckets: 64
+-    mode: startup
+-    interval_range_s: null
+-    is_global_time: false
+-    min_step_count_between_reset: 0
+-  add_base_mass:
+-    func: isaaclab.envs.mdp.events:randomize_rigid_body_mass
+-    params:
+-      asset_cfg:
+-        name: robot
+-        joint_names: null
+-        joint_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        fixed_tendon_names: null
+-        fixed_tendon_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        body_names: base
+-        body_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        object_collection_names: null
+-        object_collection_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        preserve_order: false
+-      mass_distribution_params: !!python/tuple
+-      - -1.0
+-      - 3.0
+-      operation: add
+-    mode: startup
+-    interval_range_s: null
+-    is_global_time: false
+-    min_step_count_between_reset: 0
+-  base_external_force_torque:
+-    func: isaaclab.envs.mdp.events:apply_external_force_torque
+-    params:
+-      asset_cfg:
+-        name: robot
+-        joint_names: null
+-        joint_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        fixed_tendon_names: null
+-        fixed_tendon_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        body_names: base
+-        body_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        object_collection_names: null
+-        object_collection_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        preserve_order: false
+-      force_range: !!python/tuple
+-      - 0.0
+-      - 0.0
+-      torque_range: !!python/tuple
+-      - -0.0
+-      - 0.0
+-    mode: reset
+-    interval_range_s: null
+-    is_global_time: false
+-    min_step_count_between_reset: 0
+-  reset_base:
+-    func: isaaclab.envs.mdp.events:reset_root_state_uniform
+-    params:
+-      pose_range:
+-        x: !!python/tuple
+-        - -0.5
+-        - 0.5
+-        y: !!python/tuple
+-        - -0.5
+-        - 0.5
+-        yaw: !!python/tuple
+-        - -3.14
+-        - 3.14
+-      velocity_range:
+-        x: !!python/tuple
+-        - 0.0
+-        - 0.0
+-        y: !!python/tuple
+-        - 0.0
+-        - 0.0
+-        z: !!python/tuple
+-        - 0.0
+-        - 0.0
+-        roll: !!python/tuple
+-        - 0.0
+-        - 0.0
+-        pitch: !!python/tuple
+-        - 0.0
+-        - 0.0
+-        yaw: !!python/tuple
+-        - 0.0
+-        - 0.0
+-    mode: reset
+-    interval_range_s: null
+-    is_global_time: false
+-    min_step_count_between_reset: 0
+-  reset_robot_joints:
+-    func: isaaclab.envs.mdp.events:reset_joints_by_scale
+-    params:
+-      position_range: !!python/tuple
+-      - 1.0
+-      - 1.0
+-      velocity_range: !!python/tuple
+-      - -1.0
+-      - 1.0
+-    mode: reset
+-    interval_range_s: null
+-    is_global_time: false
+-    min_step_count_between_reset: 0
+-  push_robot:
+-    func: isaaclab.envs.mdp.events:push_by_setting_velocity
+-    params:
+-      velocity_range:
+-        x: !!python/tuple
+-        - -0.5
+-        - 0.5
+-        y: !!python/tuple
+-        - -0.5
+-        - 0.5
+-    mode: interval
+-    interval_range_s: !!python/tuple
+-    - 5.0
+-    - 10.0
+-    is_global_time: false
+-    min_step_count_between_reset: 0
+-rerender_on_reset: false
+-wait_for_textures: true
+-xr: null
+-teleop_devices:
+-  devices: {}
+-export_io_descriptors: false
+-io_descriptors_output_dir: null
+-log_dir: null
+-is_finite_horizon: false
+-episode_length_s: 20.0
+-rewards:
+-  track_lin_vel_xy:
+-    func: isaaclab.envs.mdp.rewards:track_lin_vel_xy_exp
+-    params:
+-      command_name: base_velocity
+-      std: 0.5
+-    weight: 1.5
+-  track_ang_vel_z:
+-    func: isaaclab.envs.mdp.rewards:track_ang_vel_z_exp
+-    params:
+-      command_name: base_velocity
+-      std: 0.5
+-    weight: 0.75
+-  base_linear_velocity:
+-    func: isaaclab.envs.mdp.rewards:lin_vel_z_l2
+-    params: {}
+-    weight: -2.0
+-  base_angular_velocity:
+-    func: isaaclab.envs.mdp.rewards:ang_vel_xy_l2
+-    params: {}
+-    weight: -0.05
+-  joint_vel:
+-    func: isaaclab.envs.mdp.rewards:joint_vel_l2
+-    params: {}
+-    weight: -0.001
+-  joint_acc:
+-    func: isaaclab.envs.mdp.rewards:joint_acc_l2
+-    params: {}
+-    weight: -2.5e-07
+-  joint_torques:
+-    func: isaaclab.envs.mdp.rewards:joint_torques_l2
+-    params: {}
+-    weight: -0.0002
+-  action_rate:
+-    func: isaaclab.envs.mdp.rewards:action_rate_l2
+-    params: {}
+-    weight: -0.1
+-  dof_pos_limits:
+-    func: isaaclab.envs.mdp.rewards:joint_pos_limits
+-    params: {}
+-    weight: -10.0
+-  energy:
+-    func: unitree_rl_lab.tasks.locomotion.mdp.rewards:energy
+-    params: {}
+-    weight: -2.0e-05
+-  flat_orientation_l2:
+-    func: isaaclab.envs.mdp.rewards:flat_orientation_l2
+-    params: {}
+-    weight: -2.5
+-  joint_pos:
+-    func: unitree_rl_lab.tasks.locomotion.mdp.rewards:joint_position_penalty
+-    params:
+-      asset_cfg:
+-        name: robot
+-        joint_names: .*
+-        joint_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        fixed_tendon_names: null
+-        fixed_tendon_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        body_names: null
+-        body_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        object_collection_names: null
+-        object_collection_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        preserve_order: false
+-      stand_still_scale: 5.0
+-      velocity_threshold: 0.3
+-    weight: -0.7
+-  feet_air_time:
+-    func: isaaclab_tasks.manager_based.locomotion.velocity.mdp.rewards:feet_air_time
+-    params:
+-      sensor_cfg:
+-        name: contact_forces
+-        joint_names: null
+-        joint_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        fixed_tendon_names: null
+-        fixed_tendon_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        body_names: .*_foot
+-        body_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        object_collection_names: null
+-        object_collection_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        preserve_order: false
+-      command_name: base_velocity
+-      threshold: 0.5
+-    weight: 0.1
+-  air_time_variance:
+-    func: unitree_rl_lab.tasks.locomotion.mdp.rewards:air_time_variance_penalty
+-    params:
+-      sensor_cfg:
+-        name: contact_forces
+-        joint_names: null
+-        joint_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        fixed_tendon_names: null
+-        fixed_tendon_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        body_names: .*_foot
+-        body_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        object_collection_names: null
+-        object_collection_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        preserve_order: false
+-    weight: -1.0
+-  feet_slide:
+-    func: isaaclab_tasks.manager_based.locomotion.velocity.mdp.rewards:feet_slide
+-    params:
+-      asset_cfg:
+-        name: robot
+-        joint_names: null
+-        joint_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        fixed_tendon_names: null
+-        fixed_tendon_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        body_names: .*_foot
+-        body_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        object_collection_names: null
+-        object_collection_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        preserve_order: false
+-      sensor_cfg:
+-        name: contact_forces
+-        joint_names: null
+-        joint_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        fixed_tendon_names: null
+-        fixed_tendon_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        body_names: .*_foot
+-        body_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        object_collection_names: null
+-        object_collection_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        preserve_order: false
+-    weight: -0.1
+-  undesired_contacts:
+-    func: isaaclab.envs.mdp.rewards:undesired_contacts
+-    params:
+-      threshold: 1
+-      sensor_cfg:
+-        name: contact_forces
+-        joint_names: null
+-        joint_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        fixed_tendon_names: null
+-        fixed_tendon_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        body_names:
+-        - Head_.*
+-        - .*_hip
+-        - .*_thigh
+-        - .*_calf
+-        body_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        object_collection_names: null
+-        object_collection_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        preserve_order: false
+-    weight: -1
+-terminations:
+-  time_out:
+-    func: isaaclab.envs.mdp.terminations:time_out
+-    params: {}
+-    time_out: true
+-  base_contact:
+-    func: isaaclab.envs.mdp.terminations:illegal_contact
+-    params:
+-      sensor_cfg:
+-        name: contact_forces
+-        joint_names: null
+-        joint_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        fixed_tendon_names: null
+-        fixed_tendon_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        body_names: base
+-        body_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        object_collection_names: null
+-        object_collection_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        preserve_order: false
+-      threshold: 1.0
+-    time_out: false
+-  bad_orientation:
+-    func: isaaclab.envs.mdp.terminations:bad_orientation
+-    params:
+-      limit_angle: 0.8
+-    time_out: false
+-curriculum:
+-  terrain_levels:
+-    func: isaaclab_tasks.manager_based.locomotion.velocity.mdp.curriculums:terrain_levels_vel
+-    params: {}
+-  lin_vel_cmd_levels:
+-    func: unitree_rl_lab.tasks.locomotion.mdp.curriculums:lin_vel_cmd_levels
+-    params: {}
+-commands:
+-  base_velocity:
+-    class_type: isaaclab.envs.mdp.commands.velocity_command:UniformVelocityCommand
+-    resampling_time_range: !!python/tuple
+-    - 10.0
+-    - 10.0
+-    debug_vis: true
+-    asset_name: robot
+-    heading_command: false
+-    heading_control_stiffness: 1.0
+-    rel_standing_envs: 0.1
+-    rel_heading_envs: 1.0
+-    ranges:
+-      lin_vel_x: !!python/tuple
+-      - -0.1
+-      - 0.1
+-      lin_vel_y: !!python/tuple
+-      - -0.1
+-      - 0.1
+-      ang_vel_z: !!python/tuple
+-      - -1
+-      - 1
+-      heading: null
+-    goal_vel_visualizer_cfg:
+-      prim_path: /Visuals/Command/velocity_goal
+-      markers:
+-        arrow:
+-          func: isaaclab.sim.spawners.from_files.from_files:spawn_from_usd
+-          visible: true
+-          semantic_tags: null
+-          copy_from_source: true
+-          mass_props: null
+-          deformable_props: null
+-          rigid_props: null
+-          collision_props: null
+-          activate_contact_sensors: false
+-          scale: !!python/tuple
+-          - 0.5
+-          - 0.5
+-          - 0.5
+-          articulation_props: null
+-          fixed_tendons_props: null
+-          spatial_tendons_props: null
+-          joint_drive_props: null
+-          visual_material_path: material
+-          visual_material:
+-            func: isaaclab.sim.spawners.materials.visual_materials:spawn_preview_surface
+-            diffuse_color: !!python/tuple
+-            - 0.0
+-            - 1.0
+-            - 0.0
+-            emissive_color: !!python/tuple
+-            - 0.0
+-            - 0.0
+-            - 0.0
+-            roughness: 0.5
+-            metallic: 0.0
+-            opacity: 1.0
+-          usd_path: https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Props/UIElements/arrow_x.usd
+-          variants: null
+-    current_vel_visualizer_cfg:
+-      prim_path: /Visuals/Command/velocity_current
+-      markers:
+-        arrow:
+-          func: isaaclab.sim.spawners.from_files.from_files:spawn_from_usd
+-          visible: true
+-          semantic_tags: null
+-          copy_from_source: true
+-          mass_props: null
+-          deformable_props: null
+-          rigid_props: null
+-          collision_props: null
+-          activate_contact_sensors: false
+-          scale: !!python/tuple
+-          - 0.5
+-          - 0.5
+-          - 0.5
+-          articulation_props: null
+-          fixed_tendons_props: null
+-          spatial_tendons_props: null
+-          joint_drive_props: null
+-          visual_material_path: material
+-          visual_material:
+-            func: isaaclab.sim.spawners.materials.visual_materials:spawn_preview_surface
+-            diffuse_color: !!python/tuple
+-            - 0.0
+-            - 0.0
+-            - 1.0
+-            emissive_color: !!python/tuple
+-            - 0.0
+-            - 0.0
+-            - 0.0
+-            roughness: 0.5
+-            metallic: 0.0
+-            opacity: 1.0
+-          usd_path: https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Props/UIElements/arrow_x.usd
+-          variants: null
+-    limit_ranges:
+-      lin_vel_x: !!python/tuple
+-      - -1.0
+-      - 1.0
+-      lin_vel_y: !!python/tuple
+-      - -0.4
+-      - 0.4
+-      ang_vel_z: !!python/tuple
+-      - -1.0
+-      - 1.0
+-      heading: null
+diff --git a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/params/velocity_env_cfg.py b/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/params/velocity_env_cfg.py
+deleted file mode 100644
+index 7496d76..0000000
+--- a/unitree_rl_lab/logs/rsl_rl/unitree_go2_velocity/2026-09-30_18-24-54/params/velocity_env_cfg.py
++++ /dev/null
+@@ -1,415 +0,0 @@
+-import math
+-
+-import isaaclab.sim as sim_utils
+-import isaaclab.terrains as terrain_gen
+-from isaaclab.assets import ArticulationCfg, AssetBaseCfg
+-from isaaclab.envs import ManagerBasedRLEnvCfg
+-from isaaclab.managers import CurriculumTermCfg as CurrTerm
+-from isaaclab.managers import EventTermCfg as EventTerm
+-from isaaclab.managers import ObservationGroupCfg as ObsGroup
+-from isaaclab.managers import ObservationTermCfg as ObsTerm
+-from isaaclab.managers import RewardTermCfg as RewTerm
+-from isaaclab.managers import SceneEntityCfg
+-from isaaclab.managers import TerminationTermCfg as DoneTerm
+-from isaaclab.scene import InteractiveSceneCfg
+-from isaaclab.sensors import ContactSensorCfg, RayCasterCfg, patterns
+-from isaaclab.terrains import TerrainImporterCfg
+-from isaaclab.utils import configclass
+-from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR, ISAACLAB_NUCLEUS_DIR
+-from isaaclab.utils.noise import AdditiveUniformNoiseCfg as Unoise
+-
+-from unitree_rl_lab.assets.robots.unitree import UNITREE_GO2_CFG as ROBOT_CFG
+-from unitree_rl_lab.tasks.locomotion import mdp
+-
+-COBBLESTONE_ROAD_CFG = terrain_gen.TerrainGeneratorCfg(
+-    size=(8.0, 8.0),
+-    border_width=20.0,
+-    num_rows=10,
+-    num_cols=20,
+-    horizontal_scale=0.1,
+-    vertical_scale=0.005,
+-    slope_threshold=0.75,
+-    difficulty_range=(0.0, 1.0),
+-    use_cache=False,
+-    sub_terrains={
+-        "flat": terrain_gen.MeshPlaneTerrainCfg(proportion=0.1),
+-        # "random_rough": terrain_gen.HfRandomUniformTerrainCfg(
+-        #     proportion=0.1, noise_range=(0.01, 0.06), noise_step=0.01, border_width=0.25
+-        # ),
+-        # "hf_pyramid_slope": terrain_gen.HfPyramidSlopedTerrainCfg(
+-        #     proportion=0.1, slope_range=(0.0, 0.4), platform_width=2.0, border_width=0.25
+-        # ),
+-        # "hf_pyramid_slope_inv": terrain_gen.HfInvertedPyramidSlopedTerrainCfg(
+-        #     proportion=0.1, slope_range=(0.0, 0.4), platform_width=2.0, border_width=0.25
+-        # ),
+-        # "boxes": terrain_gen.MeshRandomGridTerrainCfg(
+-        #     proportion=0.2, grid_width=0.45, grid_height_range=(0.05, 0.2), platform_width=2.0
+-        # ),
+-        # "pyramid_stairs": terrain_gen.MeshPyramidStairsTerrainCfg(
+-        #     proportion=0.2,
+-        #     step_height_range=(0.05, 0.23),
+-        #     step_width=0.3,
+-        #     platform_width=3.0,
+-        #     border_width=1.0,
+-        #     holes=False,
+-        # ),
+-        # "pyramid_stairs_inv": terrain_gen.MeshInvertedPyramidStairsTerrainCfg(
+-        #     proportion=0.2,
+-        #     step_height_range=(0.05, 0.23),
+-        #     step_width=0.3,
+-        #     platform_width=3.0,
+-        #     border_width=1.0,
+-        #     holes=False,
+-        # ),
+-    },
+-)
+-
+-
+-@configclass
+-class RobotSceneCfg(InteractiveSceneCfg):
+-    """Configuration for the terrain scene with a legged robot."""
+-
+-    # ground terrain
+-    terrain = TerrainImporterCfg(
+-        prim_path="/World/ground",
+-        terrain_type="generator",  # "plane", "generator"
+-        terrain_generator=COBBLESTONE_ROAD_CFG,  # None, ROUGH_TERRAINS_CFG
+-        max_init_terrain_level=1,
+-        collision_group=-1,
+-        physics_material=sim_utils.RigidBodyMaterialCfg(
+-            friction_combine_mode="multiply",
+-            restitution_combine_mode="multiply",
+-            static_friction=1.0,
+-            dynamic_friction=1.0,
+-        ),
+-        visual_material=sim_utils.MdlFileCfg(
+-            mdl_path=f"{ISAACLAB_NUCLEUS_DIR}/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned.mdl",
+-            project_uvw=True,
+-            texture_scale=(0.25, 0.25),
+-        ),
+-        debug_vis=False,
+-    )
+-    # robots
+-    robot: ArticulationCfg = ROBOT_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
+-
+-    # sensors
+-    height_scanner = RayCasterCfg(
+-        prim_path="{ENV_REGEX_NS}/Robot/base",
+-        offset=RayCasterCfg.OffsetCfg(pos=(0.0, 0.0, 20.0)),
+-        ray_alignment="yaw",
+-        pattern_cfg=patterns.GridPatternCfg(resolution=0.1, size=[1.6, 1.0]),
+-        debug_vis=False,
+-        mesh_prim_paths=["/World/ground"],
+-    )
+-    contact_forces = ContactSensorCfg(prim_path="{ENV_REGEX_NS}/Robot/.*", history_length=3, track_air_time=True)
+-    # lights
+-    sky_light = AssetBaseCfg(
+-        prim_path="/World/skyLight",
+-        spawn=sim_utils.DomeLightCfg(
+-            intensity=750.0,
+-            texture_file=f"{ISAAC_NUCLEUS_DIR}/Materials/Textures/Skies/PolyHaven/kloofendal_43d_clear_puresky_4k.hdr",
+-        ),
+-    )
+-
+-
+-@configclass
+-class EventCfg:
+-    """Configuration for events."""
+-
+-    # startup
+-    physics_material = EventTerm(
+-        func=mdp.randomize_rigid_body_material,
+-        mode="startup",
+-        params={
+-            "asset_cfg": SceneEntityCfg("robot", body_names=".*"),
+-            "static_friction_range": (0.3, 1.2),
+-            "dynamic_friction_range": (0.3, 1.2),
+-            "restitution_range": (0.0, 0.15),
+-            "num_buckets": 64,
+-        },
+-    )
+-
+-    add_base_mass = EventTerm(
+-        func=mdp.randomize_rigid_body_mass,
+-        mode="startup",
+-        params={
+-            "asset_cfg": SceneEntityCfg("robot", body_names="base"),
+-            "mass_distribution_params": (-1.0, 3.0),
+-            "operation": "add",
+-        },
+-    )
+-
+-    # reset
+-    base_external_force_torque = EventTerm(
+-        func=mdp.apply_external_force_torque,
+-        mode="reset",
+-        params={
+-            "asset_cfg": SceneEntityCfg("robot", body_names="base"),
+-            "force_range": (0.0, 0.0),
+-            "torque_range": (-0.0, 0.0),
+-        },
+-    )
+-
+-    reset_base = EventTerm(
+-        func=mdp.reset_root_state_uniform,
+-        mode="reset",
+-        params={
+-            "pose_range": {"x": (-0.5, 0.5), "y": (-0.5, 0.5), "yaw": (-3.14, 3.14)},
+-            "velocity_range": {
+-                "x": (0.0, 0.0),
+-                "y": (0.0, 0.0),
+-                "z": (0.0, 0.0),
+-                "roll": (0.0, 0.0),
+-                "pitch": (0.0, 0.0),
+-                "yaw": (0.0, 0.0),
+-            },
+-        },
+-    )
+-
+-    reset_robot_joints = EventTerm(
+-        func=mdp.reset_joints_by_scale,
+-        mode="reset",
+-        params={
+-            "position_range": (1.0, 1.0),
+-            "velocity_range": (-1.0, 1.0),
+-        },
+-    )
+-
+-    # interval
+-    push_robot = EventTerm(
+-        func=mdp.push_by_setting_velocity,
+-        mode="interval",
+-        interval_range_s=(5.0, 10.0),
+-        params={"velocity_range": {"x": (-0.5, 0.5), "y": (-0.5, 0.5)}},
+-    )
+-
+-
+-@configclass
+-class CommandsCfg:
+-    """Command specifications for the MDP."""
+-
+-    base_velocity = mdp.UniformLevelVelocityCommandCfg(
+-        asset_name="robot",
+-        resampling_time_range=(10.0, 10.0),
+-        rel_standing_envs=0.1,
+-        debug_vis=True,
+-        ranges=mdp.UniformLevelVelocityCommandCfg.Ranges(
+-            lin_vel_x=(-0.1, 0.1), lin_vel_y=(-0.1, 0.1), ang_vel_z=(-1, 1)
+-        ),
+-        limit_ranges=mdp.UniformLevelVelocityCommandCfg.Ranges(
+-            lin_vel_x=(-1.0, 1.0), lin_vel_y=(-0.4, 0.4), ang_vel_z=(-1.0, 1.0)
+-        ),
+-    )
+-
+-
+-@configclass
+-class ActionsCfg:
+-    """Action specifications for the MDP."""
+-
+-    JointPositionAction = mdp.JointPositionActionCfg(
+-        asset_name="robot", joint_names=[".*"], scale=0.25, use_default_offset=True, clip={".*": (-100.0, 100.0)}
+-    )
+-
+-
+-@configclass
+-class ObservationsCfg:
+-    """Observation specifications for the MDP."""
+-
+-    @configclass
+-    class PolicyCfg(ObsGroup):
+-        """Observations for policy group."""
+-
+-        # observation terms (order preserved)
+-        base_ang_vel = ObsTerm(func=mdp.base_ang_vel, scale=0.2, clip=(-100, 100), noise=Unoise(n_min=-0.2, n_max=0.2))
+-        projected_gravity = ObsTerm(func=mdp.projected_gravity, clip=(-100, 100), noise=Unoise(n_min=-0.05, n_max=0.05))
+-        velocity_commands = ObsTerm(
+-            func=mdp.generated_commands, clip=(-100, 100), params={"command_name": "base_velocity"}
+-        )
+-        joint_pos_rel = ObsTerm(func=mdp.joint_pos_rel, clip=(-100, 100), noise=Unoise(n_min=-0.01, n_max=0.01))
+-        joint_vel_rel = ObsTerm(
+-            func=mdp.joint_vel_rel, scale=0.05, clip=(-100, 100), noise=Unoise(n_min=-1.5, n_max=1.5)
+-        )
+-        last_action = ObsTerm(func=mdp.last_action, clip=(-100, 100))
+-
+-        def __post_init__(self):
+-            # self.history_length = 5
+-            self.enable_corruption = True
+-            self.concatenate_terms = True
+-
+-    # observation groups
+-    policy: PolicyCfg = PolicyCfg()
+-
+-    @configclass
+-    class CriticCfg(ObsGroup):
+-        """Observations for critic group."""
+-
+-        base_lin_vel = ObsTerm(func=mdp.base_lin_vel, clip=(-100, 100))
+-        base_ang_vel = ObsTerm(func=mdp.base_ang_vel, scale=0.2, clip=(-100, 100))
+-        projected_gravity = ObsTerm(func=mdp.projected_gravity, clip=(-100, 100))
+-        velocity_commands = ObsTerm(
+-            func=mdp.generated_commands, clip=(-100, 100), params={"command_name": "base_velocity"}
+-        )
+-        joint_pos_rel = ObsTerm(func=mdp.joint_pos_rel, clip=(-100, 100))
+-        joint_vel_rel = ObsTerm(func=mdp.joint_vel_rel, scale=0.05, clip=(-100, 100))
+-        joint_effort = ObsTerm(func=mdp.joint_effort, scale=0.01, clip=(-100, 100))
+-        last_action = ObsTerm(func=mdp.last_action, clip=(-100, 100))
+-        # height_scanner = ObsTerm(func=mdp.height_scan,
+-        #     params={"sensor_cfg": SceneEntityCfg("height_scanner")},
+-        #     clip=(-1.0, 5.0),
+-        # )
+-
+-        # def __post_init__(self):
+-        #     self.history_length = 5
+-
+-    # privileged observations
+-    critic: CriticCfg = CriticCfg()
+-
+-
+-@configclass
+-class RewardsCfg:
+-    """Reward terms for the MDP."""
+-
+-    # -- task
+-    track_lin_vel_xy = RewTerm(
+-        func=mdp.track_lin_vel_xy_exp, weight=1.5, params={"command_name": "base_velocity", "std": math.sqrt(0.25)}
+-    )
+-    track_ang_vel_z = RewTerm(
+-        func=mdp.track_ang_vel_z_exp, weight=0.75, params={"command_name": "base_velocity", "std": math.sqrt(0.25)}
+-    )
+-
+-    # -- base
+-    base_linear_velocity = RewTerm(func=mdp.lin_vel_z_l2, weight=-2.0)
+-    base_angular_velocity = RewTerm(func=mdp.ang_vel_xy_l2, weight=-0.05)
+-    joint_vel = RewTerm(func=mdp.joint_vel_l2, weight=-0.001)
+-    joint_acc = RewTerm(func=mdp.joint_acc_l2, weight=-2.5e-7)
+-    joint_torques = RewTerm(func=mdp.joint_torques_l2, weight=-2e-4)
+-    action_rate = RewTerm(func=mdp.action_rate_l2, weight=-0.1)
+-    dof_pos_limits = RewTerm(func=mdp.joint_pos_limits, weight=-10.0)
+-    energy = RewTerm(func=mdp.energy, weight=-2e-5)
+-
+-    # -- robot
+-    flat_orientation_l2 = RewTerm(func=mdp.flat_orientation_l2, weight=-2.5)
+-
+-    joint_pos = RewTerm(
+-        func=mdp.joint_position_penalty,
+-        weight=-0.7,
+-        params={
+-            "asset_cfg": SceneEntityCfg("robot", joint_names=".*"),
+-            "stand_still_scale": 5.0,
+-            "velocity_threshold": 0.3,
+-        },
+-    )
+-
+-    # -- feet
+-    feet_air_time = RewTerm(
+-        func=mdp.feet_air_time,
+-        weight=0.1,
+-        params={
+-            "sensor_cfg": SceneEntityCfg("contact_forces", body_names=".*_foot"),
+-            "command_name": "base_velocity",
+-            "threshold": 0.5,
+-        },
+-    )
+-    air_time_variance = RewTerm(
+-        func=mdp.air_time_variance_penalty,
+-        weight=-1.0,
+-        params={"sensor_cfg": SceneEntityCfg("contact_forces", body_names=".*_foot")},
+-    )
+-    feet_slide = RewTerm(
+-        func=mdp.feet_slide,
+-        weight=-0.1,
+-        params={
+-            "asset_cfg": SceneEntityCfg("robot", body_names=".*_foot"),
+-            "sensor_cfg": SceneEntityCfg("contact_forces", body_names=".*_foot"),
+-        },
+-    )
+-    # feet_contact_forces = RewTerm(
+-    #     func=mdp.contact_forces,
+-    #     weight=-0.02,
+-    #     params={
+-    #         "threshold": 100.0,
+-    #         "sensor_cfg": SceneEntityCfg("contact_forces", body_names=".*_foot"),
+-    #     },
+-    # )
+-
+-    # -- other
+-    undesired_contacts = RewTerm(
+-        func=mdp.undesired_contacts,
+-        weight=-1,
+-        params={
+-            "threshold": 1,
+-            "sensor_cfg": SceneEntityCfg("contact_forces", body_names=["Head_.*", ".*_hip", ".*_thigh", ".*_calf"]),
+-        },
+-    )
+-
+-
+-@configclass
+-class TerminationsCfg:
+-    """Termination terms for the MDP."""
+-
+-    time_out = DoneTerm(func=mdp.time_out, time_out=True)
+-    base_contact = DoneTerm(
+-        func=mdp.illegal_contact,
+-        params={"sensor_cfg": SceneEntityCfg("contact_forces", body_names="base"), "threshold": 1.0},
+-    )
+-    bad_orientation = DoneTerm(func=mdp.bad_orientation, params={"limit_angle": 0.8})
+-
+-
+-@configclass
+-class CurriculumCfg:
+-    """Curriculum terms for the MDP."""
+-
+-    terrain_levels = CurrTerm(func=mdp.terrain_levels_vel)
+-    lin_vel_cmd_levels = CurrTerm(mdp.lin_vel_cmd_levels)
+-
+-
+-@configclass
+-class RobotEnvCfg(ManagerBasedRLEnvCfg):
+-    """Configuration for the locomotion velocity-tracking environment."""
+-
+-    # Scene settings
+-    scene: RobotSceneCfg = RobotSceneCfg(num_envs=4096, env_spacing=2.5)
+-    # Basic settings
+-    observations: ObservationsCfg = ObservationsCfg()
+-    actions: ActionsCfg = ActionsCfg()
+-    commands: CommandsCfg = CommandsCfg()
+-    # MDP settings
+-    rewards: RewardsCfg = RewardsCfg()
+-    terminations: TerminationsCfg = TerminationsCfg()
+-    events: EventCfg = EventCfg()
+-    curriculum: CurriculumCfg = CurriculumCfg()
+-
+-    def __post_init__(self):
+-        """Post initialization."""
+-        # general settings
+-        self.decimation = 4
+-        self.episode_length_s = 20.0
+-        # simulation settings
+-        self.sim.dt = 0.005
+-        self.sim.render_interval = self.decimation
+-        self.sim.physics_material = self.scene.terrain.physics_material
+-        self.sim.physx.gpu_max_rigid_patch_count = 10 * 2**15
+-
+-        # update sensor update periods
+-        # we tick all the sensors based on the smallest update period (physics update period)
+-        self.scene.contact_forces.update_period = self.sim.dt
+-        self.scene.height_scanner.update_period = self.decimation * self.sim.dt
+-
+-        # check if terrain levels curriculum is enabled - if so, enable curriculum for terrain generator
+-        # this generates terrains with increasing difficulty and is useful for training
+-        if getattr(self.curriculum, "terrain_levels", None) is not None:
+-            if self.scene.terrain.terrain_generator is not None:
+-                self.scene.terrain.terrain_generator.curriculum = True
+-        else:
+-            if self.scene.terrain.terrain_generator is not None:
+-                self.scene.terrain.terrain_generator.curriculum = False
+-
+-
+-@configclass
+-class RobotPlayEnvCfg(RobotEnvCfg):
+-    def __post_init__(self):
+-        super().__post_init__()
+-        self.scene.num_envs = 32
+-        self.scene.terrain.terrain_generator.num_rows = 2
+-        self.scene.terrain.terrain_generator.num_cols = 1
+-        self.commands.base_velocity.ranges = self.commands.base_velocity.limit_ranges
+diff --git a/unitree_rl_lab/scripts/__pycache__/list_envs.cpython-311.pyc b/unitree_rl_lab/scripts/__pycache__/list_envs.cpython-311.pyc
+index 5f6c66c..f69232d 100644
+Binary files a/unitree_rl_lab/scripts/__pycache__/list_envs.cpython-311.pyc and b/unitree_rl_lab/scripts/__pycache__/list_envs.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/scripts/lunar_dem/prepare_dem_crops.py b/unitree_rl_lab/scripts/lunar_dem/prepare_dem_crops.py
+index cbfe3ea..e3e566e 100644
+--- a/unitree_rl_lab/scripts/lunar_dem/prepare_dem_crops.py
++++ b/unitree_rl_lab/scripts/lunar_dem/prepare_dem_crops.py
+@@ -18,7 +18,7 @@ import numpy as np
+ from PIL import Image
+ 
+ REPO = pathlib.Path(__file__).resolve().parents[2]
+-SRC_DIR = pathlib.Path("/home/nood/IsaacSimbot/lunar_assets")
++SRC_DIR = pathlib.Path("/home/ubuntu/nood/lunar_assets")
+ OUT_DIR = REPO / "source/unitree_rl_lab/unitree_rl_lab/assets/lunar_dem"
+ 
+ DEM_RES = 5.0          # meters per pixel (LOLA 5mpp products)
+diff --git a/unitree_rl_lab/scripts/lunar_dem/test_lunar_terrain.py b/unitree_rl_lab/scripts/lunar_dem/test_lunar_terrain.py
+index dc0c813..183f54c 100644
+--- a/unitree_rl_lab/scripts/lunar_dem/test_lunar_terrain.py
++++ b/unitree_rl_lab/scripts/lunar_dem/test_lunar_terrain.py
+@@ -46,7 +46,7 @@ import importlib.util  # noqa: E402
+ 
+ spec = importlib.util.spec_from_file_location(
+     "lunar_terrain",
+-    "/home/nood/IsaacSimbot/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/lunar_terrain.py",
++    "/home/ubuntu/nood/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/lunar_terrain.py",
+ )
+ lt = importlib.util.module_from_spec(spec)
+ sys.modules["lunar_terrain"] = lt
+diff --git a/unitree_rl_lab/scripts/rsl_rl/__pycache__/cli_args.cpython-311.pyc b/unitree_rl_lab/scripts/rsl_rl/__pycache__/cli_args.cpython-311.pyc
+index 9f3e741..2975e97 100644
+Binary files a/unitree_rl_lab/scripts/rsl_rl/__pycache__/cli_args.cpython-311.pyc and b/unitree_rl_lab/scripts/rsl_rl/__pycache__/cli_args.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/__pycache__/__init__.cpython-311.pyc
+index 154852a..b04fb7e 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/__pycache__/unitree.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/__pycache__/unitree.cpython-311.pyc
+index b048fd5..2e72d97 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/__pycache__/unitree.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/__pycache__/unitree.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/__pycache__/unitree_actuators.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/__pycache__/unitree_actuators.cpython-311.pyc
+index c554d7e..3eb68ef 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/__pycache__/unitree_actuators.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/__pycache__/unitree_actuators.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py
+index ff1545f..bb9fcea 100644
+--- a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py
++++ b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py
+@@ -17,8 +17,8 @@ from isaaclab.utils import configclass
+ 
+ from unitree_rl_lab.assets.robots import unitree_actuators
+ 
+-UNITREE_MODEL_DIR = "/home/nood/仿真/unitree_model"  # Replace with the actual path to your unitree_model directory
+-UNITREE_ROS_DIR = "/home/nood/仿真/unitree_ros"  # Replace with the actual path to your unitree_ros package
++UNITREE_MODEL_DIR = os.environ.get("UNITREE_MODEL_DIR", "/home/ubuntu/nood/unitree_model")
++UNITREE_ROS_DIR = os.environ.get("UNITREE_ROS_DIR", "/home/ubuntu/nood/unitree_ros")
+ 
+ 
+ @configclass
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/__pycache__/__init__.cpython-311.pyc
+index 6f1a2ce..57253e1 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/__pycache__/__init__.cpython-311.pyc
+index 74306dc..07c6d8c 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/__pycache__/__init__.cpython-311.pyc
+index f132c08..38a0d8c 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/__pycache__/rsl_rl_ppo_cfg.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/__pycache__/rsl_rl_ppo_cfg.cpython-311.pyc
+index 56e00aa..095271b 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/__pycache__/rsl_rl_ppo_cfg.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/__pycache__/rsl_rl_ppo_cfg.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/rsl_rl_ppo_cfg.py b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/rsl_rl_ppo_cfg.py
+index f5f98fb..fd8d133 100644
+--- a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/rsl_rl_ppo_cfg.py
++++ b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/rsl_rl_ppo_cfg.py
+@@ -13,7 +13,7 @@ class BasePPORunnerCfg(RslRlOnPolicyRunnerCfg):
+     max_iterations = 50000
+     save_interval = 100
+     experiment_name = ""  # same as task name
+-    empirical_normalization = False
++    empirical_normalization = True
+     policy = RslRlPpoActorCriticCfg(
+         init_noise_std=1.0,
+         actor_hidden_dims=[512, 256, 128],
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/__init__.cpython-311.pyc
+index 139c438..9c4527c 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/curriculums.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/curriculums.cpython-311.pyc
+index 56173f4..2a38c94 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/curriculums.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/curriculums.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/observations.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/observations.cpython-311.pyc
+index 5dada52..298245e 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/observations.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/observations.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/rewards.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/rewards.cpython-311.pyc
+index 0d5a5fa..ddcc436 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/rewards.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/rewards.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/commands/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/commands/__pycache__/__init__.cpython-311.pyc
+index 2789d30..f2a4d5c 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/commands/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/commands/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/commands/__pycache__/velocity_command.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/commands/__pycache__/velocity_command.cpython-311.pyc
+index 2ac770c..3c5365e 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/commands/__pycache__/velocity_command.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/commands/__pycache__/velocity_command.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/curriculums.py b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/curriculums.py
+index 05b3e51..10a1bd0 100644
+--- a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/curriculums.py
++++ b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/curriculums.py
+@@ -17,11 +17,15 @@ def lin_vel_cmd_levels(
+     ranges = command_term.cfg.ranges
+     limit_ranges = command_term.cfg.limit_ranges
+ 
+-    reward_term = env.reward_manager.get_term_cfg(reward_term_name)
+-    reward = torch.mean(env.reward_manager._episode_sums[reward_term_name][env_ids]) / env.max_episode_length_s
+-
+-    if env.common_step_counter % env.max_episode_length == 0:
+-        if reward > reward_term.weight * 0.8:
++    # Promotion is evaluated on every reset batch (env_ids just completed full episodes),
++    # paced to at most once per episode length. The old `common_step_counter % max_episode_length`
++    # gate only fired when a reset coincided with an exact step boundary, so the level never moved.
++    if len(env_ids) > 0:
++        reward_term = env.reward_manager.get_term_cfg(reward_term_name)
++        reward = torch.mean(env.reward_manager._episode_sums[reward_term_name][env_ids]) / env.max_episode_length_s
++        last_promote = getattr(env, "_lin_vel_cmd_last_promote", -env.max_episode_length)
++        if reward > reward_term.weight * 0.8 and env.common_step_counter - last_promote >= env.max_episode_length:
++            env._lin_vel_cmd_last_promote = env.common_step_counter
+             delta_command = torch.tensor([-0.1, 0.1], device=env.device)
+             ranges.lin_vel_x = torch.clamp(
+                 torch.tensor(ranges.lin_vel_x, device=env.device) + delta_command,
+@@ -46,11 +50,12 @@ def ang_vel_cmd_levels(
+     ranges = command_term.cfg.ranges
+     limit_ranges = command_term.cfg.limit_ranges
+ 
+-    reward_term = env.reward_manager.get_term_cfg(reward_term_name)
+-    reward = torch.mean(env.reward_manager._episode_sums[reward_term_name][env_ids]) / env.max_episode_length_s
+-
+-    if env.common_step_counter % env.max_episode_length == 0:
+-        if reward > reward_term.weight * 0.8:
++    if len(env_ids) > 0:
++        reward_term = env.reward_manager.get_term_cfg(reward_term_name)
++        reward = torch.mean(env.reward_manager._episode_sums[reward_term_name][env_ids]) / env.max_episode_length_s
++        last_promote = getattr(env, "_ang_vel_cmd_last_promote", -env.max_episode_length)
++        if reward > reward_term.weight * 0.8 and env.common_step_counter - last_promote >= env.max_episode_length:
++            env._ang_vel_cmd_last_promote = env.common_step_counter
+             delta_command = torch.tensor([-0.1, 0.1], device=env.device)
+             ranges.ang_vel_z = torch.clamp(
+                 torch.tensor(ranges.ang_vel_z, device=env.device) + delta_command,
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/__pycache__/__init__.cpython-311.pyc
+index 03cbbd8..589282b 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/29dof/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/29dof/__pycache__/__init__.cpython-311.pyc
+index ab1f7f5..5ecd1f0 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/29dof/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/29dof/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/29dof/velocity_env_cfg.py b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/29dof/velocity_env_cfg.py
+index ea9b65b..9ae9acc 100644
+--- a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/29dof/velocity_env_cfg.py
++++ b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/29dof/velocity_env_cfg.py
+@@ -151,7 +151,7 @@ class EventCfg:
+     push_robot = EventTerm(
+         func=mdp.push_by_setting_velocity,
+         mode="interval",
+-        interval_range_s=(5.0, 5.0),
++        interval_range_s=(10.0, 30.0),
+         params={"velocity_range": {"x": (-0.5, 0.5), "y": (-0.5, 0.5)}},
+     )
+ 
+@@ -200,7 +200,7 @@ class ObservationsCfg:
+         joint_pos_rel = ObsTerm(func=mdp.joint_pos_rel, noise=Unoise(n_min=-0.01, n_max=0.01))
+         joint_vel_rel = ObsTerm(func=mdp.joint_vel_rel, scale=0.05, noise=Unoise(n_min=-1.5, n_max=1.5))
+         last_action = ObsTerm(func=mdp.last_action)
+-        # gait_phase = ObsTerm(func=mdp.gait_phase, params={"period": 0.8})
++        gait_phase = ObsTerm(func=mdp.gait_phase, params={"period": 0.8})
+ 
+         def __post_init__(self):
+             self.history_length = 5
+@@ -221,7 +221,7 @@ class ObservationsCfg:
+         joint_pos_rel = ObsTerm(func=mdp.joint_pos_rel)
+         joint_vel_rel = ObsTerm(func=mdp.joint_vel_rel, scale=0.05)
+         last_action = ObsTerm(func=mdp.last_action)
+-        # gait_phase = ObsTerm(func=mdp.gait_phase, params={"period": 0.8})
++        gait_phase = ObsTerm(func=mdp.gait_phase, params={"period": 0.8})
+         # height_scanner = ObsTerm(func=mdp.height_scan,
+         #     params={"sensor_cfg": SceneEntityCfg("height_scanner")},
+         #     clip=(-1.0, 5.0),
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/__pycache__/__init__.cpython-311.pyc
+index 0161e67..202446f 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__pycache__/__init__.cpython-311.pyc
+index 7053e4e..4fd6168 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__pycache__/velocity_env_cfg.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__pycache__/velocity_env_cfg.cpython-311.pyc
+index 08e67e0..4f2507e 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__pycache__/velocity_env_cfg.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__pycache__/velocity_env_cfg.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/velocity_env_cfg.py b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/velocity_env_cfg.py
+index 7496d76..c4b1509 100644
+--- a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/velocity_env_cfg.py
++++ b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/velocity_env_cfg.py
+@@ -33,15 +33,16 @@ COBBLESTONE_ROAD_CFG = terrain_gen.TerrainGeneratorCfg(
+     use_cache=False,
+     sub_terrains={
+         "flat": terrain_gen.MeshPlaneTerrainCfg(proportion=0.1),
+-        # "random_rough": terrain_gen.HfRandomUniformTerrainCfg(
+-        #     proportion=0.1, noise_range=(0.01, 0.06), noise_step=0.01, border_width=0.25
+-        # ),
+-        # "hf_pyramid_slope": terrain_gen.HfPyramidSlopedTerrainCfg(
+-        #     proportion=0.1, slope_range=(0.0, 0.4), platform_width=2.0, border_width=0.25
+-        # ),
+-        # "hf_pyramid_slope_inv": terrain_gen.HfInvertedPyramidSlopedTerrainCfg(
+-        #     proportion=0.1, slope_range=(0.0, 0.4), platform_width=2.0, border_width=0.25
+-        # ),
++        "random_rough": terrain_gen.HfRandomUniformTerrainCfg(
++            proportion=0.3, noise_range=(0.01, 0.06), noise_step=0.01, border_width=0.25
++        ),
++        "hf_pyramid_slope": terrain_gen.HfPyramidSlopedTerrainCfg(
++            proportion=0.3, slope_range=(0.0, 0.4), platform_width=2.0, border_width=0.25
++        ),
++        "hf_pyramid_slope_inv": terrain_gen.HfInvertedPyramidSlopedTerrainCfg(
++            proportion=0.3, slope_range=(0.0, 0.4), platform_width=2.0, border_width=0.25
++        ),
++        # A3 阶段（需 height scanner 或历史堆叠，见 docs/quadruped/路线图）再放开：
+         # "boxes": terrain_gen.MeshRandomGridTerrainCfg(
+         #     proportion=0.2, grid_width=0.45, grid_height_range=(0.05, 0.2), platform_width=2.0
+         # ),
+@@ -74,7 +75,7 @@ class RobotSceneCfg(InteractiveSceneCfg):
+         prim_path="/World/ground",
+         terrain_type="generator",  # "plane", "generator"
+         terrain_generator=COBBLESTONE_ROAD_CFG,  # None, ROUGH_TERRAINS_CFG
+-        max_init_terrain_level=1,
++        max_init_terrain_level=5,
+         collision_group=-1,
+         physics_material=sim_utils.RigidBodyMaterialCfg(
+             friction_combine_mode="multiply",
+@@ -179,7 +180,7 @@ class EventCfg:
+     push_robot = EventTerm(
+         func=mdp.push_by_setting_velocity,
+         mode="interval",
+-        interval_range_s=(5.0, 10.0),
++        interval_range_s=(10.0, 30.0),
+         params={"velocity_range": {"x": (-0.5, 0.5), "y": (-0.5, 0.5)}},
+     )
+ 
+@@ -230,9 +231,10 @@ class ObservationsCfg:
+             func=mdp.joint_vel_rel, scale=0.05, clip=(-100, 100), noise=Unoise(n_min=-1.5, n_max=1.5)
+         )
+         last_action = ObsTerm(func=mdp.last_action, clip=(-100, 100))
++        gait_phase = ObsTerm(func=mdp.gait_phase, params={"period": 0.8})
+ 
+         def __post_init__(self):
+-            # self.history_length = 5
++            self.history_length = 5
+             self.enable_corruption = True
+             self.concatenate_terms = True
+ 
+@@ -257,9 +259,10 @@ class ObservationsCfg:
+         #     params={"sensor_cfg": SceneEntityCfg("height_scanner")},
+         #     clip=(-1.0, 5.0),
+         # )
++        gait_phase = ObsTerm(func=mdp.gait_phase, params={"period": 0.8})
+ 
+-        # def __post_init__(self):
+-        #     self.history_length = 5
++        def __post_init__(self):
++            self.history_length = 5
+ 
+     # privileged observations
+     critic: CriticCfg = CriticCfg()
+@@ -303,13 +306,28 @@ class RewardsCfg:
+     # -- feet
+     feet_air_time = RewTerm(
+         func=mdp.feet_air_time,
+-        weight=0.1,
++        weight=0.5,
+         params={
+             "sensor_cfg": SceneEntityCfg("contact_forces", body_names=".*_foot"),
+             "command_name": "base_velocity",
+             "threshold": 0.5,
+         },
+     )
++    feet_stumble = RewTerm(
++        func=mdp.feet_stumble,
++        weight=-0.5,
++        params={"sensor_cfg": SceneEntityCfg("contact_forces", body_names=".*_foot")},
++    )
++    feet_clearance = RewTerm(
++        func=mdp.foot_clearance_reward,
++        weight=0.5,
++        params={
++            "std": 0.05,
++            "tanh_mult": 2.0,
++            "target_height": 0.05,
++            "asset_cfg": SceneEntityCfg("robot", body_names=".*_foot"),
++        },
++    )
+     air_time_variance = RewTerm(
+         func=mdp.air_time_variance_penalty,
+         weight=-1.0,
+@@ -388,7 +406,7 @@ class RobotEnvCfg(ManagerBasedRLEnvCfg):
+         self.sim.dt = 0.005
+         self.sim.render_interval = self.decimation
+         self.sim.physics_material = self.scene.terrain.physics_material
+-        self.sim.physx.gpu_max_rigid_patch_count = 10 * 2**15
++        self.sim.physx.gpu_max_rigid_patch_count = 20 * 2**15
+ 
+         # update sensor update periods
+         # we tick all the sensors based on the smallest update period (physics update period)
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/h1/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/h1/__pycache__/__init__.cpython-311.pyc
+index 9d37031..b4bc307 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/h1/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/h1/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/__pycache__/__init__.cpython-311.pyc
+index ce46150..60cf6ec 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/agents/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/agents/__pycache__/__init__.cpython-311.pyc
+index 831e3fe..8e94a4d 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/agents/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/agents/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/__init__.cpython-311.pyc
+index 762cbef..2bc95db 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/commands.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/commands.cpython-311.pyc
+index 1e7025c..839b05b 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/commands.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/commands.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/events.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/events.cpython-311.pyc
+index ea2da43..475e113 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/events.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/events.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/observations.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/observations.cpython-311.pyc
+index 796f1fe..4a0592c 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/observations.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/observations.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/rewards.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/rewards.cpython-311.pyc
+index 1693edb..741865f 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/rewards.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/rewards.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/terminations.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/terminations.cpython-311.pyc
+index acf8e20..9575178 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/terminations.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/terminations.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/__pycache__/__init__.cpython-311.pyc
+index 4b64b08..9f71346 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/__pycache__/__init__.cpython-311.pyc
+index 89295c9..fb1b5b1 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/dance_102/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/dance_102/__pycache__/__init__.cpython-311.pyc
+index a45b1f8..2a0927f 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/dance_102/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/dance_102/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/gangnanm_style/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/gangnanm_style/__pycache__/__init__.cpython-311.pyc
+index 69c596f..cef052e 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/gangnanm_style/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/gangnanm_style/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/utils/__pycache__/export_deploy_cfg.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/utils/__pycache__/export_deploy_cfg.cpython-311.pyc
+index baf3c06..c4b57a0 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/utils/__pycache__/export_deploy_cfg.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/utils/__pycache__/export_deploy_cfg.cpython-311.pyc differ

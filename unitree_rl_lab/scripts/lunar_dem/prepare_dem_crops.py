@@ -18,7 +18,7 @@ import numpy as np
 from PIL import Image
 
 REPO = pathlib.Path(__file__).resolve().parents[2]
-SRC_DIR = pathlib.Path("/home/nood/IsaacSimbot/lunar_assets")
+SRC_DIR = pathlib.Path("/home/ubuntu/nood/lunar_assets")
 OUT_DIR = REPO / "source/unitree_rl_lab/unitree_rl_lab/assets/lunar_dem"
 
 DEM_RES = 5.0          # meters per pixel (LOLA 5mpp products)

@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /home/administrator/仿真/unitree_model || exit 1
+cd /home/ubuntu/nood/unitree_model || exit 1
 BASE="https://hf-mirror.com/datasets/unitreerobotics/unitree_model/resolve/main"
 files=(
 "B2/usd/configuration/b2_description_base.usd"

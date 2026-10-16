@@ -1,7 +1,7 @@
 #!/bin/bash
-source /home/administrator/miniconda3/etc/profile.d/conda.sh
-conda activate env_isaaclab
-export TMPDIR=/home/administrator/pip_tmp
+source /home/ubuntu/miniconda3/etc/profile.d/conda.sh
+conda activate /home/ubuntu/nood/env_isaaclab
+export TMPDIR=/home/ubuntu/nood/.pip_tmp
 for i in 1 2 3 4 5 6 7 8 9 10; do
   echo "===== pip attempt $i ====="
   pip install "isaacsim[all,extscache]==5.1.0" \

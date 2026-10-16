@@ -14,8 +14,8 @@ Single-file tkinter GUI for the Unitree-G1 lunar-surface experiments.
                 last N iterations; every curve is toggleable via checkboxes.
 
 Usage:
-    source ~/miniconda3/etc/profile.d/conda.sh && conda activate env_isaaclab
-    python /home/nood/IsaacSimbot/lunar_panel.py
+    source ~/miniconda3/etc/profile.d/conda.sh && conda activate /home/ubuntu/nood/env_isaaclab
+    python /home/ubuntu/nood/lunar_panel.py
 """
 
 from __future__ import annotations
@@ -50,8 +50,10 @@ TERRAIN_PY = os.path.join(SRC, "tasks/locomotion/lunar_terrain.py")
 PPO_CFG = os.path.join(SRC, "tasks/locomotion/agents/rsl_rl_ppo_cfg.py")
 LOGROOT = os.path.join(LAB, "logs/rsl_rl/unitree_g1_29dof_velocity_lunarsurface")
 OLD_LOGROOT = os.path.join(LAB, "logs/rsl_rl/unitree_g1_29dof_velocity")
+GO2_LOGROOT = os.path.join(LAB, "logs/rsl_rl/unitree_go2_velocity")
 TASK = "Unitree-G1-29dof-Velocity-LunarSurface"
-ENV_ACT = "source ~/miniconda3/etc/profile.d/conda.sh && conda activate env_isaaclab"
+TASKS = [TASK, "Unitree-G1-29dof-Velocity", "Unitree-Go2-Velocity"]
+ENV_ACT = "source ~/miniconda3/etc/profile.d/conda.sh && conda activate /home/ubuntu/nood/env_isaaclab"
 
 # --------------------------------------------------------------------------
 # Knob registry.
@@ -218,7 +220,7 @@ def knob_set(knob, new_value: str) -> bool:
 def scan_checkpoints() -> list[tuple[str, str, str, str]]:
     """Return list of (display_label, log_root, load_run, checkpoint)."""
     out = []
-    for root in (LOGROOT, OLD_LOGROOT):
+    for root in (LOGROOT, OLD_LOGROOT, GO2_LOGROOT):
         for d in sorted(glob.glob(os.path.join(root, "*/"))):
             run = os.path.basename(d.rstrip("/"))
             cks = []
@@ -235,7 +237,8 @@ def scan_checkpoints() -> list[tuple[str, str, str, str]]:
                 plain = [c for c in cks if re.fullmatch(r"model_\d+\.pt", c[1])]
                 pool = plain if plain else cks
                 it, ck = pool[-1]
-                root_tag = "lunarsurface" if "lunarsurface" in root else "velocity"
+                root_tag = ("lunarsurface" if "lunarsurface" in root
+                            else "go2" if "go2" in root else "g1_velocity")
                 label = f"{run} / {ck}  (iter {it}, {len(cks)} ckpts)"
                 out.append((f"[{root_tag}] {label}", root, run, ck))
                 for it2, ck2 in pool[:-1]:
@@ -285,6 +288,7 @@ PLOT_GROUPS = [
         ("Episode_Reward/track_ang_vel_z", "left"),
         ("Episode_Reward/gait", "left"),
         ("Episode_Reward/feet_clearance", "left"),
+        ("Episode_Reward/feet_air_time", "left"),
         ("Episode_Reward/alive", "left"),
         ("Metrics/base_velocity/error_vel_xy", "left"),
         ("Metrics/base_velocity/error_vel_yaw", "left"),
@@ -308,6 +312,10 @@ PLOT_GROUPS = [
         ("Episode_Reward/flat_orientation_l2", "left"),
         ("Episode_Reward/base_height", "left"),
         ("Episode_Reward/feet_slide", "left"),
+        ("Episode_Reward/feet_stumble", "left"),
+        ("Episode_Reward/air_time_variance", "left"),
+        ("Episode_Reward/joint_pos", "left"),
+        ("Episode_Reward/joint_torques", "left"),
         ("Episode_Reward/energy", "left"),
         ("Episode_Reward/dof_pos_limits", "left"),
         ("Episode_Reward/undesired_contacts", "left"),
@@ -323,6 +331,20 @@ PLOT_GROUPS = [
         ("Perf/iter_time_s", "right"),
     ]),
 ]
+
+
+def _latest_console_log() -> str:
+    """Newest unitree_rl_lab/logs/*_console.log by mtime (falls back to fixed name)."""
+    try:
+        cands = sorted(
+            glob.glob(os.path.join(LAB, "logs", "*_console.log")),
+            key=os.path.getmtime,
+        )
+        if cands:
+            return cands[-1]
+    except OSError:
+        pass
+    return os.path.join(LAB, "logs", "A1_v2_rough_blind_16k_console.log")
 
 
 def new_log_state() -> dict:
@@ -488,9 +510,9 @@ class Panel(tk.Tk):
         ttk.Label(r, text="任务", width=16).pack(side="left")
         self.task_var = tk.StringVar(value=TASK)
         ttk.Combobox(r, textvariable=self.task_var, width=48, state="readonly",
-                     values=[TASK, "Unitree-G1-29dof-Velocity"]).pack(side="left")
+                     values=TASKS).pack(side="left")
         ttk.Label(r, text="num_envs").pack(side="left", padx=(12, 2))
-        self.nenv_var = tk.StringVar(value="4096")
+        self.nenv_var = tk.StringVar(value="16384")
         ttk.Entry(r, textvariable=self.nenv_var, width=7).pack(side="left")
         ttk.Label(r, text="run_name").pack(side="left", padx=(12, 2))
         self.runname_var = tk.StringVar(value="panel_run")
@@ -619,7 +641,7 @@ class Panel(tk.Tk):
         f = self.tab_metrics
         top = ttk.Frame(f); top.pack(fill="x", padx=6, pady=4)
         ttk.Label(top, text="解析日志：").pack(side="left")
-        self.metric_log = tk.StringVar(value=os.path.join(BASE, "g1_lsurface_earth.log"))
+        self.metric_log = tk.StringVar(value=_latest_console_log())
         ttk.Entry(top, textvariable=self.metric_log, width=60).pack(side="left", padx=4)
         ttk.Button(top, text="浏览…", command=self._pick_log).pack(side="left")
         ttk.Button(top, text="跟随训练日志", command=lambda: self.metric_log.set(self.log_file.get())).pack(side="left", padx=6)
@@ -671,7 +693,11 @@ class Panel(tk.Tk):
                 self.curve_vars[key] = v
 
         # right: figure grid, one subplot per group (+ pre-made right twin)
-        matplotlib.rcParams.update({"font.size": 11})
+        matplotlib.rcParams.update({
+            "font.size": 11,
+            "font.sans-serif": ["Noto Sans CJK JP", "Droid Sans Fallback", "DejaVu Sans"],
+            "axes.unicode_minus": False,
+        })
         self.fig = Figure(figsize=(14, 8), dpi=100)
         self.axes = []
         self.axes_r = []
@@ -777,8 +803,14 @@ class Panel(tk.Tk):
             axr.set_visible(used_r)
             if handles:
                 ax.legend(handles, labels, loc="best", fontsize=7)
-        self.fig.suptitle(f"{os.path.basename(mpath)} — last {win} iters "
-                          f"({len(hist)} blocks)", fontsize=11)
+        if not hist and not os.path.exists(mpath):
+            self.fig.suptitle(f"日志不存在: {mpath}", fontsize=11, color="red")
+        elif not hist:
+            self.fig.suptitle(f"{os.path.basename(mpath)} — 解析中（暂无数值块）",
+                              fontsize=11, color="#a60")
+        else:
+            self.fig.suptitle(f"{os.path.basename(mpath)} — last {win} iters "
+                              f"({len(hist)} blocks)", fontsize=11)
         self.canvas_fig.draw_idle()
 
         self.after(5000, self._tick)
