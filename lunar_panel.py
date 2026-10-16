@@ -550,8 +550,12 @@ class Panel(tk.Tk):
         ttk.Entry(ctrl, textvariable=self.play_nenv_var, width=5).pack(side="left")
         self.play_nopush_var = tk.BooleanVar(value=True)
         ttk.Checkbutton(ctrl, text="关闭推力干扰", variable=self.play_nopush_var).pack(side="left", padx=(8, 2))
-        self.play_kb_var = tk.BooleanVar(value=False)
-        ttk.Checkbutton(ctrl, text="键盘操控 WASD", variable=self.play_kb_var).pack(side="left", padx=(8, 2))
+        self.play_mode_var = tk.StringVar(value="训练可视化")
+        ttk.Label(ctrl, text="模式:").pack(side="left", padx=(10, 2))
+        ttk.Radiobutton(ctrl, text="训练可视化", variable=self.play_mode_var,
+                        value="训练可视化").pack(side="left")
+        ttk.Radiobutton(ctrl, text="键盘操控", variable=self.play_mode_var,
+                        value="键盘操控").pack(side="left")
         ttk.Button(ctrl, text="运行三跑 supervisor", command=self.start_supervisor).pack(side="left", padx=8)
         self.status_lbl = ttk.Label(ctrl, text="空闲", foreground="#080")
         self.status_lbl.pack(side="left", padx=20)
@@ -626,7 +630,7 @@ class Panel(tk.Tk):
         # checkpoint is set), so pass the absolute checkpoint path.
         ck_path = os.path.join(root, run, ck)
         nopush = "UNITREE_PLAY_NO_PUSH=1 " if self.play_nopush_var.get() else ""
-        kb = "--keyboard " if self.play_kb_var.get() else ""
+        kb = "--keyboard " if self.play_mode_var.get() == "键盘操控" else ""
         cmd = (f"{nopush}./unitree_rl_lab.sh -p --task {self.task_var.get()} "
                f"--num_envs {self.play_nenv_var.get()} "
                f"--checkpoint {ck_path} {kb}"
