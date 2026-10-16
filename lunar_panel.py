@@ -14,8 +14,8 @@ Single-file tkinter GUI for the Unitree-G1 lunar-surface experiments.
                 last N iterations; every curve is toggleable via checkboxes.
 
 Usage:
-    source ~/miniconda3/etc/profile.d/conda.sh && conda activate /home/ubuntu/nood/env_isaaclab
-    python /home/ubuntu/nood/lunar_panel.py
+    source ~/miniconda3/etc/profile.d/conda.sh && conda activate env_isaaclab
+    python lunar_panel.py
 """
 
 from __future__ import annotations
@@ -53,7 +53,7 @@ OLD_LOGROOT = os.path.join(LAB, "logs/rsl_rl/unitree_g1_29dof_velocity")
 GO2_LOGROOT = os.path.join(LAB, "logs/rsl_rl/unitree_go2_velocity")
 TASK = "Unitree-G1-29dof-Velocity-LunarSurface"
 TASKS = [TASK, "Unitree-G1-29dof-Velocity", "Unitree-Go2-Velocity"]
-ENV_ACT = "source ~/miniconda3/etc/profile.d/conda.sh && conda activate /home/ubuntu/nood/env_isaaclab"
+ENV_ACT = "source ~/miniconda3/etc/profile.d/conda.sh && conda activate env_isaaclab"
 
 # --------------------------------------------------------------------------
 # Knob registry.
@@ -299,6 +299,7 @@ PLOT_GROUPS = [
         ("Episode_Termination/time_out", "right"),
         ("Episode_Termination/base_height", "right"),
         ("Episode_Termination/bad_orientation", "right"),
+        ("Episode_Termination/base_contact", "right"),
     ]),
     ("正则/惩罚分项", [
         ("Episode_Reward/action_rate", "left"),
@@ -325,6 +326,7 @@ PLOT_GROUPS = [
         ("Mean value_function loss", "right"),
         ("Mean surrogate loss", "right"),
         ("Mean action noise std", "right"),
+        ("Learn/learning_rate", "right"),
     ]),
     ("性能", [
         ("Perf/steps_per_s", "left"),

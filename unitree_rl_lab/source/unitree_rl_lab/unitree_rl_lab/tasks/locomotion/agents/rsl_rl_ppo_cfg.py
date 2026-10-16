@@ -16,6 +16,7 @@ class BasePPORunnerCfg(RslRlOnPolicyRunnerCfg):
     empirical_normalization = True
     policy = RslRlPpoActorCriticCfg(
         init_noise_std=1.0,
+        noise_std_type="log",  # exp(log_std) keeps std strictly positive (scalar can go negative on domain shift)
         actor_hidden_dims=[512, 256, 128],
         critic_hidden_dims=[512, 256, 128],
         activation="elu",

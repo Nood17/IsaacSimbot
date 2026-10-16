@@ -12,6 +12,7 @@
   - 决策：A3 暂缓 DreamWaQ/GRU 隐式估计，默认 height scanner + teacher-student
   - 已推送：`docs/agent/Agent运行环境-Skills-MCP-环境配置需求.md`（77cd5c3）、lunar_panel 及月面任务归档（91fe05f）
 - 验证结果：本轮无训练验证（任务 B 暂停中，只做文档与配置层面的整理）
+- ⚠️ 设备更正（2026-10-16）：本工作区在**三台机器**上同步使用——本机 `robot`（Ubuntu 26.04 原生，RTX 5060 Laptop 8GB）、5090 训练机 `ubuntu-System-Product-Name`（Go2 A1 在此跑）、WSL2 机 `DESKTOP-9S36E5P`（RTX 4070 Ti，`~/仿真/…` 路径）。此前文档误把 WSL 机特征当成本机通用环境，已在 `docs/agent/Agent运行环境-*.md` §3.1 改为三设备矩阵。写脚本一律用环境名/相对路径，勿写死单机绝对路径
 - 下一步建议：
   1. 任务 A 按路线图跑 A0：`Unitree-Go2-Velocity` flat 基线
   2. 恢复任务 B 前：先删 `velocity_env_cfg.py` 的 `sim.gravity=-1.62`，再按诊断文档做 gait_phase A/B 对照

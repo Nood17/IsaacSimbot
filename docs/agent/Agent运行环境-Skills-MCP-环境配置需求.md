@@ -56,77 +56,86 @@
 
 ## 3. 环境配置需求
 
-### 3.1 硬件与驱动
+### 3.1 三设备一览（⚠️ 仓库在多台机器间同步，先确认自己在哪台）
 
-| 项 | 值 |
-|---|---|
-| 宿主机 | Windows + **WSL2**（DESKTOP-9S36E5P） |
-| GPU | **RTX 4070 Ti 12GB**（Ada / sm_89） |
-| 驱动 / CUDA | 591.74 / CUDA 13.1 |
-| 仓库位置 | WSL `~/仿真/IsaacSimbot`（= Windows `I:\仿真\IsaacSimbot`，git remote 指向 `Nood17/IsaacSimbot`） |
+| | **本机 5060** `robot` | **5090 训练机** `ubuntu-System-Product-Name` | **WSL2** `DESKTOP-9S36E5P` |
+|---|---|---|---|
+| 系统 | Ubuntu 26.04 原生 | Ubuntu 原生（桌面） | Windows + WSL2 |
+| GPU | RTX 5060 Laptop **8GB**（sm_120） | RTX 5090 | RTX 4070 Ti **12GB**（sm_89） |
+| 驱动 | 580.178.04 | 未核实 | 591.74 / CUDA 13.1 |
+| 仓库路径 | `/home/nood/IsaacSimbot` | `/home/ubuntu/nood/…`（待核实） | `~/仿真/IsaacSimbot`（= `I:\仿真\…`） |
+| IsaacLab 路径 | `~/仿真/IsaacLab`（editable） | 未核实 | `~/仿真/IsaacLab` |
+| 角色 | 开发/文档/面板 | 主训练机（Go2 A1 在此跑） | 训练 + 历史实验 |
+| 已验证吞吐 | 未实测（8GB 显存，4096 envs 大概率 OOM，建议 ≤2048 起步） | Go2 A1 v2 完成 8465 iter | 4096 envs ≈ 28k steps/s |
 
-### 3.2 软件栈（conda `env_isaaclab`）
+**判断自己在哪台**：`hostname` + `nvidia-smi` + 仓库路径，三者一对即知。commit `0970b57` 里出现 `/home/ubuntu/nood/` 路径即 5090 机的痕迹——写脚本时用环境名/相对路径，别写死某台机器的绝对路径。
+
+### 3.2 共享软件栈（conda `env_isaaclab`，三机同名）
 
 | 组件 | 版本/状态 |
 |---|---|
 | Python | 3.11.16 |
 | Isaac Sim | 5.1.0.0（pip 安装） |
-| Isaac Lab | @3c6e67bb（editable） |
+| Isaac Lab | editable（本机实测 0.47.2 @ `~/仿真/IsaacLab`） |
 | torch | 2.7.0+cu128 |
 | rsl-rl-lib | 3.0.1 |
-| unitree_rl_lab | @4960b847（editable，0.2.1） |
-| 已验证吞吐 | headless 4096 envs ≈ 28k steps/s，~3.5s/iter |
+| unitree_rl_lab | editable（仓库内 `unitree_rl_lab/`，随 repo HEAD） |
+| numpy | 1.26.0 |
 
-### 3.3 必须的环境变量与激活
+### 3.3 通用激活（三机相同，按环境名激活、勿用绝对路径）
 
 ```bash
 source ~/miniconda3/etc/profile.d/conda.sh
-conda activate env_isaaclab
-# activate.d/setenv.sh 自动导出以下三项；手动复现时缺一不可：
-export ISAACLAB_PATH=~/仿真/IsaacLab
-export OMNI_KIT_ACCEPT_EULA=YES                      # 非交互运行必需
-export LD_LIBRARY_PATH=~/仿真/wsl_lib_links:/usr/lib/wsl/lib:$CONDA_PREFIX/lib
+conda activate env_isaaclab        # 按名字，不依赖机器路径
+export OMNI_KIT_ACCEPT_EULA=YES    # 非交互运行必需
 ```
 
-**LD_LIBRARY_PATH 为何必需**：PhysX GPU 初始化需要无版本号的 `libcuda.so`，WSL 原生 `/usr/lib/wsl/lib` 只提供 `libcuda.so.1`。缺失时进程**在加载 USD 阶段静默退出、无 traceback**——这是本环境最坑的故障模式。
+`lunar_panel.py` 的 `ENV_ACT` 同理——曾写成 5090 机的 `/home/ubuntu/nood/env_isaaclab` 绝对路径，已改回按名激活。
 
-### 3.4 WSL2 特有问题清单
+### 3.4 WSL2 设备专属问题（仅第三台机器适用）
 
-1. `~/仿真/wsl_lib_links/`（libcuda.so、libnvidia-ml.so 软链）**勿删**
-2. 缺 X11/GLU：已 conda 装 `libglu`、`xorg-libxt`（无 sudo，apt 不可用）
-3. Vulkan/渲染不可用属正常（"No device could be created"）——headless 训练不受影响；可视化播放需 Windows 端 Isaac Sim 或原生 Linux
-4. `egl_probe`/`flatdict` 编译需要 conda 的 `gxx_linux-64` 与 `setuptools==80.9.0` + `--no-build-isolation` + `CMAKE_POLICY_VERSION_MINIMUM=3.5`
-5. WSL DNS 间歇失败 → pip 用 `--resume-retries` 重试脚本；git 已配 `ghfast.top` 镜像 insteadOf
-6. pip 装包必须带 `PIP_CONSTRAINT=/mnt/i/仿真/constraints.txt`——防依赖解析抢装新版 torch 把 cu128 顶掉
-7. exec 工具会预展开 `$var`/`$(...)`——复杂命令写进脚本文件再跑
+以下坑**只存在于 WSL2 设备**，5060/5090 原生 Ubuntu 不受此影响：
 
-### 3.5 快速验证
+1. `LD_LIBRARY_PATH` 必须含 `~/仿真/wsl_lib_links:/usr/lib/wsl/lib:$CONDA_PREFIX/lib`——PhysX GPU 要无版本号 `libcuda.so`，WSL 只给 `.so.1`，缺失时进程在加载 USD 阶段**静默退出、无 traceback**
+2. `~/仿真/wsl_lib_links/`（libcuda.so、libnvidia-ml.so 软链）**勿删**
+3. 缺 X11/GLU：已 conda 装 `libglu`、`xorg-libxt`；Vulkan/渲染不可用属正常，可视化播放需 Windows 端或另两台原生机
+4. `egl_probe`/`flatdict` 编译需 conda `gxx_linux-64` + `setuptools==80.9.0` + `--no-build-isolation` + `CMAKE_POLICY_VERSION_MINIMUM=3.5`
+5. WSL DNS 间歇失败 → pip `--resume-retries`；git 配 `ghfast.top` insteadOf
+6. pip 装包带 `PIP_CONSTRAINT=/mnt/i/仿真/constraints.txt` 防 torch 被顶掉
+7. 详细修复历史见根目录 `AGENTS_WSL2_NOTES.md`（**该文件仅描述 WSL 设备**）
+
+### 3.5 各设备注意事项
+
+- **本机 5060**：原生桌面，`DISPLAY=:0` 直接弹 tkinter/Isaac GUI；8GB 显存跑训练前先把 `--num_envs` 降下来；GPU PhysX 冒烟尚未实测
+- **5090**：路径前缀 `/home/ubuntu/nood`；训练产出的 run 目录/events 通过 git 归档回仓库
+- **WSL2**：见 §3.4；无原生显示（GUI 需 WSLg 或 X Server）
+
+### 3.6 快速验证（任意机器）
 
 ```bash
-conda activate env_isaaclab && cd ~/仿真/unitree_rl_lab
+conda activate env_isaaclab && cd <repo>/unitree_rl_lab
 python scripts/list_envs.py            # 应列出全部已注册任务
 ./unitree_rl_lab.sh -t --task Unitree-Go2-Velocity --num_envs 64 --headless --max_iterations 5   # 冒烟
 ```
 
-### 3.6 Devin CLI 侧依赖
+### 3.7 Devin CLI 侧依赖（WSL 设备）
 
-- `devin` v3000.11.3 @ `~/.local/bin/devin`；WSL 侧需单独 `devin auth login` 一次（未登录时 `devin -p` 会挂死在登录 TUI，runner 已做前置检查）
+- `devin` v3000.11.3 @ `~/.local/bin/devin`；WSL 侧需单独 `devin auth login` 一次
 - `jq` 1.8.1 静态二进制 @ `~/.local/bin/jq`
-- `systemctl --user` 可用，linger 已开；迭代单元 `bmmms-*`/`iteration.*`/`watchdog.*`
+- `systemctl --user` 可用，linger 已开；迭代单元 `bmmms-*`/`iteration.*`/`watchdog.*`（仅 WSL 机上配置过）
 
 ## 4. 一页速查
 
 ```bash
-# 进环境
+# 先确认自己在哪台机器
+hostname && nvidia-smi --query-gpu=name,memory.total --format=csv,noheader
+
+# 进环境（三机通用）
 source ~/miniconda3/etc/profile.d/conda.sh && conda activate env_isaaclab
-cd ~/仿真/unitree_rl_lab
+cd <repo>/unitree_rl_lab     # 5060: ~/IsaacSimbot；WSL: ~/仿真/IsaacSimbot；5090: /home/ubuntu/nood/…
 
-# 任务 A 主线训练
+# 任务 A 主线训练（num_envs 按显存调：5090/4070Ti 可 4096，5060 建议 ≤2048）
 ./unitree_rl_lab.sh -t --task Unitree-Go2-Velocity --num_envs 4096 --headless
-
-# 体检
-nvidia-smi && python scripts/list_envs.py | grep Unitree
 ```
 
-- Skills 清单 → §1；MCP 现状=未配置，格式 → §2；环境坑 → §3.4
-- 详细坑位与修复历史见根目录 `AGENTS_WSL2_NOTES.md`
+- Skills 清单 → §1；MCP 现状=未配置，格式 → §2；设备区分 → §3.1；WSL 专属坑 → §3.4
