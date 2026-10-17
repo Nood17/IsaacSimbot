@@ -2,6 +2,43 @@
 
 <!-- Agent 每轮把最新状态写到本文件顶部；使命完成时在最顶部单独写一行 MISSION-COMPLETE -->
 
+## 状态 2026-10-17 21:00（eval 判读工具 analyze_eval.py 落地，41b009d）
+
+- 本轮做了什么：新增 `unitree_rl_lab/scripts/rsl_rl/analyze_eval.py`——eval_summary.csv → 判读的最后一公里：每 ckpt 打 terrain×level fall_rate / mean_rel_err 矩阵（eps<5 标 `*`）、连续台阶上限（L0 起首个不达标行断；level r → [5+1.5r, 6.5+1.5r)cm）、15cm 门三态判定（stairs/stairs_inv 全部 L≥6 格 fall≤0.10 且 rel≤0.15 → PASS/FAIL/INCONCLUSIVE）。纯 stdlib/CPU，不依赖 conda env。状态文档补用法节 + resume 指标更新到 iter ~10505（fall ~0.167、err_xy 0.22-0.26 波动、timeout ~0.83、terrain_levels 2.41——平台延续）。
+- 验证结果：合成 CSV 三态全测（PASS/FAIL/INCONCLUSIVE/连续断档/thin-cell 标记）输出正确；已提交 41b009d。
+- 训练状态：iter ~10505/23400，~4.10s/iter，ETA ~14.7h（明 ~11:40）。lunar-supervisor 仍 wait_gpu_free。GPU 4.6/8.1GB。
+- 下一步建议：不变——GPU 释放后 `eval_terrain.py` 扫 ckpt → `analyze_eval.py` 读数 → Stage A（warm_9900_scan.pt）。用户在场上可提前停 resume；否则自然跑完。**eval→判读→Stage-A 全链路现在零未准备环节**。
+
+## 状态 2026-10-17 20:40+（Stage-A 奖励 Plan-B 预案落档 + eval 运行时死角清零，0a51fd8）
+
+- 本轮做了什么：
+  - eval_terrain 剩余运行时死角核对完毕：`env_cfg.curriculum.terrain_levels/lin_vel_cmd_levels` 字段名对、`__post_init__` 里 `generator.curriculum=True` 已在 parse_env_cfg 实例化时烘好（我们后置置 None 不影响）、`max_init_terrain_level` 是 TerrainImporterCfg 真字段（cfg 里已在用 =5）、`CommandTerm.command` 公有、`parse_env_cfg` 签名匹配。**eval 脚本现在没有未核实的 API 面**。
+  - 落档 Stage-A 奖励 Plan-B（预案非实施）：判读前提 + 有序单旋钮表——①`feet_clearance.target_height` 0.05→0.10（现在峰值在 5cm，对 15cm 台阶信号错位）②`feet_stumble.weight` -0.5→-0.25（踢竖板=上台阶动作本身）③可选 `feet_height_body` ④最后手段放宽 track 核。铁律：只子类化 ScanEnvCfg，绝不动 RobotEnvCfg。
+- 验证结果：reward func 签名/参数逐个对照 mdp/rewards.py；提交 0a51fd8。
+- 训练状态：model_10400 @20:40，~iter 10450，平台延续。
+- 下一步建议：不变。轻活见底——剩下可做的只有"等 GPU"。**建议用户在场时停 resume 走 eval→A3**，否则自然跑完明 ~11:00 后再做（已无信息增量）。
+
+## 状态 2026-10-17 20:40（eval difficulty 列修正 + 行→cm 验收映射落地，88d83ba）
+
+- 本轮做了什么：
+  - **修正 eval difficulty 口径**：原脚本记 `level/9`，生成器实际 `difficulty=(row+U(0,1))/10` → 改 `(level+0.5)/num_rows`（rows.csv 与 summary 同步）。否则高行 difficulty 虚高 ~5%，对接验收阈值时错判。
+  - **落地"15cm 台阶"判读映射**：`step_height=0.05+difficulty×0.15` → **level r ≈ 5+1.5r cm；level≥6 即 15cm 行**——已写入状态文档，eval summary 出来后直接按 (stairs|stairs_inv, level≥6) 读数。
+  - eval 建议 `--num_envs` 256→**1024**：200 格网格每格 ~5 env，纯前向显存可承受，per-cell 统计才有意义。
+  - resume 平台数据更新到 iter ~10374：fall 末两段 0.161/0.156 仍在平台带内，err_xy 0.242→0.250 微升 + terrain_levels 缓升＝"低行存活稍久"签名，非学会上台阶。
+- 验证结果：py_compile 过；difficulty 公式逐行对照 terrain_generator.py:248-252 与 mesh_terrains.py:75。已提交 88d83ba。
+- 下一步建议：不变——GPU 释放后 eval_terrain 扫 → Stage A。训练 ETA ~14.5h。
+
+## 状态 2026-10-17 20:30（eval_terrain.py 全文复审 + 3 处小修，已提交 41c8993）
+
+- 本轮做了什么：对从未实跑过的 eval_terrain.py 做逐行复审（对照安装版 IsaacLab/rsl_rl 3.0.1 源码）。**修复 3 处**：
+  1. `run_dir` 改为 `dirname(ckpts[0])`——原来直接用 `agent_cfg.load_run` 拼路径，用户漏传 `--load_run`（默认正则 `.*`）时 CSV 会写进不存在的目录。
+  2. 换 ckpt 间 `env.reset()`——否则上一 ckpt 半途中的回合会带着清零的累计器记到新 ckpt 名下（每边界 ~256 条污染行，稀有位形格子占比可观）。
+  3. `runner.load(..., load_optimizer=False)`——评估不载优化器态省显存。
+  - 复核确认无需改：`_term_dones` (num_envs×num_terms) env-major、`act_inference` 吃原始组 TensorDict（内部按 obs_groups["policy"] 取）、`reset()` 返回 (obs, extras)、rsl-rl 3.0.1 下 2.3 兼容分支自然休眠、`termination_manager`/`command_manager`/`step_dt` 均公有属性。
+- 验证结果：py_compile 过；所有 API 面对安装版源码核实。提交 `41c8993`（含 A3 文档终验节 + 上轮 handoff）。
+- 训练状态：iter ~10300/23400，~4.13s/iter，ETA 15h。lunar-supervisor 仍待命。
+- 下一步建议：不变。GPU 释放顺序=eval_terrain 扫（现可直接跑，无 `--load_run` 也安全）→ Stage A。轻活库存已基本清空，后续轮次主要是训练监测。
+
 ## 状态 2026-10-17 20:21（Stage A/B 启动链路配置级终验：无可查环节）
 
 - 本轮做了什么：对**安装版**源码（site-packages rsl_rl + `~/仿真/IsaacLab` isaaclab_rl）逐环核对 Stage A/B 全链路：CLI→cfg 字段（update_rsl_rl_cfg 全字段匹配；`--max_iterations` train.py:126 "再训 N"）、`obs_groups` 解析、runner 分发、权重加载。发现并已理解的机制：**`BasePPORunnerCfg.obs_groups` 是 MISSING→to_dict 序列化成 `{}`→resolve_obs_groups 回退自填 policy/critic**（A2 run 的 agent.yaml `obs_groups: {}` 实证）；我们的显式 dict 跳过回退、组名在 ScanObservationsCfg 全部存在。DistillationRunner 继承 OnPolicyRunner（构造/LOAD 签名相同），learn() 守卫 loaded_teacher，StudentTeacher 的 `actor.*`→teacher 重映射 + norm=False 下 Identity strict 空载安全——全部逐行对过。
