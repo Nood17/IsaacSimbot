@@ -41,6 +41,10 @@ run_eval() {
         --task "$TASK" --headless --num_envs 1024 \
         --load_run "$load_run" --checkpoints "$ckpt"
     echo "[$(date +%T)] eval rc=$? for $load_run/$ckpt"
+    # eval_summary.csv is overwritten per invocation (eval_rows.csv appends):
+    # snapshot per-ckpt so consecutive evals don't erase earlier summaries.
+    local s="$LOGROOT/$load_run/eval/eval_summary.csv"
+    [ -f "$s" ] && cp "$s" "$LOGROOT/$load_run/eval/eval_summary_${ckpt%.pt}.csv"
 }
 
 # 3) eval set: leg1 end (8700) + resume last-pre-onset (10600) + resume latest
@@ -49,12 +53,12 @@ run_eval "$RESUME_DIR" "model_10600.pt"
 latest=$(basename "$(ls -v "$LOGROOT/$RESUME_DIR"/model_*.pt | tail -1)")
 run_eval "$RESUME_DIR" "$latest"
 
-# 4) analyze each produced summary against the roadmap gates
+# 4) analyze every produced summary (snapshots + latest) against the roadmap gates
 for d in "$LEG1_DIR" "$RESUME_DIR"; do
-    s="$LOGROOT/$d/eval/eval_summary.csv"
-    if [ -f "$s" ]; then
+    for s in "$LOGROOT/$d"/eval/eval_summary*.csv; do
+        [ -f "$s" ] || continue
         echo "[$(date +%T)] === analyze_eval: $s ==="
         python3 scripts/rsl_rl/analyze_eval.py "$s"
-    fi
+    done
 done
 echo "[$(date +%T)] post-A2 eval done."

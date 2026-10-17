@@ -2,6 +2,13 @@
 
 <!-- Agent 每轮把最新状态写到本文件顶部；使命完成时在最顶部单独写一行 MISSION-COMPLETE -->
 
+## 状态 2026-10-17 21:50（watcher 修复真 bug：eval_summary.csv 每次调用覆写→逐 ckpt 快照）
+
+- 本轮做了什么：复审 eval_terrain.py 输出路径发现一个会让 watcher 丢数据的真 bug——`eval_summary.csv` 每次调用 **w 模式覆写**（只聚合当次 all_rows），`eval_rows.csv` 才是 append；原 watcher 在 RESUME 目录连跑 10600→latest 会把 10600 的 summary 冲掉。已修：run_eval 后 `cp eval_summary.csv eval_summary_<ckpt>.csv` 快照，analyze 改为遍历 `eval_summary*.csv`。已 kill 旧 watcher(31516)→以修正版重启(32198)——运行中 bash 脚本原地编辑有字节偏移踩脚风险，故重启。
+- 验证结果：eval_terrain.py:281-289 逐行（w 模式 + all_rows 作用域）、cli_args.py:80 `--load_run`→agent_cfg、eval/ 自动建目录(eval_terrain.py:189)、ft_init/warm_9900_scan.pt 完好；bash -n 过。
+- 训练状态：iter ~11375/23400，尖峰累计 261（速率仍在升：近 110 iter 44 次）。
+- 下一步建议：不变。watcher(32198) 等 train exit → eval 3 ckpt → analyze 全量快照。
+
 ## 状态 2026-10-17 21:45（post-A2 eval watcher 上线：训练退出即自动 eval+analyze）
 
 - 本轮做了什么：新增 `run_post_a2_eval.sh`（PID 31516 nohup 后台）——等 A2 train pid 7928 退出 → 15s 轮询 GPU 空（抢在 lunar-supervisor 60s 循环前）→ 依次 eval_terrain.py 三个 ckpt：leg1 `model_8700.pt`、resume `model_10600.pt`（最后 pre-onset）、resume 最新 ckpt（--load_run 分两次目录）→ 对两个 eval_summary.csv 跑 analyze_eval.py。输出到各自 run 目录 eval/ + `post_a2_eval.log`。eval 用 `--task Unitree-Go2-Velocity --num_envs 1024`（默认 eval_seconds 300/ckpt，预计 ~30-60min 总耗时）。**若用户想停训直接进 Stage A 而非 eval：kill 31516 即可**（或 eval 进程）。
