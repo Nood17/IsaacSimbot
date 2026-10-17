@@ -2,6 +2,13 @@
 
 <!-- Agent 每轮把最新状态写到本文件顶部；使命完成时在最顶部单独写一行 MISSION-COMPLETE -->
 
+## 状态 2026-10-17 22:15（analyze_eval 默认地形名修正：stairs→pyramid_stairs，15137d1）
+
+- 本轮做了什么：①核实 `unitree_rl_lab.sh -t` 透传任意参数（`train.py --headless "$@"`，--max_iterations 会到达）；②**修了一个真 bug**：analyze_eval.py 默认 `--step_terrains stairs,stairs_inv`，而训练网格 sub_terrain 键名是 `pyramid_stairs/pyramid_stairs_inv`——不指定会静默报 NO DATA。已改默认 + help 注明以 eval 打印的 col->name 为准；文档用法行同步（默认即可，heldout 无 stairs 类报 NO DATA 属正常）。合成 CSV 复测通过。
+- 验证结果：默认参数下 ceiling/gate 输出正确；15137d1。
+- 训练状态：iter ~10895/23400，平台延续（err 0.27-0.28 微升、fall ~0.18）。
+- 下一步建议：不变——等 GPU。
+
 ## 状态 2026-10-17 22:00（eval 任务×ckpt 对照表落档：学生只能在含 teacher 组的任务上评，b06aeec）
 
 - 本轮做了什么：核实一个此前没问过的环节——蒸馏学生 ckpt 的 eval 通道。`DistillationRunner.__init__`  eagerly `resolve_obs_groups`（对显式 dict 逐组校验存在性）→ 普通 Velocity 任务无 `teacher` 组 → **学生 ckpt 用 Velocity 任务会 ValueError**；用 BasePPORunnerCfg 也不行（student.* 键与 ActorCritic strict 不匹配）。`StudentTeacher.act_inference`=`self.student(obs)`（学生前向，正确）。已在状态文档落 3类ckpt×2任务 对照表：盲→Velocity/Heldout 默认 cfg；教师→Velocity-Scan 默认 或 Heldout+`--agent_cfg Go2ScanPPORunnerCfg`；学生→Velocity-Scan/Heldout+`--agent_cfg Go2DistillationRunnerCfg`。
