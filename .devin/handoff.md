@@ -2,6 +2,14 @@
 
 <!-- Agent 每轮把最新状态写到本文件顶部；使命完成时在最顶部单独写一行 MISSION-COMPLETE -->
 
+## 状态 2026-10-17 19:10（更正 max_iterations 语义 + A3 路径调研）
+
+- 本轮做了什么：
+  - **更正**：`--max_iterations` 在 rsl_rl 里是"再训 N iter"（`tot_iter = start + N`）——A2 resume 实际终点 ≈ **iter 23400**（非 14700），明日 ~11:20 完。已修正 `状态-A1A2训练进展.md`。
+  - 写 `docs/quadruped/A3-teacher-student实现路径.md`：rsl_rl 3.0.1 蒸馏机制已摸清（`obs_groups {"policy","teacher"}`、StudentTeacher、须先 load 教师）；isaaclab_rl 有现成 `RslRlDistillationRunnerCfg` 模板；列出教师初始化/奖励调整/scan 开销三个待决策点。
+- 验证结果：代码核对（distillation_runner/StudentTeacher/anymal_d 参考 cfg）；训练仍健康。
+- 下一步建议：A2 完训（~23400）→ eval_terrain.py 扫 ckpt → 若盲策略平台化则按 A3 备忘实施。
+
 ## 状态 2026-10-17 19:05（补 A0 逐项解读文档）
 
 - 本轮做了什么：写 `docs/quadruped/Go2-env配置逐项解读.md`——对照源码逐条解释 Go2 env 的 command/obs/reward/termination/event/curriculum 每项（A0 验收项"能逐条解释每个奖励项"的落纸）。关键语义均已读码核实：feet_air_time 负值正常、track 核=exp(−err²/0.25)、joint_pos 站立时罚×5、terrain_levels 均值=存活位置非进度条、lin_vel_cmd_levels 在 resume 后重爬、Go2 有 gait_phase 观测但无 gait 奖励（与 G1 相反）。
