@@ -2,6 +2,13 @@
 
 <!-- Agent 每轮把最新状态写到本文件顶部；使命完成时在最顶部单独写一行 MISSION-COMPLETE -->
 
+## 状态 2026-10-17 21:30（Stage-A 发射命令补 --max_iterations 8000，48368d3）
+
+- 本轮做了什么：巡检发现一个会真烧 GPU 的缺口——Stage A 发射命令没写 `--max_iterations`，Go2ScanPPORunnerCfg 继承 BasePPORunnerCfg 的默认 **50000**（~57h）。已在状态文档改为 `--max_iterations 8000`（~9h）并写清语义：train.py:126 是**绝对上限**非"再训 N"（此前 handoff 里"再训 N"的说法已纠正）；暖启动 iter=0；未收敛可再 resume 抬上限续训。顺带复核：warm_9900_scan.pt 仍在 ft_init/（13MB）、蒸馏 cfg max_iterations=2000 合理、save_interval=100 提供密集 eval ckpt、RobotScanEnvCfg 地形=COBBLESTONE（含 stairs，教师训同一分布）。
+- 验证结果：train.py:126/rl cfg 字段逐行对过；doc only。
+- 训练状态：iter ~10675/23400，平台延续（fall 0.185、err 0.21-0.25、timeout 0.81）。supervisor 仍等 GPU。
+- 下一步建议：不变——GPU 释放后 eval → analyze → Stage A（命令已带 --max_iterations 8000）。**发射链路复核完毕，无新缺口。**
+
 ## 状态 2026-10-17 21:15（A1 3-seed 复现通道落地：Unitree-Go2-Velocity-Rough，6f4a122）
 
 - 本轮做了什么：A2 曾原地改地形/指令范围致 A1 配置不可复现——补 `A1_ROUGH_TERRAINS_CFG`（flat .1/rough/slope/slope_inv 各 .3）+ `RobotRoughEnvCfg`（换 generator + 还原 A1 ranges ±0.1/±0.1/±1 与 limit ±1.0/±0.4/±1.0）+ `RobotRoughPlayEnvCfg`，注册 `Unitree-Go2-Velocity-Rough`。**全部字段逐一对照 A1 run 的 `params/env.yaml` 核实**（sub_terrain 参数、max_init_terrain_level=5、curriculum=True 因 swap 发生在父类 post_init 之后需在定义里带）。3-seed 跑法已写入状态文档：`--task Unitree-Go2-Velocity-Rough --seed {1,2,3} --max_iterations 2500`，约 8h GPU 总量，排到 Stage A/B 之后。
