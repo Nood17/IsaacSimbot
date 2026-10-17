@@ -2,6 +2,64 @@
 
 <!-- Agent 每轮把最新状态写到本文件顶部；使命完成时在最顶部单独写一行 MISSION-COMPLETE -->
 
+## 状态 2026-10-17 20:06（A3 Stage-A 暖启动 ckpt 生成并验证，发射就绪）
+
+- 本轮做了什么：用 `expand_actor_obs.py` 从 resume 段最新 ckpt `model_9900.pt` 生成 Stage-A 教师暖启动 `logs/rsl_rl/unitree_go2_velocity_a3/ft_init/warm_9900_scan.pt`（--add_dim 935 --set_iter 0）。**修正了一个位置错误**：此前误以为 `ft_init/` 在 `unitree_go2_velocity/` 下即可——那是 A2-leg1 的 `init_8400.pt` 目录；`--load_run` 按 `<experiment_name>/<load_run>` 解析，Scan 任务的 experiment 是 `unitree_go2_velocity_a3`，故暖启动必须放那边（现已放对）。
+- 验证结果：CPU 校验通过——top keys 齐（infos/iter/model_state_dict/optimizer_state_dict）、iter=0、`actor.0.weight` (512,1170)、proprio 块 abs-sum 21322 非零、scan 块全零、无 NaN、optimizer 2d 形状与网络一致、单层前向通过。启动命令已写入 `状态-A1A2训练进展.md`：`./unitree_rl_lab.sh -t --task Unitree-Go2-Velocity-Scan --headless --num_envs 2048 --run_name A3_teacher --resume --load_run ft_init --checkpoint warm_9900_scan.pt`。
+- 训练状态：A2 resume 健康，iter ~10000/23400（model_9900 @20:03，~4.1s/iter），最新指标 err_xy 0.241 / bad_orientation 0.191 / timeout 0.808 / terrain_levels 2.30——平台延续。GPU 4.6/8.1GB、RAM 余 ~6GB，不开第二实例。lunar-supervisor 仍在 wait_gpu_free 循环（sleep 60），待用户裁决。
+- 下一步建议：不变——用户在场建议停 resume → eval_terrain.py 扫 ckpt → Stage A（暖启动命令已备好；若想让暖基更晚，对 final ckpt 重跑 expand_actor_obs.py 秒级重生成）。
+
+## 状态 2026-10-17 20:35（封顶后 650 iter：平台实锤，resume 已无信息量）
+
+- 本轮做了什么：resume 段封顶后新数据判读（9200→9850，cmd_lvl=1.50 封顶后 ~650 iter）：fall 0.183/0.170/0.160/0.173、err_xy 0.24±0.005、rew 15.7–16.4、timeout ~0.83——**与 leg1 平台带完全重合且无任何斜率**，盲策略台阶平台实锤。terrain_levels 1.7→2.2 缓升仅说明低行存活稍久，非爬台阶能力。
+- 验证结果：状态文档 resume 条已更新为"平台实锤"结论。**判断：resume 继续跑到 23400 只剩平台确认价值，决策信息已齐**——但 run 是用户手动起的，agent 不主动杀。
+- 下一步建议：用户在场时建议停 resume → `eval_terrain.py --load_run 2026-10-17_18-41-04_A2_stairs_slope_ft --checkpoints "model_*.pt"`（扫 8700/9400/9800 定台阶高度）→ 直接进 Stage A `Unitree-Go2-Velocity-Scan`（可选 expand_actor_obs.py 暖启动）。若任其自然跑完，明 ~11:00 后照此流程。
+
+## 状态 2026-10-17 20:20（Stage-B 教师加载链路 CPU 端到端验证通过）
+
+- 本轮做了什么：
+  - **Stage-B 加载链路全链路 CPU 验证**：`expand_actor_obs.py` 产出 1170 维暖启动 ckpt → `StudentTeacher`(student=235/teacher=1170, 双 norm=False) `load_state_dict(strict=True)` → `actor.` 键自动灌入 teacher → `loaded_teacher=True`、resumed=False（iter 0）→ student `act_inference` 正常。**整个 A2→A3→蒸馏的权重链路已无任何未验证环节**。
+  - 确认 `./unitree_rl_lab.sh -t` = `train.py --headless`；A3 最终 CLI：Stage A `-t --task Unitree-Go2-Velocity-Scan --num_envs 2048`（暖启动可加 `--resume --load_run ft_init --checkpoint warm_8700_scan.pt`，注意 ft_init 目录需放 `logs/rsl_rl/unitree_go2_velocity_a3/` 下）；Stage B `-t --task Unitree-Go2-Velocity-Distill --load_run <scan_run> --checkpoint model_N.pt`。
+  - 核对路线图 A3 验收"15cm 台阶能上"→ 覆盖路径 = eval_terrain.py stairs 列 + heldout boxes 列。
+- 验证结果：见上，strict load + inference 均通过。
+- 下一步建议：等 A2 resume（iter ~9600+，ETA 明 ~11:00）或用户提前停 → eval_terrain.py → Stage A。
+
+## 状态 2026-10-17 20:10（教师暖启动工具落地 + 修复蒸馏 normalization 崩溃坑）
+
+- 本轮做了什么：
+  - 新增 `scripts/rsl_rl/expand_actor_obs.py`：盲 actor ckpt → 教师输入 ckpt（`actor.0.weight` 末尾补零列 + optimizer exp_avg/exp_avg_sq 同步扩 + 可选 normalizer 键）。**CPU 端到端验证通过**：1170 维 ActorCritic strict load + forward + proprio 权重块非零/scan 块全零。
+  - `TeacherCfg.height_scanner` 挪到**组末**（IsaacLab history 是 per-term 展平 reshape → proprio 块占 [0,235) 连续 → 拼接=纯列追加）。
+  - **修复一个会真崩的配置**：Go2 管线所有 PPO ckpt **无 `*_obs_normalizer.*` 键**（cfg 字段 MISSING→`{}`→falsy→`Identity`，`empirical_normalization:true` 实际没生效）；`StudentTeacher.load_state_dict` strict 加载 `teacher_obs_normalizer` → `teacher_obs_normalization=True` 会崩 → 蒸馏 cfg 双 norm 已改 False（与 anymal 参考一致）。顺带发现：全管线观测归一化实际从未开启（值得记入状态文档的隐藏事实）。
+- 验证结果：py_compile 全过；暖启动端到端 CPU 验证（如上）。训练健康 iter ~9600/23400。
+- 下一步建议：同前——resume 完/提前停 → eval_terrain → Stage A 教师（可选 `expand_actor_obs.py` 暖启动省 ~8h：`--in_ckpt model_8700.pt --add_dim 935 --out_ckpt ft_init/warm_8700_scan.pt --set_iter 0`）。
+
+## 状态 2026-10-17 19:55（held-out 验收地形实施 + eval_terrain --agent_cfg）
+
+- 本轮做了什么：
+  - **held-out 第 6 地形落地**（A3 备忘最后一个待实施项）：`velocity_env_cfg.py` +`HELDOUT_TERRAINS_CFG`（boxes 0.05–0.2m 40% / gap 0.1–0.5m 30% / discrete_obstacles 0.01–0.2m 30%，全为训练集没有的类型，参用 canonical ROUGH_TERRAINS_CFG）+`RobotHeldoutEnvCfg(RobotScanEnvCfg)`（仅换 generator，保留三组观测 → 盲/教师/蒸馏 ckpt 通用）；注册 `Unitree-Go2-Velocity-Heldout`。
+  - `eval_terrain.py` +`--agent_cfg module:Class`：按类路径换 agent cfg（experiment_name 跟随 → --load_run 自动找对目录），同一 held-out 任务可评三类 ckpt，无需三个注册。
+- 验证结果：全文件 py_compile 通过。训练健康 iter ~9500/23400。
+- 下一步建议：同 19:45——resume 完/提前停 → eval_terrain 扫 ckpt → `Unitree-Go2-Velocity-Scan` 训教师 → `-Distill` 蒸馏 → heldout 任务验收泛化。**A3 全部代码侧准备已完成，剩余全是 GPU 排队事项**。
+
+## 状态 2026-10-17 19:45（A3 脚手架已实施 + 修正 train.py 缺蒸馏分发的大坑）
+
+- 本轮做了什么：**A3 两阶段脚手架全部落地**（增量式，不动现有任务/在跑 run）：
+  - `velocity_env_cfg.py` +`ScanObservationsCfg`（新增 `teacher` 组 = 无噪 proprio + height_scanner，history=5）+`RobotScanEnvCfg`/`RobotScanPlayEnvCfg`。`teacher` 组刻意不进基础 cfg，A0–A2 不付堆叠开销。
+  - 新文件 `agents/rsl_rl_distill_cfg.py`：`Go2ScanPPORunnerCfg`（Stage A：`obs_groups {"policy":["teacher"],"critic":["critic"]}`，PPO actor 即教师）+ `Go2DistillationRunnerCfg`（Stage B：`{"policy":["policy"],"teacher":["teacher"]}`）。**两 cfg 共用 `experiment_name="unitree_go2_velocity_a3"`**——`get_checkpoint_path` 按 `<experiment>/<load_run>/<ckpt>` 解析，不同名会找不到教师 ckpt。
+  - `go2/__init__.py` 注册 `Unitree-Go2-Velocity-Scan`（Stage A）/`-Distill`（Stage B）。
+  - **发现并修正两个真坑**：① train.py 硬编码 `OnPolicyRunner`，蒸馏 cfg 会 `eval("StudentTeacher")`→NameError——已加与 play.py 相同的 class_name 分发（eval_terrain.py 同步）。② 验证 configclass 语义：裸赋值 override 经 `_add_annotation_types` 自动补注解→生效（与 anymal 参考一致）。
+  - 已核实加载链路：`StudentTeacher.load_state_dict` 检测 `actor.` 键自动灌进 teacher 网（PPO ckpt 直接喂）；teacher_obs_normalization 已配对 empirical_normalization。
+- 验证结果：全文件 py_compile 通过；API 链逐环对照源码（StudentTeacher 签名/`resolve_obs_groups`/`get_checkpoint_path` 正则解析/`export_deploy_cfg` 只读 policy 组）。**未 GPU 实测**（A2 resume 仍在跑，iter ~9500）。发现：height_scanner RayCaster 一直常驻场景（A2 也在付 raycast），Scan 任务新增成本只是 obs 堆叠内存，num_envs 可先试 2048。
+- 下一步建议：① resume 完/用户提前停 → eval_terrain.py 扫 ckpt 定盲策略台阶高度。② 进 A3：`--task Unitree-Go2-Velocity-Scan` 训教师（可先试 `--num_envs 2048`）；毕后 `--task Unitree-Go2-Velocity-Distill --load_run <教师run> --checkpoint model_N.pt`。③ 若教师仍卡 ~10cm：按备忘调奖励（clearance 目标高/stumble 权重）+ 定 held-out 第 6 地形。
+
+## 状态 2026-10-17 19:30（eval_terrain.py 源码级 API 复核通过 + resume 平台确认中）
+
+- 本轮做了什么：
+  - **eval_terrain.py 全量源码级复核**（代替 GPU 实测，GPU/RAM 仍被 A2 resume 占用）：逐项对照 IsaacLab/rsl_rl 源码核实——`TerminationManager._term_dones`（done 行当步必重写、无陈旧标志、同帧多 term 取最后）、`get_term`/`command` 属性、`vecenv_wrapper.step` 4 元组返回与 `extras["time_outs"]`（`is_finite_horizon` 默认 False 时注入）、`terrain_levels/terrain_types` 每 env 张量、列→地形名 cumsum 公式与 `terrain_generator.py:240` 逐字符一致、Event/Curriculum 管理器对 `None` term 跳过、go2 终止项名 `time_out`/`base_contact`/`bad_orientation`（time_out 恰为首项不冲突归因）。**发现 1 个真 bug 已修**：`re.search(...).group(1)` 对不匹配 ckpt 名（如 get_checkpoint_path fallback）会 AttributeError，已改防御式。py_compile 通过。
+  - **resume 最新分段均值（至 iter 9353，654 pts）**：`lin_vel_cmd_levels` 已于 ~9200 封顶 1.50；封顶后首窗口（9200-9350）fall 0.183 / err_xy 0.241 / rew 15.8——**与 leg1 平台带（0.15–0.19 / 0.243）完全重合**，"恢复"概率进一步下降，平台确认假说实时兑现中。terrain_levels 均值 ~1.7/9，难行从未被大量占据。
+- 验证结果：上述两处更新已写入 `状态-A1A2训练进展.md`（现状判读节 resume 条 + eval_terrain 注意节）。训练健康：iter ~9353/23400，~4.2s/iter，ETA 明日 ~11:00。
+- 下一步建议：不变——等 resume（或用户在场时提前停）→ eval_terrain.py 扫 model_{8700,…,latest}。若用户想现在停 resume 直接进 A3：信息其实已够（封顶后仍 0.18 摔倒），eval 用 leg1 的 model_8700.pt 跑即可，不必等 23400。
+
 ## 状态 2026-10-17 19:20（平台点分析：resume 大概率在确认而非恢复）
 
 - 本轮做了什么：分段均值分析 A1/A2-leg1 全曲线。**A1 在 iter ~2000 平台**（摔倒 0.3%、error 0.19、track 1.42 到 8400 不动）；**A2-leg1 摔倒率 iter ~500 即平台**（0.15–0.19 到 8700）——盲策略台阶上限瞬间触顶。
