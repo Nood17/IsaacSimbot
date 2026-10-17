@@ -2,6 +2,12 @@
 
 <!-- Agent 每轮把最新状态写到本文件顶部；使命完成时在最顶部单独写一行 MISSION-COMPLETE -->
 
+## 状态 2026-10-17 19:05（补 A0 逐项解读文档）
+
+- 本轮做了什么：写 `docs/quadruped/Go2-env配置逐项解读.md`——对照源码逐条解释 Go2 env 的 command/obs/reward/termination/event/curriculum 每项（A0 验收项"能逐条解释每个奖励项"的落纸）。关键语义均已读码核实：feet_air_time 负值正常、track 核=exp(−err²/0.25)、joint_pos 站立时罚×5、terrain_levels 均值=存活位置非进度条、lin_vel_cmd_levels 在 resume 后重爬、Go2 有 gait_phase 观测但无 gait 奖励（与 G1 相反）。
+- 验证结果：文档工作；训练仍健康（iter ~9060，摔倒 ~7-10%，ETA ~16h）。
+- 下一步建议：同下条 handoff；A2 完训后先跑 eval_terrain.py（已建好，见下文）。
+
 ## 状态 2026-10-17 19:00（A2 训练监测 + 指标基线 + per-terrain 评估脚本）
 
 - 本轮做了什么：
