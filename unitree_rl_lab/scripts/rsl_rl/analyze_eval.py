@@ -29,8 +29,11 @@ parser.add_argument("--gate_level", type=int, default=6,
                          "step in [14.0,15.5)cm).")
 parser.add_argument("--min_eps", type=int, default=5,
                     help="Cells with fewer episodes are marked '*' and not gate-eligible.")
-parser.add_argument("--step_terrains", type=str, default="stairs,stairs_inv",
-                    help="Comma-separated terrain names treated as stairs-type.")
+parser.add_argument("--step_terrains", type=str, default="pyramid_stairs,pyramid_stairs_inv",
+                    help="Comma-separated terrain names treated as stairs-type. "
+                         "Must match the sub_terrain dict keys reported in the eval log's "
+                         "col->name map (training grid: pyramid_stairs/pyramid_stairs_inv; "
+                         "heldout grid has no stairs-type terrain).")
 args = parser.parse_args()
 
 step_terrains = set(args.step_terrains.split(","))
