@@ -2,6 +2,13 @@
 
 <!-- Agent 每轮把最新状态写到本文件顶部；使命完成时在最顶部单独写一行 MISSION-COMPLETE -->
 
+## 状态 2026-10-17 22:00（eval 任务×ckpt 对照表落档：学生只能在含 teacher 组的任务上评，b06aeec）
+
+- 本轮做了什么：核实一个此前没问过的环节——蒸馏学生 ckpt 的 eval 通道。`DistillationRunner.__init__`  eagerly `resolve_obs_groups`（对显式 dict 逐组校验存在性）→ 普通 Velocity 任务无 `teacher` 组 → **学生 ckpt 用 Velocity 任务会 ValueError**；用 BasePPORunnerCfg 也不行（student.* 键与 ActorCritic strict 不匹配）。`StudentTeacher.act_inference`=`self.student(obs)`（学生前向，正确）。已在状态文档落 3类ckpt×2任务 对照表：盲→Velocity/Heldout 默认 cfg；教师→Velocity-Scan 默认 或 Heldout+`--agent_cfg Go2ScanPPORunnerCfg`；学生→Velocity-Scan/Heldout+`--agent_cfg Go2DistillationRunnerCfg`。
+- 验证结果：resolve_obs_groups/student_teacher.act_inference 逐行对安装版源码；doc only，b06aeec。
+- 训练状态：iter ~10825/23400，平台延续。supervisor 等 GPU。
+- 下一步建议：不变——等 GPU，eval → analyze → Stage A。
+
 ## 状态 2026-10-17 21:45（Stage-B resume 语义核实 + A3 文档语义修正，a97f9da）
 
 - 本轮做了什么：对安装版源码核实 Stage B 启动链路最后一问——`--load_run`/`--checkpoint` 不带 `--resume` 是否触发教师装载。**结论：触发**。train.py:165/195 条件 `resume OR algorithm.class_name=="Distillation"`，蒸馏恒真；`StudentTeacher.load_state_dict` 见 `actor.` 键→灌 teacher→返回 False→iter=0/optimizer 跳过。忘 `--load_run` 会在 `learn()` 首行 `loaded_teacher` 守卫抛 ValueError（fail-fast，非静默）。顺带修正 A3 文档里同款"`--max_iterations`再训 N"错误说法（与状态文档一致的"绝对上限"口径）。
