@@ -67,6 +67,35 @@ COBBLESTONE_ROAD_CFG = terrain_gen.TerrainGeneratorCfg(
 )
 
 
+# A1 terrain mix (pre-A2 stairs): kept frozen so the A1 3-seed acceptance runs
+# (roadmap: rough 上 err<10% / fall<5% / 3 seeds) stay reproducible without git
+# checkouts. A2 also widened command ranges -> RobotRoughEnvCfg restores both.
+A1_ROUGH_TERRAINS_CFG = terrain_gen.TerrainGeneratorCfg(
+    size=(8.0, 8.0),
+    border_width=20.0,
+    num_rows=10,
+    num_cols=20,
+    horizontal_scale=0.1,
+    vertical_scale=0.005,
+    slope_threshold=0.75,
+    difficulty_range=(0.0, 1.0),
+    use_cache=False,
+    curriculum=True,  # swapped in post_init, after parent applies its flag to the base cfg
+    sub_terrains={
+        "flat": terrain_gen.MeshPlaneTerrainCfg(proportion=0.1),
+        "random_rough": terrain_gen.HfRandomUniformTerrainCfg(
+            proportion=0.3, noise_range=(0.01, 0.06), noise_step=0.01, border_width=0.25
+        ),
+        "hf_pyramid_slope": terrain_gen.HfPyramidSlopedTerrainCfg(
+            proportion=0.3, slope_range=(0.0, 0.4), platform_width=2.0, border_width=0.25
+        ),
+        "hf_pyramid_slope_inv": terrain_gen.HfInvertedPyramidSlopedTerrainCfg(
+            proportion=0.3, slope_range=(0.0, 0.4), platform_width=2.0, border_width=0.25
+        ),
+    },
+)
+
+
 # Held-out acceptance terrains (roadmap discipline #4): terrain types the policy
 # has never trained on. Used by RobotHeldoutEnvCfg / Unitree-Go2-Velocity-Heldout
 # for eval_terrain.py runs only — never add these to COBBLESTONE_ROAD_CFG.
@@ -515,6 +544,36 @@ class RobotScanEnvCfg(RobotEnvCfg):
 
 @configclass
 class RobotScanPlayEnvCfg(RobotScanEnvCfg):
+    def __post_init__(self):
+        super().__post_init__()
+        self.scene.num_envs = 32
+        self.scene.terrain.terrain_generator.num_rows = 2
+        self.scene.terrain.terrain_generator.num_cols = 1
+        self.commands.base_velocity.ranges = self.commands.base_velocity.limit_ranges
+
+
+@configclass
+class RobotRoughEnvCfg(RobotEnvCfg):
+    """A1 acceptance env: pre-A2 terrain mix (no stairs) + pre-A2 command ranges.
+
+    Reproduces the config of the A1_v2_rough_blind_16k run so its 3-seed
+    acceptance can run as `--task Unitree-Go2-Velocity-Rough --seed {1,2,3}`
+    without checking out old commits.
+    """
+
+    def __post_init__(self):
+        super().__post_init__()
+        self.scene.terrain.terrain_generator = A1_ROUGH_TERRAINS_CFG
+        self.commands.base_velocity.ranges = mdp.UniformLevelVelocityCommandCfg.Ranges(
+            lin_vel_x=(-0.1, 0.1), lin_vel_y=(-0.1, 0.1), ang_vel_z=(-1, 1)
+        )
+        self.commands.base_velocity.limit_ranges = mdp.UniformLevelVelocityCommandCfg.Ranges(
+            lin_vel_x=(-1.0, 1.0), lin_vel_y=(-0.4, 0.4), ang_vel_z=(-1.0, 1.0)
+        )
+
+
+@configclass
+class RobotRoughPlayEnvCfg(RobotRoughEnvCfg):
     def __post_init__(self):
         super().__post_init__()
         self.scene.num_envs = 32

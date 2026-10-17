@@ -11,6 +11,20 @@ gym.register(
     },
 )
 
+
+# A1 acceptance env (roadmap stage A1): pre-A2 terrain mix (no stairs) and
+# command ranges, for the 3-seed acceptance runs.
+gym.register(
+    id="Unitree-Go2-Velocity-Rough",
+    entry_point="isaaclab.envs:ManagerBasedRLEnv",
+    disable_env_checker=True,
+    kwargs={
+        "env_cfg_entry_point": f"{__name__}.velocity_env_cfg:RobotRoughEnvCfg",
+        "play_env_cfg_entry_point": f"{__name__}.velocity_env_cfg:RobotRoughPlayEnvCfg",
+        "rsl_rl_cfg_entry_point": f"unitree_rl_lab.tasks.locomotion.agents.rsl_rl_ppo_cfg:BasePPORunnerCfg",
+    },
+)
+
 # A3 stage A: teacher PPO (actor reads the privileged `teacher` obs group = proprio + height_scanner)
 gym.register(
     id="Unitree-Go2-Velocity-Scan",
