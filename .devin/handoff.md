@@ -2,6 +2,13 @@
 
 <!-- Agent 每轮把最新状态写到本文件顶部；使命完成时在最顶部单独写一行 MISSION-COMPLETE -->
 
+## 状态 2026-10-17 21:45（post-A2 eval watcher 上线：训练退出即自动 eval+analyze）
+
+- 本轮做了什么：新增 `run_post_a2_eval.sh`（PID 31516 nohup 后台）——等 A2 train pid 7928 退出 → 15s 轮询 GPU 空（抢在 lunar-supervisor 60s 循环前）→ 依次 eval_terrain.py 三个 ckpt：leg1 `model_8700.pt`、resume `model_10600.pt`（最后 pre-onset）、resume 最新 ckpt（--load_run 分两次目录）→ 对两个 eval_summary.csv 跑 analyze_eval.py。输出到各自 run 目录 eval/ + `post_a2_eval.log`。eval 用 `--task Unitree-Go2-Velocity --num_envs 1024`（默认 eval_seconds 300/ckpt，预计 ~30-60min 总耗时）。**若用户想停训直接进 Stage A 而非 eval：kill 31516 即可**（或 eval 进程）。
+- 验证结果：bash -n 过；eval_terrain.py 的 --load_run/--checkpoints/--num_envs CLI 与 log_root/输出路径已逐行对过；unitree_rl_lab.sh 无自定义脚本入口→直接 `python scripts/rsl_rl/eval_terrain.py`；leg1 8700 ckpt 存在性已确认。
+- 训练状态：iter ~11265/23400，尖峰累计 217 次，act_rate 均值恶化到 -3.8/iter，fall ~0.177 仍稳。
+- 下一步建议：不变——用户在场停 resume（或自然到 23400，ETA ~明早）→ watcher 自动 eval → 下轮读 analyze 输出 → Stage A。若想中途看 watcher：tail post_a2_eval.log。
+
 ## 状态 2026-10-17 21:40（极端 episode 签名查实 + 日志口径更正：Episode_Reward 项要 ×20s 才对账）
 
 - 本轮做了什么：追查不稳定事件里 rew -82 批次的构成——**签名查实**：极端回合 = 全程剧烈抖动（action_rate 单项 -6.37≈回合-127）但活满 ~880 步不摔倒、吃 timeout 的 episode，产生 -80~-220 极端 return 击穿 critic。顺带更正一个全管线日志口径（对 G1/历次判读同样适用）：`Episode_Reward/<term>` = 回合项和 ÷ episode_length_s(20s)（reward_manager.py:119），对账 Mean reward 需 ×20（iter 10600: 0.75×20≈15.0 vs 14.51 ✓）。机制闭环：std 爬→极端抖动回合→vf 爆→clipped 更新推 std。
