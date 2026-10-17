@@ -204,7 +204,7 @@ class ObservationsCfg:
         gait_phase = ObsTerm(func=mdp.gait_phase, params={"period": 0.8})
 
         def __post_init__(self):
-            self.history_length = 80
+            self.history_length = 5
             self.enable_corruption = True
             self.concatenate_terms = True
 
@@ -229,7 +229,7 @@ class ObservationsCfg:
         # )
 
         def __post_init__(self):
-            self.history_length = 80
+            self.history_length = 5
 
     # privileged observations
     critic: CriticCfg = CriticCfg()
@@ -378,7 +378,7 @@ class RobotEnvCfg(ManagerBasedRLEnvCfg):
         self.episode_length_s = 20.0
         # simulation settings
         self.sim.dt = 0.005
-        self.sim.gravity = (0.0, 0.0, -1.62)  # lunar gravity (m/s^2)
+        self.sim.gravity = (0.0, 0.0, -9.81)  # earth gravity (m/s^2)
         self.sim.render_interval = self.decimation
         self.sim.physics_material = self.scene.terrain.physics_material
         self.sim.physx.gpu_max_rigid_patch_count = 10 * 2**15
