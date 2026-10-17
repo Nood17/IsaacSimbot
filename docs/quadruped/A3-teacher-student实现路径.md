@@ -59,6 +59,19 @@
 
 **剩余待决策**：教师训练是否要先等 eval_terrain.py 定下盲策略天花板；若教师 stage-A 仍卡 ~10cm 需调奖励（feet_clearance 目标高/feet_stumble 权重）。~~held-out 第 6 地形~~ → 已定（HELDOUT_TERRAINS_CFG，见上）。
 
+## Stage-A 奖励 Plan-B 预案（教师仍卡 ~10cm 时启用，先改档不实施）
+
+判读前提：eval 显示盲策略在 stairs level 3-4（10-12cm）摔倒率陡升 = 天花板实锤；Stage A 教师训 ~3-5k iter 后若 eval 仍卡同行 → 按序试下表（一次只动一项，便于归因）：
+
+| 序 | 改动 | 依据 |
+|---|------|------|
+| 1 | `feet_clearance.params.target_height` 0.05→0.10（`RobotScanEnvCfg` 或新建 `RobotScanClimbEnvCfg` 子类覆写，不动 A0-A2 cfg） | `foot_clearance_reward = exp(-Σ(z-0.05)²/0.05)·tanh(2·v_xy)`——峰值在 5cm 抬脚，对 15cm 台阶奖励信号错位；抬到 10cm 对齐目标步高（留 5cm 余量防过度高抬） |
+| 2 | `feet_stumble.weight` -0.5→-0.25 | stumble 罚的是"足底水平方向撞击"——上台阶本来就要踢踏竖板，-0.5 直接惩罚台阶接近行为 |
+| 3 | 可选加 `feet_height_body`（mdp 已有此 func，未启用）：weight ~0.2, target_height 0.1, tanh_mult 2.0 | 对地抬腿高度的软塑形，与 clearance 互补（clearance 管摆动期，height_body 管绝对抬升） |
+| 4 | 最后手段：`track_lin_vel_xy` std sqrt(0.25)→sqrt(0.35) 放宽核宽容度 | 台阶行跟踪误差天然大，核太窄→奖励梯度消失；放宽给学习留梯度。副作用：平地跟踪精度略降 |
+
+注意：只动 `RobotScanEnvCfg`/`RobotScanPlayEnvCfg` 的继承链（新建子类覆写 RewardsCfg），**绝不动 `RobotEnvCfg`**——A2 基线可复现性优先。蒸馏学生无需同步改（学生学教师行为，不学奖励）。
+
 ## 启动链路终验（2026-10-17 晚第三轮，对安装版源码逐环核对）
 
 - `cli_args.update_rsl_rl_cfg` 把 `--resume/--load_run/--checkpoint/--run_name/--seed/--logger` 写进 agent_cfg；`--max_iterations` 由 train.py:126 单独应用（"再训 N iter"语义：runner 从 ckpt iter 起算 learn N）。BasePPORunnerCfg 与 RslRlDistillationRunnerCfg 都继承 `RslRlBaseRunnerCfg`（含 resume/load_run/load_checkpoint 全部字段）——两阶段 CLI 语义一致。
