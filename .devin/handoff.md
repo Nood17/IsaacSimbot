@@ -2,12 +2,13 @@
 
 <!-- Agent 每轮把最新状态写到本文件顶部；使命完成时在最顶部单独写一行 MISSION-COMPLETE -->
 
-## 状态 2026-10-17 18:55（A2 训练监测 + 指标基线文档）
+## 状态 2026-10-17 19:00（A2 训练监测 + 指标基线 + per-terrain 评估脚本）
 
 - 本轮做了什么：
   - 确认 Go2 **A2 微调正在本机（robot, 5060 8GB）运行**：PID 7928，`--resume model_8700.pt → max_iterations 14700`，num_envs=2048，~4.1s/iter，ETA ~16h（约明午）。未干扰。
   - 解析 A1（5090, 8400 iter）/A2 leg1（robot, →8700）/A2 resume 三段 tensorboard events，核实指标语义，写 `docs/quadruped/状态-A1A2训练进展.md`。
   - 排除疑虑：Go2 各 run env.yaml `history_length=5`，G1 的 history=80 事故不影响 Go2 ckpt。
+  - 新增 `unitree_rl_lab/scripts/rsl_rl/eval_terrain.py`：per-(地形类型,难度行) 分解摔倒率/跟踪误差，支持多 ckpt 扫（`--checkpoints "model_*.pt"`），输出 eval_rows.csv + eval_summary.csv 到 run 目录 eval/ 下。冻结地形分布方式：删两个课程项 + `max_init_terrain_level=9` + 指令用 limit_ranges + 默认关 push_robot。**仅 py_compile + API 核对，未 GPU 实测**（GPU/RAM 被训练占着）。
 - 验证结果（指标，非训练）：A1 收敛好（摔倒~0.3%、track 95% 满权）；A2 加楼梯后摔倒 17%、reward 腰斩属预期；resume 段恢复中（摔倒回 7.9%、reward 23.7）。`error_vel_xy` 是绝对误差（m/s），~0.20 相当于 ~20% 相对——路线图 <10% 验收需 per-terrain 评估后判定。
 - ⚠️ **任务 B 冲突待用户裁决**：`lunar-supervisor.service` 活着且在 `wait_gpu_free` 循环——Go2 跑完（明午前后）会自动拉起 G1 `lsurface_earth` 续训（19500→29998，+10499 iter）。使命规定任务 B 暂停；但这是用户自建自动化、round 905 刚修复 history=80 根因后有意重启的，故本轮未动。若想阻止：`systemctl --user stop lunar-supervisor.service`。
 - 下一步建议：
