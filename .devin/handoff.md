@@ -2,6 +2,13 @@
 
 <!-- Agent 每轮把最新状态写到本文件顶部；使命完成时在最顶部单独写一行 MISSION-COMPLETE -->
 
+## 状态 2026-10-17 21:45（Stage-B resume 语义核实 + A3 文档语义修正，a97f9da）
+
+- 本轮做了什么：对安装版源码核实 Stage B 启动链路最后一问——`--load_run`/`--checkpoint` 不带 `--resume` 是否触发教师装载。**结论：触发**。train.py:165/195 条件 `resume OR algorithm.class_name=="Distillation"`，蒸馏恒真；`StudentTeacher.load_state_dict` 见 `actor.` 键→灌 teacher→返回 False→iter=0/optimizer 跳过。忘 `--load_run` 会在 `learn()` 首行 `loaded_teacher` 守卫抛 ValueError（fail-fast，非静默）。顺带修正 A3 文档里同款"`--max_iterations`再训 N"错误说法（与状态文档一致的"绝对上限"口径）。
+- 验证结果：on_policy_runner.load / student_teacher.load_state_dict / distillation_runner.learn 逐行对过；doc only，a97f9da。
+- 训练状态：iter ~10750/23400，平台延续。
+- 下一步建议：不变——等 GPU，eval → analyze → Stage A。两阶段文档语义现已完全一致，无残留错误口径。
+
 ## 状态 2026-10-17 21:30（Stage-A 发射命令补 --max_iterations 8000，48368d3）
 
 - 本轮做了什么：巡检发现一个会真烧 GPU 的缺口——Stage A 发射命令没写 `--max_iterations`，Go2ScanPPORunnerCfg 继承 BasePPORunnerCfg 的默认 **50000**（~57h）。已在状态文档改为 `--max_iterations 8000`（~9h）并写清语义：train.py:126 是**绝对上限**非"再训 N"（此前 handoff 里"再训 N"的说法已纠正）；暖启动 iter=0；未收敛可再 resume 抬上限续训。顺带复核：warm_9900_scan.pt 仍在 ft_init/（13MB）、蒸馏 cfg max_iterations=2000 合理、save_interval=100 提供密集 eval ckpt、RobotScanEnvCfg 地形=COBBLESTONE（含 stairs，教师训同一分布）。
