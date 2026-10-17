@@ -47,6 +47,10 @@ parser.add_argument("--min_iter", type=int, default=-1,
                     help="Skip checkpoints with iter < min_iter (when globbing).")
 parser.add_argument("--keep_push", action="store_true",
                     help="Keep the push_robot event (default: disabled for clean fall attribution).")
+parser.add_argument("--agent_cfg", type=str, default=None,
+                    help="Optional 'module:ClassName' to load the rsl_rl agent cfg from, "
+                         "overriding the task's rsl_rl_cfg_entry_point (e.g. scan teacher or "
+                         "distillation cfgs when evaluating on the Heldout task).")
 parser.add_argument("--disable_fabric", action="store_true", default=False)
 cli_args.add_rsl_rl_args(parser)
 AppLauncher.add_app_launcher_args(parser)
@@ -127,7 +131,14 @@ def main():
     if not args_cli.keep_push and hasattr(env_cfg.events, "push_robot"):
         env_cfg.events.push_robot = None
 
-    agent_cfg = cli_args.parse_rsl_rl_cfg(args_cli.task, args_cli)
+    if args_cli.agent_cfg:
+        import importlib
+
+        module_name, class_name = args_cli.agent_cfg.split(":")
+        agent_cfg = getattr(importlib.import_module(module_name), class_name)()
+        agent_cfg = cli_args.update_rsl_rl_cfg(agent_cfg, args_cli)
+    else:
+        agent_cfg = cli_args.parse_rsl_rl_cfg(args_cli.task, args_cli)
     log_root = os.path.abspath(os.path.join("logs", "rsl_rl", agent_cfg.experiment_name))
     ckpts = resolve_checkpoints(log_root, agent_cfg)
     print(f"[INFO] Evaluating {len(ckpts)} checkpoint(s): {[os.path.basename(c) for c in ckpts]}")
@@ -137,7 +148,14 @@ def main():
         env = multi_agent_to_single_agent(env)
     env = RslRlVecEnvWrapper(env, clip_actions=agent_cfg.clip_actions)
 
-    runner = OnPolicyRunner(env, agent_cfg.to_dict(), log_dir=None, device=agent_cfg.device)
+    if not hasattr(agent_cfg, "class_name") or agent_cfg.class_name == "OnPolicyRunner":
+        runner = OnPolicyRunner(env, agent_cfg.to_dict(), log_dir=None, device=agent_cfg.device)
+    elif agent_cfg.class_name == "DistillationRunner":
+        from rsl_rl.runners import DistillationRunner
+
+        runner = DistillationRunner(env, agent_cfg.to_dict(), log_dir=None, device=agent_cfg.device)
+    else:
+        raise ValueError(f"Unsupported runner class: {agent_cfg.class_name}")
 
     terrain = env.unwrapped.scene.terrain
     col2name = col_to_terrain_names(env)
@@ -185,7 +203,8 @@ def main():
 
     all_rows = []
     for ckpt in ckpts:
-        it = int(re.search(r"model_(\d+)\.pt$", os.path.basename(ckpt)).group(1))
+        m = re.search(r"model_(\d+)\.pt$", os.path.basename(ckpt))
+        it = int(m.group(1)) if m else -1
         runner.load(ckpt)
         policy = runner.get_inference_policy(device=device)
 
