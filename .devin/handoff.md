@@ -2,6 +2,13 @@
 
 <!-- Agent 每轮把最新状态写到本文件顶部；使命完成时在最顶部单独写一行 MISSION-COMPLETE -->
 
+## 状态 2026-10-17 21:40（极端 episode 签名查实 + 日志口径更正：Episode_Reward 项要 ×20s 才对账）
+
+- 本轮做了什么：追查不稳定事件里 rew -82 批次的构成——**签名查实**：极端回合 = 全程剧烈抖动（action_rate 单项 -6.37≈回合-127）但活满 ~880 步不摔倒、吃 timeout 的 episode，产生 -80~-220 极端 return 击穿 critic。顺带更正一个全管线日志口径（对 G1/历次判读同样适用）：`Episode_Reward/<term>` = 回合项和 ÷ episode_length_s(20s)（reward_manager.py:119），对账 Mean reward 需 ×20（iter 10600: 0.75×20≈15.0 vs 14.51 ✓）。机制闭环：std 爬→极端抖动回合→vf 爆→clipped 更新推 std。
+- 验证结果：bad-iter 全项分解 + reward_manager.py:113-158 逐行 + env.yaml episode_length_s=20 核实；doc only。
+- 训练状态：iter ~11175/23400 仍跑，尖峰继续（最近窗口含 -224 rew iter）。
+- 下一步建议：不变——用户在场即停 resume（学习已停）→ eval_terrain（任意 ckpt 可评）→ analyze → Stage A。
+
 ## 状态 2026-10-17 21:30（权重级复查推翻"ckpt 污染"判断：actor 未受损，学习实质停摆）
 
 - 本轮做了什么：对上轮发现的 vf 爆炸事件做 ckpt 权重级复查（CPU diff）。**更正上轮红线**：10600→11000 全程 400 iter 的 actor 漂移（rel_L2 0.066、输出层 0.23）≤ 正常 100-iter 漂移（0.072/0.23）——grad clipping 把坏梯度削平，**actor 未被损坏**。真实变化：①critic 空转（vf 爆炸→advantage 失真→学习实质停）②std 胀 0.398→0.435（且 `act_inference`=确定性前向不吃 std——已对安装版源码核实，eval 不受影响）。尖峰速率仍在升（最近 300 iter 59 次）。机制判读与对策已写入状态文档（std 胀→极端 episode→击穿 critic 的慢燃环）。
