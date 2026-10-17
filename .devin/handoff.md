@@ -2,6 +2,13 @@
 
 <!-- Agent 每轮把最新状态写到本文件顶部；使命完成时在最顶部单独写一行 MISSION-COMPLETE -->
 
+## 状态 2026-10-17 21:20（巡检发现训练不稳定事件：iter ~10626 起 vf_loss 反复爆炸）
+
+- 本轮做了什么：低频巡检变实检——分段统计发现 resume 段在 iter ~10626 无预兆进入不稳定相：vf_loss 一步 0.038→865，此后 350+ iter 内 >100 尖峰 91 次（峰 ~5600），rew 间歇 -12~-60、action_rate -0.44→-10、entropy 5.9→7.0、std 0.40→0.43；8700-10625 全程零尖峰。主行为指标（fall ~0.17、track ~1.17、clearance ~0.27）暂未漂移，grad clipping 下每次 ~50-100 iter 部分恢复但持续复发——慢燃反馈环而非一次性抖动。已在状态文档落完整事件记录（onset/签名/机制猜测/对策）。
+- 验证结果：对 go2_a2_stairs.log 逐 iter 解析核实（onset 前后每 iter 指标、全程尖峰计数、日志无 NaN/error 行）；doc only。
+- 训练状态：iter ~10980/23400 仍跑，处不稳定相。**eval ckpt 红线：只用 ≤model_10600.pt**（10600 保存于 onset 前；10800/10900 在不稳相内勿用）。
+- 下一步建议：升级——继续跑不再只是"无信息"而是**主动损坏策略**，建议用户在场即停 resume → eval_terrain 扫（ckpt 上限 10600，另扫 leg1 8700/8400）→ analyze → Stage A。agent 仍不主动杀用户 run。lunar-supervisor 照旧等 GPU。
+
 ## 状态 2026-10-17 22:15（analyze_eval 默认地形名修正：stairs→pyramid_stairs，15137d1）
 
 - 本轮做了什么：①核实 `unitree_rl_lab.sh -t` 透传任意参数（`train.py --headless "$@"`，--max_iterations 会到达）；②**修了一个真 bug**：analyze_eval.py 默认 `--step_terrains stairs,stairs_inv`，而训练网格 sub_terrain 键名是 `pyramid_stairs/pyramid_stairs_inv`——不指定会静默报 NO DATA。已改默认 + help 注明以 eval 打印的 col->name 为准；文档用法行同步（默认即可，heldout 无 stairs 类报 NO DATA 属正常）。合成 CSV 复测通过。
