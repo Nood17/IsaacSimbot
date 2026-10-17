@@ -2,6 +2,262 @@
 
 <!-- Agent 每轮把最新状态写到本文件顶部；使命完成时在最顶部单独写一行 MISSION-COMPLETE -->
 
+## 状态 2026-10-18 01:17（四相行为对照表落盘：部署行为全程未退化实锤）
+
+- **本轮增量：四相对照表写入 state doc**（line 49-58）。核心证据——部署行为指标跨相恒定：track 1.17-1.22、err_xy 0.241-0.255、ep_len 868-903 全程不动；fall 主相 0.181 微升后回落且**复发相 0.143 优于 pre-onset 0.149**。rew 崩溃窗 -15.5 与复发相 13.66 的均值差源于极端回合尾部而非典型行为。**actor 唯一可测残留 = action_rate -0.56 vs 基线 -0.43**（轻度残余抖动）。这直接支撑"任何 ckpt 可 eval"判断，14700 的 eval 读数预期≈10600/13900（若有差异即是"相内 ckpt 退化量"的实测答案）。
+- 训练分布 col→name 预测已写入 doc（flat 0-1/rough 2-5/slope 6-9/slope_inv 10-13/stairs 14-16/stairs_inv 17-19）；eval 打印 col->name 时对照即可。
+- 巡检：iter ~14440+/14700，余 <15min。env.yaml 配比与现 cfg 一致 ✓。
+- **下轮**：训练退 → watcher 起评 8700；`eval rc=` 是关键首测点（eval_terrain.py 运行时首跑）。所有静态核验已完成，rc≠0 才需动手。
+
+## 状态 2026-10-18 01:12（heldout 列→地形归因验证完毕；巡检）
+
+- **本轮增量：`col_to_terrain_names` 对 heldout 网格验证**（eval_terrain.py:80）：heldout 子地形 boxes 0.4/gap 0.3/discrete_obstacles 0.3、num_cols=20 → 列归因 cols 0-7=boxes、8-13=gap、14-19=discrete_obstacles，与 IsaacLab curriculum 分支同套累计比例语义 ✓；`curriculum=True` 在 gen cfg 只管行难度分配，与 eval 关课程管理器不冲突 ✓。HELDOUT_TERRAINS_CFG 三项（random grid 台阶/gap 环/离散障碍）均为 IsaacLab 内建 ✓。**eval 管线静态核验到此全部完成，剩余风险纯运行时**。
+- 巡检：iter ~14390/14700，余 ~310 ≈ ~21min；14315-14390 仅 1 尖峰（557@14327），rew min -7.8。第二相累计 >10 尖峰 ~35 个/450iter（~0.08/iter，主相 0.39 的 1/5），簇状间歇、actor 指标始终未漂。
+- watcher/extra 双 armed 不变。**下轮大概率撞上训练退出**：盯 post_a2_eval.log `train pid 7928 gone` → GPU-free → 首个 `eval rc=`。
+
+## 状态 2026-10-18 01:08（eval 链路全量静态核验通过：heldout 注册/obs 组/analyze gates）
+
+- **本轮增量：eval 链路剩余静态风险清零**。
+  - `Unitree-Go2-Velocity-Heldout` 已注册（go2/__init__.py:44）→ `RobotHeldoutEnvCfg(RobotScanEnvCfg)` 只换 `HELDOUT_TERRAINS_CFG`；盲 ckpt 用默认 BasePPORunnerCfg 直接跑（policy 组存在）。
+  - `analyze_eval.py` gates 读毕：fall≤0.10 & rel_err≤0.15 & eps≥5/cell；step ceiling=连续通过的最高 stairs level（L r→台阶高 [5+1.5r,6.5+1.5r)cm，**L6=15cm 门槛**）；heldout 无 stairs 类 → gate 报 NO DATA 属预期。预期产出：每 ckpt 一份 per-terrain×level fall/rel_err 矩阵 + ceiling/gate 一行结论。
+  - `resolve_checkpoints`→`agent_cfg.load_run`（cli_args.py:80-83）链路实测命中 model_13900；`--checkpoints` 单文件名解析正常。
+- 训练 iter ~14315/14700，余 ~385 ≈ ~26min。尾部：14225-14315 又 2 尖峰（754@14252、724@14268）——簇状振荡延续，平均密度 ~0.12/iter 全程低于主相 0.39。actor 指标依旧未漂。
+- GPU 4.6GB/88%、磁盘 328G。watcher + extra 双 armed；**extra 日志在 `journalctl --user -u go2-eval-extra`**。
+- **下轮**：~01:30 训练退→watcher 起评；盯 post_a2_eval.log `eval rc=`（首个 rc 是 eval_terrain.py 运行时层首测，若挂查 PhysX/obs hook）；rc=0 则等 extra 串完读 summary 矩阵对 gate 判读。
+
+## 状态 2026-10-18 01:01（补件 eval 已自动化挂载：13900 + heldout 四件）
+
+- **本轮增量：`run_post_eval_extra.sh` 新建并 armed**（systemd unit `go2-eval-extra.service`）。逻辑：等 post_a2_eval.log 出现 "post-A2 eval done"（4h 超时兜底）→ 等 GPU 空 → ①model_13900 训练分布 eval（复发前最后干净 ckpt）→ ②heldout eval 四件（8700/10600/13900/latest，`--experiment_name unitree_go2_velocity --eval_tag _heldout`，summary 逐件 snapshot）→ ③analyze 两 run 目录全部 `eval_summary*.csv`。**日志在 journal**：`journalctl --user -u go2-eval-extra -f`。
+- 校验：`--load_run` 经 cli_args.py:80-83 落到 `agent_cfg.load_run`（实测 resolve_checkpoints glob 能命中 model_13900）；`--experiment_name` patch 生效（eval_terrain.py:147）；heldout 任务用默认 BasePPORunnerCfg 即可。watcher 脚本本体未动（运行中 bash 不可编辑）。
+- 尾部复查：14160-14225 仅 1 尖峰（810@14161）——子爆发呈**簇状振荡**非单调爬升，订正上轮"趋势向上"措辞（doc line 48 主体判断不变）。
+- 训练 iter ~14225/14700，余 ~475 ≈ ~30min → **~01:30 收尾**。watcher armed（评 8700→10600→latest→analyze），extra armed 串接其后。
+- **下轮**：盯 post_a2_eval.log 训练退出 + 首个 `eval rc=`（eval_terrain.py 运行时层首测）；然后 `journalctl --user -u go2-eval-extra` 盯补件；全部完成后读 eval_summary 对路线图 gate 做判读 + A3 决策。
+
+## 状态 2026-10-18 00:58（⚠️ 订正上轮定性：非衰减，是"谷→第二子爆发"再爬升）
+
+- **本轮增量：复发相窗口分段复查 + state doc 订正**。14012 后 148 iter 分三段：14012-59 vfmax 168/2 尖峰 → 14060-14107 vfmax 133/4 尖峰 → **14108-60 再爬升：~9 尖峰、>100 六个**（761@14130、781@14134、**853+1089@14147-48 连发对**、295@14155），rew 深坑 -36.5/-31.8 滞后尖峰 1-2 iter。上轮"衰减尾"是 ~100-iter 谷的误读。
+- 密度 ~0.17/iter 约主崩溃相（0.39/iter）一半但**在升**，连发对+深坑跟尾=相1 同款 escalation 签名。**actor 仍完好**：action_rate -0.44~-0.47（主相 -2.24）、fall ~0.159、err_xy ~0.24-0.26、eplen ~890 靠 timeout——同一"critic 空转 actor 完好"病理。已追加订正 bullet 到 `docs/quadruped/状态-A1A2训练进展.md`（line 48）。
+- 训练 iter ~14160/14700，余 ~540 iter ≈ ~37min → **~01:33 收尾**。ckpt 落盘正常（model_14100 已在）。GPU 4.6GB/85%、磁盘 328G。watcher 仍挂 PID 7928，退训后自动评 8700→10600→latest。
+- **下轮**：照旧巡检至训练退出；盯 post_a2_eval.log 首个 `eval rc=`（eval_terrain.py 首跑，运行时层风险仍在）；eval 完成后手动补 model_13900 + heldout eval（命令在 state doc 下一步 #4）。14700 ckpt 大概率落在复发相内——正是 eval 要测的退化量。
+
+## 状态 2026-10-18 00:52（复发相定性更新：阻尼衰减型，非相1 递增型）
+
+- iter 14095/14700，余 ~40min。13942 起累计 22 尖峰：13950-75 密集 13 个（峰 2921）→ 衰减尾 1-2 个/25iter（maxvf 168→62→133），rew min 自 -54.4 回升至 +3~6 带。entropy 6.21 仍高于基线 5.9 未落回。**vs 相1：密度 ~1/3、量级 ~1/3、且在衰减**——像"带着相1 疤痕的阻尼复发"。
+- 推论未变：eval 集补 model_13900；14700 末段 ckpt 大概率在相内/余波中，预期其 per-terrain 指标略逊于 13900（这本身也是 eval 要回答的问题——**复发相 ckpt 的确定性前向行为到底退化多少**，是好数据点）。
+- 下轮照旧巡检；~01:35 训练退 → watcher 接 eval。
+
+## 状态 2026-10-18 00:47（⚠️ 第二爆发相确认：慢燃环周期性实锤）（⚠️ 第二爆发相确认：慢燃环周期性实锤）
+
+- **新事件**：13942–14011 vf 爆发相——17 尖峰（峰 2921.1@13957、2030@13952、1644@13958）、rew 谷底 -54.4@13959、entropy 6.33（基线 5.9）。14012 起暂回平稳（vf~0.05、rew~16.7），但仅 ~13 iter 窗口，不排除继续。
+- **决定性证据**：entropy 在 12k–14k"干净期"单调重建 5.63→5.86→6.02→6.17→6.33 → 紧接爆发。**慢燃环是周期性的**：std 重建→极端 episode→critic 击穿。13639/13647 小对实为前震。已写入 state doc（含 eval 集应加 model_13900=复发前最后干净 ckpt；14700 末段 ckpt 可能落在相内）。
+- 训练 ~14030/14700（余 ~45min）。不主动杀 run——学习已停，只剩时间成本；watcher 会评 8700/10600/14700，**eval 完后手动补 model_13900 一件**。
+- A3 暖启动 warm_9900_scan.pt 核实存在（13MB, expand_actor_obs.py 产物）。
+- 下轮重点：①14012 后窗口是否继续尖峰（复发密度 vs 10626 主相 295/750iter）②~01:35 watcher 接管后的首个 eval rc。
+
+## 状态 2026-10-18 00:43（修复 held-out eval 不可达问题 + eval_tag 隔离）（修复 held-out eval 不可达问题 + eval_tag 隔离）
+
+- 训练 nominal：model_13900 已落盘，iter ~13940/14700，~50min 收尾。
+- **本轮增量：eval_terrain.py 两处小补丁**（py_compile 过）：
+  1. `--experiment_name` 在 cli_args 声明了但从未被应用——Heldout 任务会解析成 `unitree_go2_velocity_heldout` 导致 --load_run 找不到 A2 ckpt。现 honor 该 flag（`args_cli.experiment_name or agent_cfg.experiment_name`）。
+  2. 新增 `--eval_tag`：heldout eval 输出写 `eval_rows_heldout.csv`/`eval_summary_heldout.csv`，不与训练分布 summary/rows 互相覆盖；analyze glob `eval_summary*.csv` 天然兼容。
+- **held-out 验收命令已写入 state doc 下一步 #4**（路线图纪律 #4，watcher 不覆盖）：`--task Unitree-Go2-Velocity-Heldout --experiment_name unitree_go2_velocity --load_run <run> --checkpoints <ckpt> --eval_tag _heldout`。
+- 已模拟验证：patch 后 `--load_run` 在正确 log_root 下能 glob 到 model_13900.pt。
+- 下轮照旧盯 post_a2_eval.log；训练完后手动补 heldout eval（blind ckpt 用默认 BasePPORunnerCfg 即可，无需 --agent_cfg）。
+
+## 状态 2026-10-18 00:38（A2 崩溃相终末定量分析落盘）（A2 崩溃相终末定量分析落盘）
+
+- 训练 nominal：iter ~13840/14700，~01:35 收尾，watcher armed。
+- **本轮增量：10626 事件四段时间轴 + 崩溃窗全项对比已写入 `docs/quadruped/状态-A1A2训练进展.md` 现状判读**。要点：前兆孤立点 8784/9590/9661 → 主崩溃 10626–11378（295 尖峰，峰 9545.9）→ 余震至 11552 → 零星小对至今（≤136，含上轮 13639/13647）。崩溃窗 action_rate -0.44→-2.24（单项主导）、entropy 5.88→6.85、**dof_pos_limits 残留 -0.017（pre 的 5×，未回落——新发现的残余签名）**；track/ep_len/feet 全程不动。课程静止排除难度触发。与 doc 既有 K5 定位完全一致，属加固非修正。
+- 平台期实锤：11552→13722 rew 均值 15.4–16.2 横盘。
+- eval_terrain 静态审查上轮已全过；残余风险仅运行时层。下轮：盯 post_a2_eval.log 首个 `eval rc=`（~01:35 后）。
+- GPU 4.58GB 仅训练，磁盘 328G 余。
+
+## 状态 2026-10-18 00:33（例行巡检 + eval 管线静态审查完成）（例行巡检 + eval 管线静态审查完成）
+
+- 训练 nominal：iter 13801/14700，vf last40 mean 0.39/max 1.74 零尖峰，rew mean 14.90。预计 ~01:35 收尾，watcher 将自动接 eval。
+- **eval_terrain.py 逐行静态审查**（对照实际安装的 `/home/nood/仿真/IsaacLab` 源码，非 IsaacSimbot 副本）：
+  - `tm._term_dones` 确为 (N,n_terms) bool tensor——hook `.clone()` OK；compute() 语义为"同 step 多 term 只留最后 fired 项的 flag"，`nonzero()[0]` 取的即是该项，与 state doc 一致，无 bug。
+  - `active_terms` 即 `_term_names`（None cfg 项已被 ManagerBase 跳过），列序与 `_term_dones` 对齐 ✓。
+  - `limit_ranges` 在 go2 cfg 存在（velocity_env_cfg.py:266）；cfg 已含 `RobotRoughEnvCfg`（A1 验收复现）与 `RobotHeldoutEnvCfg`（held-out + teacher 组）备用。
+  - `import cli_args` 依赖脚本目录入 sys.path——`python scripts/rsl_rl/eval_terrain.py` 调用方式下成立 ✓（watcher 正是这么调的）。
+  - rsl-rl-lib **3.0.1**：脚本里 2.3.x 的 `obs,_` 分支不会触发，`get_observations()` 单返回值正确 ✓。
+  - eval_summary.csv 列（checkpoint/terrain/level/.../fall_rate/mean_rel_err/mean_ep_len_s）与 analyze_eval.py 读取字段逐项吻合 ✓；watcher 每次 run_eval 是独立进程 → all_rows 只含单 ckpt → per-ckpt snapshot 逻辑正确。
+  - 两个 run 目录均无残留 eval/ 目录，无 stale summary 污染分析 glob。
+- 残余风险仅剩运行时层（PhysX 初始化、obs TensorDict 流、termination hook 时序），API/配置层全部核实通过。首跑留意 post_a2_eval.log 的 `eval rc=`。
+- GPU 4.58GB（仅训练）、磁盘 328G 余。
+
+## 状态 2026-10-18 00:27（复查结论：双凸起为孤立事件 + 学习平台期定量确认）（复查结论：双凸起为孤立事件 + 学习平台期定量确认）
+
+- 上轮疑点已结清：iter>=13656 起 67 iter 零 >10 尖峰（vf last60 mean 0.27 / max 3.14），13639(136.1)/13647(67.9) 双凸起与 ~12000、~13000 桶内零星小对（22.8/11.3、22.3/11.9）同量级，**非新不稳定相**。累计 >100 尖峰锁 279。
+- **平台期定量证据**（500-iter 桶 mean）：rew 11500→16.19(12000)→15.68(12500)→15.68(13000)→15.37(13500+)；err_xy 稳 ~0.25-0.26；terrain_levels 稳 ~2.43-2.50。11552 崩溃相结束后学习基本停滞，与上轮"停训进 eval 更划算"判断一致——跑满 14700 即可，不必延长。
+- 进度：iter 13722/14700（注意 max_iterations=14700，早前 handoff 写的 23400 是过期数字），余 ~980 iter ≈ ~65min（~4.1s/iter），预计 ~01:35 收尾。ckpt model_13700 @00:24 已落盘。
+- **post-A2 eval 预检全部通过**：watcher（go2-eval-watcher.service，监视 PID 7928）逻辑核实——eval 序列 leg1 model_8700 → resume model_10600（pre-onset）→ 最新 ckpt（ls -v tail）→ analyze_eval 逐个 summary。三件 ckpt、两个脚本均存在且 py_compile OK，analyze_eval --help 正常。GPU 仅训练占用 4.58GB。
+- 注意：eval_terrain.py **从未 GPU 实测**（state doc 明示），watcher 首跑若报运行时错（PhysX/obs hook 细节）属预期，查 post_a2_eval.log 首条 eval rc。
+
+## 状态 2026-10-18 00:21（巡检注意：~2100 iter 干净后出现新 vf 凸起×2）
+
+- watcher active（systemd，uptime ~2h20m）；iter ~13655/23400，ETA ~11.2h。
+- **注意**：iter 13639 vf_loss=136.1（累计尖峰 278→**279**，11552 以来首次）、13647 vf=67.9（未达 100 阈值），两次凸起间隔 8 iter、伴 rew 下探 6.32（13648-49）。量级远低于不稳定相峰值（~5600/-200 rew），主行为指标未漂移（fall ~0.132、err_xy ~0.258、terrain_levels ~2.45）。近 60 iter rew 均值 15.21（min 6.32）。
+- 判读：可能是孤立双凸起（grad clip 削平后已回 0.05-0.7 正常带），也可能是新不稳定相前兆——**下轮重点复查 13656-13750 窗口是否继续尖峰/加速**；若增速复现（>100 尖峰密度回升）则按既有结论：学习已停、停训进 eval 更划算。
+- GPU 4.6/8.1GB、util 92%，磁盘 328G 余。
+
+## 状态 2026-10-18 00:17（例行巡检：一切正常）
+
+- watcher active（systemd，uptime ~2h16m）；iter ~13595/23400，ETA ~11.2h。近 60 iter（13536-13595）零尖峰、vf_loss max 3.36（mean 0.41），rew 均值 15.21（min 7.28 / max 19.08），fall ~0.140、err_xy ~0.257、terrain_levels ~2.42 稳。累计尖峰仍锁 278。GPU 4.6/8.1GB、util 89%，磁盘 328G 余。无增量工作。
+
+## 状态 2026-10-18 00:13（例行巡检：一切正常）
+
+- watcher active（systemd，uptime ~2h12m）；iter ~13535/23400，ETA ~11.3h。近 60 iter（13476-13535）零尖峰、vf_loss max 11.88（mean 0.66），rew 均值 15.01（min 7.67 / max 17.87），fall ~0.132、err_xy ~0.256、terrain_levels ~2.41 稳。累计尖峰仍锁 278。GPU 4.6/8.1GB、util 95%，磁盘 328G 余。无增量工作。
+
+## 状态 2026-10-18 00:09（例行巡检：一切正常）
+
+- watcher active（systemd，uptime ~2h8m）；iter ~13480/23400，ETA ~11.3h。近 60 iter（13421-13480）零尖峰、vf_loss max 3.19（mean 0.46），rew 均值 15.40（min 9.28 / max 17.96），fall ~0.144、err_xy ~0.260、terrain_levels ~2.38 稳。累计尖峰仍锁 278。GPU 4.6/8.1GB、util 85%，磁盘 328G 余。无增量工作。
+
+## 状态 2026-10-18 00:05（例行巡检：一切正常）
+
+- watcher active（systemd，uptime ~2h4m）；iter ~13420/23400，ETA ~11.4h。近 60 iter（13361-13420）零尖峰、vf_loss max 2.35（mean 0.20），rew 均值 15.64（min 8.87 / max 18.84），fall ~0.147、err_xy ~0.259、terrain_levels ~2.43 稳。累计尖峰仍锁 278。GPU 4.6/8.1GB、util 94%，磁盘 328G 余。无增量工作。
+
+## 状态 2026-10-18 00:00（例行巡检：一切正常）
+
+- watcher active（systemd，uptime ~2h）；iter ~13355/23400，ETA ~11.5h。近 60 iter（13296-13355）零尖峰、vf_loss max 22.34（mean 0.63），rew 均值 15.84（min 9.30 / max 18.07），fall ~0.136、err_xy ~0.256、terrain_levels ~2.43 稳。累计尖峰仍锁 278。ckpt model_13300 @23:56 已落盘。GPU 4.6/8.1GB、util 88%，磁盘 328G 余。无增量工作。
+
+## 状态 2026-10-17 23:56（例行巡检：一切正常）
+
+- watcher active；iter ~13285/23400，ETA ~11.5h。近 60 iter（13231-13290）零尖峰、vf_loss max 0.88（mean 0.11，最干净窗口），rew 均值 16.23（min 12.46），fall ~0.138、err_xy ~0.26 稳。累计尖峰仍锁 278。ckpt model_13200 已落盘。GPU 4.6/8.1GB、util 89%。无增量工作。
+
+## 状态 2026-10-17 23:52（例行巡检：一切正常）
+
+- watcher active；iter ~13230/23400，ETA ~11.6h。近 60 iter（13171-13230）零尖峰、vf_loss max 1.58（mean 0.16），rew 均值 15.65（min 11.15），fall ~0.135、err_xy ~0.26 稳。累计尖峰仍锁 278。GPU 4.6/8.1GB、util 90%。无增量工作。
+
+## 状态 2026-10-17 23:48（例行巡检：一切正常）
+
+- watcher active；iter ~13170/23400，ETA ~11.7h。近 60 iter（13111-13170）零尖峰、vf_loss max 2.24（mean 0.29），rew 均值 15.26（min 8.86），fall ~0.148、err_xy ~0.25 稳。累计尖峰仍锁 278。GPU 4.6/8.1GB、util 93%。无增量工作。
+
+## 状态 2026-10-17 23:44（例行巡检：一切正常）
+
+- watcher active；iter ~13110/23400，ETA ~11.8h。近 55 iter（13056-13110）零尖峰、vf_loss max 2.07（mean 0.34），rew 均值 15.92（min 10.60），fall ~0.141、err_xy ~0.25 稳。累计尖峰仍锁 278。GPU 4.6/8.1GB、util 88%，磁盘 328G 余。无增量工作。
+
+## 状态 2026-10-17 23:40（例行巡检：一切正常）
+
+- watcher active；iter ~13055/23400，ETA ~11.8h。近 55 iter（13001-13055）零尖峰、vf_loss max 1.85（mean 0.25），rew 均值 15.88（min 7.88），fall ~0.140、err_xy ~0.25 稳。累计尖峰仍锁 278。GPU 4.6/8.1GB、util 90%。无增量工作。
+
+## 状态 2026-10-17 23:36（例行巡检：一切正常）
+
+- watcher active（systemd，uptime 1h34m）；iter ~13000/23400，ETA ~11.9h。近 65 iter（12936-13000）零尖峰、vf_loss max 2.14（mean 0.53），rew 均值 15.53（min 9.28 / max 19.19），fall ~0.140、err_xy ~0.25 稳。累计尖峰仍锁 278（最后一次 @11552）。GPU 4.6/8.1GB、util 88%，磁盘 328G 余。无增量工作。
+
+## 状态 2026-10-17 23:32（例行巡检：一切正常）
+
+- watcher active；iter ~12935/23400，ETA ~11.9h。近 55 iter（>12880）零尖峰、vf_loss max 3.05，rew 均值 15.12（min 4.73），fall ~0.131、err_xy ~0.25 稳。累计尖峰仍锁 278。无增量工作。
+
+## 状态 2026-10-17 23:28（例行巡检：一切正常）
+
+- watcher active；iter ~12880/23400，ETA ~12h。近 60 iter（>12820）零尖峰、vf_loss max 2.13，rew 均值 15.74（min 7.94），fall ~0.143、err_xy ~0.26 稳。累计尖峰仍锁 278。无增量工作。
+
+## 状态 2026-10-17 23:24（例行巡检：一切正常）
+
+- watcher active；iter ~12820/23400，ETA ~12.1h。近 60 iter（>12760）零尖峰、vf_loss max 4.59，rew 均值 16.22（min 10.86），fall ~0.146、err_xy ~0.26 稳。累计尖峰仍锁 278。无增量工作。
+
+## 状态 2026-10-17 23:20（例行巡检：一切正常）
+
+- watcher active；iter ~12760/23400，ETA ~12.1h。近 55 iter（>12705）零尖峰、vf_loss max 2.30，rew 均值 15.53（min 11.75），fall ~0.145、err_xy ~0.26 稳。累计尖峰仍锁 278。无增量工作。
+
+## 状态 2026-10-17 23:16（例行巡检：一切正常）
+
+- watcher active；iter ~12705/23400，ETA ~12.2h。近 80 iter（>12625）零尖峰、vf_loss max 1.62，rew 均值 15.21（min 8.58），fall ~0.151、err_xy ~0.26 稳。累计尖峰仍锁 278。ckpt model_12700 @23:15 已落盘。GPU 4.6/8.1GB、util 94%。无增量工作。
+
+## 状态 2026-10-17 23:11（例行巡检：一切正常 + live 日志路径核实）
+
+- watcher active（systemd，uptime 1h9m）；iter ~12625/23400，ETA ~12.3h。近 65 iter（>12560）零尖峰、vf_loss max 1.12，rew 均值 16.02（min 13.92），fall ~0.156、err_xy ~0.25 稳。累计尖峰仍锁 278。ckpt model_12600 @23:08 已落盘。GPU 4.6/8.1GB、util 64%，磁盘 328G 余。无增量工作。
+- 顺带核实：`~/仿真/unitree_rl_lab` 是 9-30 前的**旧副本**（非 symlink，mtime 停留 Sep-30），live logs/ckpt 全在 repo 内 `./unitree_rl_lab`；watcher 脚本 `BASE=/home/nood/IsaacSimbot` 已指向 live 树，无需改动。后续找 live ckpt 别去 `~/仿真` 下。
+
+## 状态 2026-10-17 23:14（例行巡检：一切正常）
+
+- watcher active；iter ~12560/23400，ETA ~12.4h。近 60 iter（>12500）零尖峰、vf_loss max 0.049，rew 均值 16.13（min 14.36）。无增量工作。
+
+## 状态 2026-10-17 23:09（例行巡检：一切正常）
+
+- watcher active；iter ~12500/23400，ETA ~12.4h。近 60 iter（>12440）零尖峰、vf_loss max 0.056，rew 均值 15.96（min 12.69）。无增量工作。
+
+## 状态 2026-10-17 23:04（例行巡检：一切正常）
+
+- watcher active；iter ~12440/23400，ETA ~12.5h。近 60 iter（>12380）零尖峰、vf_loss max 0.050，rew 均值 16.10（min 14.58）。无增量工作。
+
+## 状态 2026-10-17 22:59（例行巡检：一切正常）
+
+- watcher active；iter ~12380/23400，ETA ~12.6h。近 55 iter（>12325）零尖峰、vf_loss max 0.058，rew 均值 16.02（min 13.93），fall ~0.16 稳。无增量工作。
+
+## 状态 2026-10-17 22:54（例行巡检：一切正常）
+
+- watcher active；iter ~12325/23400，ETA ~12.6h。近 55 iter（>12270）零尖峰、vf_loss max 0.065（最干净窗口），rew 均值 16.45（min 14.19），fall ~0.147 稳。无增量工作。
+
+## 状态 2026-10-17 22:49（例行巡检：一切正常）
+
+- watcher active（systemd，uptime 44min+）；iter ~12270/23400，ETA ~12.7h。近 170 iter（>12100）零尖峰（vf_loss max 22.8 同前次凸起，无新增），rew 均值 15.97（min 9.95），episode_len 899、fall(bad_orientation) ~0.159 稳。累计尖峰 278 锁定。GPU 4.6/8.1GB、util 80%，磁盘 328G 余。无增量工作。
+
+## 状态 2026-10-17 22:45（例行巡检：一切正常）
+
+- watcher active；iter ~12205/23400，ETA ~12.8h。近 106 iter 零尖峰（vf_loss max 22.8 同前次凸起，无新增）。无增量工作。
+
+## 状态 2026-10-17 22:41（例行巡检：一切正常）
+
+- watcher active；iter ~12150/23400，ETA ~12.8h。近 101 iter 零尖峰（vf_loss max 22.8——一次中等凸起但远低于 100 阈值）。GPU 4.6/8.1GB。无增量工作。
+
+## 状态 2026-10-17 22:37（例行巡检：一切正常）
+
+- watcher active；iter ~12090/23400，ETA ~12.9h。近 91 iter 零尖峰、vf_loss max 0.049。无增量工作。
+
+## 状态 2026-10-17 22:33（例行巡检：一切正常）
+
+- watcher active；iter ~12030/23400，ETA ~13h。近 131 iter 零尖峰、vf_loss max 0.049。无增量工作。
+
+## 状态 2026-10-17 22:28（例行巡检 + watcher 参数链路核实）
+
+- watcher active；iter ~11975/23400，ETA ~13h。近 176 iter（11800→）零尖峰、vf_loss max 0.058——不稳定相已完全恢复。无增量工作。
+- 顺带核实：systemd unit ExecStart 以绝对路径 `run_post_a2_eval.sh 7928` 启动，脚本 `TRAIN_PID=${1:-7928}` 正确取参（log 里那条"没有那个文件"是 22:01 首次相对路径启动的残留报错，当前运行的是修正后实例）。
+
+## 状态 2026-10-17 22:22（例行巡检：一切正常）
+
+- watcher active（systemd unit 22:01 起，21min+）；iter ~11915/23400，ETA ~13h；ckpt model_11900 已落盘。
+- 近 320 iter（11600→）**零尖峰**（vf_loss max 34.5、mean 0.215），不稳定相持续恢复；rew 均值 15.79（min 14.0 / max 18.1）。GPU 4.6/8.1GB，磁盘 328G 余。无增量工作。
+
+## 状态 2026-10-17 22:18（例行巡检：一切正常）
+
+- watcher active；iter ~11855/23400；近 200 iter 零尖峰、rew_mean 15.6。累计尖峰 278 锁定。无增量工作。
+
+## 状态 2026-10-17 22:14（不稳定相结束：近 200 iter 零尖峰）
+
+- 本轮做了什么：低频巡检。近 200 iter（11601-11800）**零尖峰**、rew_mean 15.5、最差回合 -1.9——不稳定相确认结束，训练回到正常更新。watcher/训练均正常。
+- 训练状态：iter ~11800/23400，累计尖峰锁定 278。
+- 下一步建议：不变。
+
+## 状态 2026-10-17 22:10（不稳定相衰减迹象：近 200 iter 仅 2 尖峰）
+
+- 本轮做了什么：低频巡检 + 近 200 iter（11541-11740）分段读数。不稳定相明显衰减：尖峰 2 次（max 805）、rew 均值 14.5、最差回合 -15.5（不再有 -80~-220 极端抖动回合）、std 回落 ~0.40。慢燃环在自阻尼而非继续加速——佐证"grad clipping 削平坏梯度、actor 未损坏"的判读。watcher/训练均正常。
+- 验证结果：分段统计如上；`is-active`=active。
+- 训练状态：iter ~11740/23400，累计尖峰 278。
+- 下一步建议：不变。
+
+## 状态 2026-10-17 22:06（watcher 跨轮存活实锤 + GPU-free 探测在 WSL2 有效）
+
+- 本轮做了什么：纯验证轮。①`go2-eval-watcher.service` 跨上轮会话拆除后仍 Active（22:01 起跑 ~5min+）——systemd-run 方案实锤有效。②补查一个此前没验证的环节：watcher 的 GPU 空闲判据 `nvidia-smi --query-compute-apps=pid` 在 WSL2 是否真返回（老 WSL 不支持 per-process 查询）——**实测返回 7928 正常**，GPU-free 等待逻辑有效。③健康巡检：磁盘 328G 余量、无 NaN/真 error 行（grep 命中全是 error_vel_xy 指标名误报）、GPU 4.6/8.1GB。
+- 验证结果：以上三项全过。
+- 训练状态：iter ~11680/23400，vf 尖峰 278（增速放缓），不稳定相持续；日志 ETA ~13h。
+- 下一步建议：不变——等 train exit → watcher 自动 eval+analyze。轻活真正见底，后续轮次只巡检 `systemctl --user status go2-eval-watcher` + log 尾。
+
+## 状态 2026-10-17 22:01（screen 也被杀→watcher 改 systemd user service，存活面彻底脱离会话）
+
+- 本轮做了什么：巡检发现 21:55 起的 `screen -dmS go2_eval_watcher` **也被杀了**——screen -ls 里消失、ps 无进程。结论：devin 会话拆除时会连带杀本会话派生的所有进程（nohup/setsid/screen 都躲不掉，应为 cgroup/进程树级清理）。**最终方案：`systemd-run --user`**——本机 WSL2 systemd 为 PID1 且 user manager 在跑。已注册 transient unit `go2-eval-watcher.service`（Main PID 34238，`StandardOutput/Error=append:post_a2_eval.log`），进程树完全在 devin 会话 cgroup 之外。log 已见 "[22:01:15] waiting..."。
+- 验证结果：`systemctl --user status` Active: running；首次因相对路径 127 失败已修正（脚本内 `cd` 自给，日志 append 用绝对路径）。**停止方式：`systemctl --user stop go2-eval-watcher`**。
+- 训练状态：iter ~11615/23400，vf 尖峰累计 278，不稳定相持续。
+- 下一步建议：不变——watcher 等 train exit → eval 3 ckpt（8700/10600/latest）→ analyze 全量快照。**排查：`systemctl --user status go2-eval-watcher` + `tail post_a2_eval.log`；不要再用 nohup/screen 起后台 watcher（必被杀），一律 systemd-run --user。**
+
+## 状态 2026-10-17 21:55（watcher 已死→screen 重启，本轮修复其存活方式）
+
+- 本轮做了什么：巡检发现上轮重启的 eval watcher(PID 32198) **已死亡**——post_a2_eval.log 停在 21:46:25，ps 无 run_post_a2_eval 进程。死因：上轮从 devin exec shell 里 nohup 启动，该轮会话拆除时被连带杀掉（nohup 只防 SIGHUP，防不了进程组清理）。已改用 **`screen -dmS go2_eval_watcher`** 完全脱离会话重启（21:55:30 起），与 iteration loop 自身用法一致；此方式在本轮会话结束后仍能存活。
+- 验证结果：`screen -ls` 见 33442.go2_eval_watcher (Detached)；log 新增 "[21:55:30] waiting for A2 train pid 7928" 行；脚本自身 `kill -0` 轮询无误（死因在外部会话清理非脚本 bug）。
+- 训练状态：iter ~11530/23400，vf 尖峰累计 275（>11000 段 182 次），不稳定相持续；ckpt 到 model_11500.pt。
+- 下一步建议：不变——watcher 等 train exit → eval 3 ckpt → analyze 全量快照。用户在場可考虑停 resume（学习已停，见前几条）直接触发 eval。**排查 watcher 用 `screen -ls` + tail post_a2_eval.log，别再看 PID 32198。**
+
 ## 状态 2026-10-17 21:50（watcher 修复真 bug：eval_summary.csv 每次调用覆写→逐 ckpt 快照）
 
 - 本轮做了什么：复审 eval_terrain.py 输出路径发现一个会让 watcher 丢数据的真 bug——`eval_summary.csv` 每次调用 **w 模式覆写**（只聚合当次 all_rows），`eval_rows.csv` 才是 append；原 watcher 在 RESUME 目录连跑 10600→latest 会把 10600 的 summary 冲掉。已修：run_eval 后 `cp eval_summary.csv eval_summary_<ckpt>.csv` 快照，analyze 改为遍历 `eval_summary*.csv`。已 kill 旧 watcher(31516)→以修正版重启(32198)——运行中 bash 脚本原地编辑有字节偏移踩脚风险，故重启。

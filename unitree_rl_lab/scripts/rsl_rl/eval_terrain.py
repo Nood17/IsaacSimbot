@@ -51,6 +51,9 @@ parser.add_argument("--agent_cfg", type=str, default=None,
                     help="Optional 'module:ClassName' to load the rsl_rl agent cfg from, "
                          "overriding the task's rsl_rl_cfg_entry_point (e.g. scan teacher or "
                          "distillation cfgs when evaluating on the Heldout task).")
+parser.add_argument("--eval_tag", type=str, default="",
+                    help="Suffix appended to eval_rows/eval_summary filenames (e.g. '_heldout') "
+                         "so evals on other distributions can share a run dir without clobbering.")
 parser.add_argument("--disable_fabric", action="store_true", default=False)
 cli_args.add_rsl_rl_args(parser)
 AppLauncher.add_app_launcher_args(parser)
@@ -139,7 +142,10 @@ def main():
         agent_cfg = cli_args.update_rsl_rl_cfg(agent_cfg, args_cli)
     else:
         agent_cfg = cli_args.parse_rsl_rl_cfg(args_cli.task, args_cli)
-    log_root = os.path.abspath(os.path.join("logs", "rsl_rl", agent_cfg.experiment_name))
+    # --experiment_name is declared in cli_args but never applied to the cfg; honor
+    # it here so e.g. Heldout evals can point --load_run at unitree_go2_velocity runs.
+    experiment_name = args_cli.experiment_name or agent_cfg.experiment_name
+    log_root = os.path.abspath(os.path.join("logs", "rsl_rl", experiment_name))
     ckpts = resolve_checkpoints(log_root, agent_cfg)
     print(f"[INFO] Evaluating {len(ckpts)} checkpoint(s): {[os.path.basename(c) for c in ckpts]}")
 
@@ -187,7 +193,7 @@ def main():
     run_dir = os.path.dirname(ckpts[0])
     eval_dir = os.path.join(run_dir, "eval")
     os.makedirs(eval_dir, exist_ok=True)
-    rows_path = os.path.join(eval_dir, "eval_rows.csv")
+    rows_path = os.path.join(eval_dir, f"eval_rows{args_cli.eval_tag}.csv")
     new_file = not os.path.exists(rows_path)
     rows_f = open(rows_path, "a", newline="")
     writer = csv.writer(rows_f)
@@ -278,7 +284,7 @@ def main():
     rows_f.close()
 
     # --- aggregate ------------------------------------------------------------
-    sum_path = os.path.join(eval_dir, "eval_summary.csv")
+    sum_path = os.path.join(eval_dir, f"eval_summary{args_cli.eval_tag}.csv")
     groups = {}
     for r in all_rows:
         groups.setdefault((r["checkpoint"], r["terrain"], r["level"]), []).append(r)
