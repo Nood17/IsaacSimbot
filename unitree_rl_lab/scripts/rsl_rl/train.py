@@ -181,14 +181,22 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     env = RslRlVecEnvWrapper(env, clip_actions=agent_cfg.clip_actions)
 
     # create runner from rsl-rl
-    runner = OnPolicyRunner(env, agent_cfg.to_dict(), log_dir=log_dir, device=agent_cfg.device)
+    if not hasattr(agent_cfg, "class_name") or agent_cfg.class_name == "OnPolicyRunner":
+        runner = OnPolicyRunner(env, agent_cfg.to_dict(), log_dir=log_dir, device=agent_cfg.device)
+    elif agent_cfg.class_name == "DistillationRunner":
+        from rsl_rl.runners import DistillationRunner
+
+        runner = DistillationRunner(env, agent_cfg.to_dict(), log_dir=log_dir, device=agent_cfg.device)
+    else:
+        raise ValueError(f"Unsupported runner class: {agent_cfg.class_name}")
     # write git state to logs
     runner.add_git_repo_to_log(__file__)
     # load the checkpoint
     if agent_cfg.resume or agent_cfg.algorithm.class_name == "Distillation":
         print(f"[INFO]: Loading model checkpoint from: {resume_path}")
         # load previously trained model
-        runner.load(resume_path)
+        runner.load(resume_path, map_location="cpu")
+        torch.cuda.empty_cache()
 
     # dump the configuration into log-directory
     dump_yaml(os.path.join(log_dir, "params", "env.yaml"), env_cfg)

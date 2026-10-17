@@ -67,6 +67,42 @@ COBBLESTONE_ROAD_CFG = terrain_gen.TerrainGeneratorCfg(
 )
 
 
+# Held-out acceptance terrains (roadmap discipline #4): terrain types the policy
+# has never trained on. Used by RobotHeldoutEnvCfg / Unitree-Go2-Velocity-Heldout
+# for eval_terrain.py runs only — never add these to COBBLESTONE_ROAD_CFG.
+HELDOUT_TERRAINS_CFG = terrain_gen.TerrainGeneratorCfg(
+    size=(8.0, 8.0),
+    border_width=20.0,
+    num_rows=10,
+    num_cols=20,
+    horizontal_scale=0.1,
+    vertical_scale=0.005,
+    slope_threshold=0.75,
+    difficulty_range=(0.0, 1.0),
+    use_cache=False,
+    curriculum=True,  # rows -> difficulty, cols -> type (same layout semantics as training grid)
+    sub_terrains={
+        # random blocks of varying height — step-height generalization
+        "boxes": terrain_gen.MeshRandomGridTerrainCfg(
+            proportion=0.4, grid_width=0.45, grid_height_range=(0.05, 0.2), platform_width=2.0
+        ),
+        # gap ring around the spawn platform — void/foot-placement generalization
+        "gap": terrain_gen.MeshGapTerrainCfg(
+            proportion=0.3, gap_width_range=(0.1, 0.5), platform_width=1.0
+        ),
+        # scattered low blocks on flat ground — cluttered-ground generalization
+        "discrete_obstacles": terrain_gen.HfDiscreteObstaclesTerrainCfg(
+            proportion=0.3,
+            obstacle_width_range=(0.3, 1.0),
+            obstacle_height_range=(0.01, 0.2),
+            num_obstacles=10,
+            platform_width=2.0,
+            border_width=0.25,
+        ),
+    },
+)
+
+
 @configclass
 class RobotSceneCfg(InteractiveSceneCfg):
     """Configuration for the terrain scene with a legged robot."""
@@ -432,3 +468,69 @@ class RobotPlayEnvCfg(RobotEnvCfg):
         self.scene.terrain.terrain_generator.num_rows = 2
         self.scene.terrain.terrain_generator.num_cols = 1
         self.commands.base_velocity.ranges = self.commands.base_velocity.limit_ranges
+
+
+@configclass
+class ScanObservationsCfg(ObservationsCfg):
+    """A3 observations: adds a privileged `teacher` group (clean proprio + height_scanner).
+
+    Kept out of the base cfg so A0–A2 runs do not pay the scan compute/stacking cost.
+    Stage A trains the teacher by pointing the PPO `policy` obs set at this group
+    (obs_groups {"policy": ["teacher"]}); stage B distills into the blind `policy` group.
+    """
+
+    @configclass
+    class TeacherCfg(ObsGroup):
+        base_ang_vel = ObsTerm(func=mdp.base_ang_vel, scale=0.2, clip=(-100, 100))
+        projected_gravity = ObsTerm(func=mdp.projected_gravity, clip=(-100, 100))
+        velocity_commands = ObsTerm(
+            func=mdp.generated_commands, clip=(-100, 100), params={"command_name": "base_velocity"}
+        )
+        joint_pos_rel = ObsTerm(func=mdp.joint_pos_rel, clip=(-100, 100))
+        joint_vel_rel = ObsTerm(func=mdp.joint_vel_rel, scale=0.05, clip=(-100, 100))
+        last_action = ObsTerm(func=mdp.last_action, clip=(-100, 100))
+        gait_phase = ObsTerm(func=mdp.gait_phase, params={"period": 0.8})
+        # keep height_scanner LAST: per-term history flattening makes the proprio
+        # block occupy dims [0,235) contiguously, so warm-start weight splicing
+        # from the blind A2 actor is a pure column append (expand_actor_obs.py).
+        height_scanner = ObsTerm(
+            func=mdp.height_scan,
+            params={"sensor_cfg": SceneEntityCfg("height_scanner")},
+            clip=(-1.0, 5.0),
+        )
+
+        def __post_init__(self):
+            self.history_length = 5
+            self.concatenate_terms = True
+
+    teacher: TeacherCfg = TeacherCfg()
+
+
+@configclass
+class RobotScanEnvCfg(RobotEnvCfg):
+    """A3 env: same MDP as RobotEnvCfg, plus the `teacher` obs group with height_scanner."""
+
+    observations: ScanObservationsCfg = ScanObservationsCfg()
+
+
+@configclass
+class RobotScanPlayEnvCfg(RobotScanEnvCfg):
+    def __post_init__(self):
+        super().__post_init__()
+        self.scene.num_envs = 32
+        self.scene.terrain.terrain_generator.num_rows = 2
+        self.scene.terrain.terrain_generator.num_cols = 1
+        self.commands.base_velocity.ranges = self.commands.base_velocity.limit_ranges
+
+
+@configclass
+class RobotHeldoutEnvCfg(RobotScanEnvCfg):
+    """Held-out acceptance env: same MDP and obs groups, terrain the policy never trained on.
+
+    Inherits the `teacher` obs group so one env serves all eval consumers (blind
+    PPO student via `policy` group, scan teacher via `teacher` group).
+    """
+
+    def __post_init__(self):
+        super().__post_init__()
+        self.scene.terrain.terrain_generator = HELDOUT_TERRAINS_CFG
