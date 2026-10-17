@@ -2,6 +2,23 @@
 
 <!-- Agent 每轮把最新状态写到本文件顶部；使命完成时在最顶部单独写一行 MISSION-COMPLETE -->
 
+## 状态 2026-10-17 20:21（Stage A/B 启动链路配置级终验：无可查环节）
+
+- 本轮做了什么：对**安装版**源码（site-packages rsl_rl + `~/仿真/IsaacLab` isaaclab_rl）逐环核对 Stage A/B 全链路：CLI→cfg 字段（update_rsl_rl_cfg 全字段匹配；`--max_iterations` train.py:126 "再训 N"）、`obs_groups` 解析、runner 分发、权重加载。发现并已理解的机制：**`BasePPORunnerCfg.obs_groups` 是 MISSING→to_dict 序列化成 `{}`→resolve_obs_groups 回退自填 policy/critic**（A2 run 的 agent.yaml `obs_groups: {}` 实证）；我们的显式 dict 跳过回退、组名在 ScanObservationsCfg 全部存在。DistillationRunner 继承 OnPolicyRunner（构造/LOAD 签名相同），learn() 守卫 loaded_teacher，StudentTeacher 的 `actor.*`→teacher 重映射 + norm=False 下 Identity strict 空载安全——全部逐行对过。
+- 验证结果：核对记录已写入 `A3-teacher-student实现路径.md` 新增"启动链路终验"节。**剩余唯一未测=GPU 运行时**（USD 构建/RayCaster/显存）。
+- 训练状态：model_10100 @~20:19，iter ~10200/23400，平台延续。lunar-supervisor 仍在等 GPU。
+- 下一步建议：不变——GPU 释放后 eval_terrain 扫 ckpt → Stage A（warm_9900_scan.pt）。配置级准备已 100%，后续轮次若没有 GPU 空档只剩：监测训练/更新文档/补 A1 3-seed 计划这类轻活。
+
+## 状态 2026-10-17 20:14（A3 全套未提交工作入库：4 个 commit，三机同步就绪）
+
+- 本轮做了什么：把工作区累积的 A3 代码改动分批提交（该工作区跨 robot/5090/WSL 三机 git 同步，挂着不提交早晚出冲突）：
+  - `bebe252` feat(go2)：Scan teacher obs/heldout 地形/蒸馏 runner cfg/train.py 按 class_name 分发/expand_actor_obs.py（281 行新增）
+  - `c184701` go2 eval：eval_terrain.py 的 `--agent_cfg` 覆盖 + runner 分发 + ckpt 名正则防御；events_to_console_log.py
+  - `fee58ad` chore：lunar supervisor 两脚本 robot 路径适配（正在跑的 supervisor 用的就是工作树版本，提交只是存档）
+  - `f9c5ca6` docs：状态/A3 文档 + spinningup_ppo 离线副本 + handoff
+- 验证结果：`git status` 干净（仅剩运行日志 append 与刻意不提交的 .bak/log/lunar_assets/.devin/loop）。未 push（惯例：不主动 push）。训练仍健康：model_10000 @20:10，~iter 10150。
+- 下一步建议：不变。GPU 释放后顺序：eval_terrain.py 扫 ckpt → Stage A（warm_9900_scan.pt 已备）。lunar-supervisor 仍在等 GPU——用户裁决。
+
 ## 状态 2026-10-17 20:06（A3 Stage-A 暖启动 ckpt 生成并验证，发射就绪）
 
 - 本轮做了什么：用 `expand_actor_obs.py` 从 resume 段最新 ckpt `model_9900.pt` 生成 Stage-A 教师暖启动 `logs/rsl_rl/unitree_go2_velocity_a3/ft_init/warm_9900_scan.pt`（--add_dim 935 --set_iter 0）。**修正了一个位置错误**：此前误以为 `ft_init/` 在 `unitree_go2_velocity/` 下即可——那是 A2-leg1 的 `init_8400.pt` 目录；`--load_run` 按 `<experiment_name>/<load_run>` 解析，Scan 任务的 experiment 是 `unitree_go2_velocity_a3`，故暖启动必须放那边（现已放对）。

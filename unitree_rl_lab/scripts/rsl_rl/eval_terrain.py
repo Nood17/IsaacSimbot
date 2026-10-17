@@ -184,7 +184,7 @@ def main():
     dt = env.unwrapped.step_dt
     max_steps = int(args_cli.eval_seconds / dt)
 
-    run_dir = os.path.join(log_root, agent_cfg.load_run)
+    run_dir = os.path.dirname(ckpts[0])
     eval_dir = os.path.join(run_dir, "eval")
     os.makedirs(eval_dir, exist_ok=True)
     rows_path = os.path.join(eval_dir, "eval_rows.csv")
@@ -205,8 +205,9 @@ def main():
     for ckpt in ckpts:
         m = re.search(r"model_(\d+)\.pt$", os.path.basename(ckpt))
         it = int(m.group(1)) if m else -1
-        runner.load(ckpt)
+        runner.load(ckpt, load_optimizer=False)
         policy = runner.get_inference_policy(device=device)
+        obs, _ = env.reset()  # clean boundary: don't attribute mid-flight episodes to the new ckpt
 
         # per-env accumulators
         ep_len = torch.zeros(n, device=device)

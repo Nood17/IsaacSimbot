@@ -58,3 +58,12 @@
 **成本备注**：`height_scanner` RayCaster **早已常驻场景**（RobotSceneCfg 一直实例化、update_period 已配，A2 也付着 raycast 开销）——Scan 任务新增的只是观测拼接 + history 堆叠内存，不是 raycast 本身。num_envs 可先从 2048 试，OOM 再降。
 
 **剩余待决策**：教师训练是否要先等 eval_terrain.py 定下盲策略天花板；若教师 stage-A 仍卡 ~10cm 需调奖励（feet_clearance 目标高/feet_stumble 权重）。~~held-out 第 6 地形~~ → 已定（HELDOUT_TERRAINS_CFG，见上）。
+
+## 启动链路终验（2026-10-17 晚第三轮，对安装版源码逐环核对）
+
+- `cli_args.update_rsl_rl_cfg` 把 `--resume/--load_run/--checkpoint/--run_name/--seed/--logger` 写进 agent_cfg；`--max_iterations` 由 train.py:126 单独应用（"再训 N iter"语义：runner 从 ckpt iter 起算 learn N）。BasePPORunnerCfg 与 RslRlDistillationRunnerCfg 都继承 `RslRlBaseRunnerCfg`（含 resume/load_run/load_checkpoint 全部字段）——两阶段 CLI 语义一致。
+- **`obs_groups` 空 dict 机制**：`BasePPORunnerCfg` 根本没设 `obs_groups`（继承 MISSING）→ `to_dict()`（= `class_to_dict`，逐 `__dict__` 项）把 MISSING 哨兵序列化成 `{}` → `resolve_obs_groups` 回退逻辑自动填 `{"policy":["policy"],"critic":["critic"]}`（A1/A2 就是这么跑的，agent.yaml 里 `obs_groups: {}` 实证）。我们两 cfg 写的是显式 dict，跳过回退直接校验：`{"policy":["teacher"],"critic":["critic"]}`（Stage A）与 `{"policy":["policy"],"teacher":["teacher"]}`（Stage B）引用的组在 `ScanObservationsCfg` 里全部存在（policy/critic/teacher 三组）。OnPolicyRunner `default_sets=["critic"]`、DistillationRunner `default_sets=["teacher"]`——集合名约定匹配。
+- `DistillationRunner(OnPolicyRunner)` 构造签名相同（train.py 同形调用可行），`learn()` 首查 `policy.loaded_teacher`；`load(path, map_location=)` 继承自 OnPolicyRunner——train.py 的 `runner.load(resume_path, map_location="cpu")` 合法。
+- `StudentTeacher.load_state_dict`：ckpt 含 `actor.*` 键 → 重命名灌入 teacher 网络 + `teacher_obs_normalizer.load_state_dict({})`（norm=False → Identity 无状态，strict 空载安全）；返回 False → runner 不加载 optimizer 态（蒸馏从头）。已 `learn()` 守卫 loaded_teacher。
+- `eval(...class_name)` 在 runner 模块命名空间 eval——`StudentTeacher`/`Distillation` 均已在 distillation_runner.py 顶部 import，无 NameError 风险（train.py 的分发是 `hasattr(agent_cfg,"class_name")` + 显式 elif，不走 eval）。
+- 结论：**Stage A/B 命令行→runner→权重加载全链路已无可查环节**，仅剩 GPU 运行时（USD 场景构建/RayCaster/显存）未实测。
