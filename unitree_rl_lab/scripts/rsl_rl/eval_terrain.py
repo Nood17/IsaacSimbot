@@ -251,7 +251,8 @@ def main():
                     ep_rows.append({
                         "checkpoint": os.path.basename(ckpt), "iter": it, "env_id": e,
                         "terrain": col2name.get(col, f"col{col}"), "col": col, "level": level,
-                        "difficulty": level / max(num_rows - 1, 1),
+                        # generator: difficulty = (row + U(0,1)) / num_rows -> E[d] = (level+0.5)/num_rows
+                        "difficulty": (level + 0.5) / max(num_rows, 1),
                         "cause": cause, "ep_len_s": steps * dt,
                         "err_xy_mps": err_xy_sum[e].item() / steps,
                         "err_yaw_rads": err_yaw_sum[e].item() / steps,
@@ -294,7 +295,7 @@ def main():
             rel = [r["err_xy_mps"] / r["cmd_speed_mps"] for r in rs if r["cmd_speed_mps"] > 0.05]
             m_rel = float(np.mean(rel)) if rel else float("nan")
             m_len = np.mean([r["ep_len_s"] for r in rs])
-            w.writerow([ck, terr, lvl, round(lvl / max(num_rows - 1, 1), 3), eps,
+            w.writerow([ck, terr, lvl, round((lvl + 0.5) / num_rows, 3), eps,
                         round(falls / eps, 4), round(timeouts / eps, 4),
                         round(m_err, 4), round(m_rel, 4), round(m_len, 2)])
     print(f"[INFO] Wrote {rows_path}\n[INFO] Wrote {sum_path}")
