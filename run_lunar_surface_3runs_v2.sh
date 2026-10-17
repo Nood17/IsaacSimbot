@@ -15,7 +15,7 @@
 #  - waits until the GPU is actually free before each launch
 #  - exits rc=1 if any run failed (loop sessions can detect failure)
 set -u
-BASE=/home/ubuntu/nood
+BASE=/home/nood/IsaacSimbot
 LAB=$BASE/unitree_rl_lab
 LOGROOT=$LAB/logs/rsl_rl/unitree_g1_29dof_velocity_lunarsurface
 OLDLOG=$LAB/logs/rsl_rl/unitree_g1_29dof_velocity
@@ -39,7 +39,7 @@ until compgen -G "$LAB/source/unitree_rl_lab/unitree_rl_lab/assets/lunar_dem/*.n
 done
 
 source ~/miniconda3/etc/profile.d/conda.sh
-conda activate /home/ubuntu/nood/env_isaaclab
+conda activate env_isaaclab
 cd "$LAB"
 
 wait_gpu_free() {
