@@ -2,6 +2,13 @@
 
 <!-- Agent 每轮把最新状态写到本文件顶部；使命完成时在最顶部单独写一行 MISSION-COMPLETE -->
 
+## 状态 2026-10-17 21:15（A1 3-seed 复现通道落地：Unitree-Go2-Velocity-Rough，6f4a122）
+
+- 本轮做了什么：A2 曾原地改地形/指令范围致 A1 配置不可复现——补 `A1_ROUGH_TERRAINS_CFG`（flat .1/rough/slope/slope_inv 各 .3）+ `RobotRoughEnvCfg`（换 generator + 还原 A1 ranges ±0.1/±0.1/±1 与 limit ±1.0/±0.4/±1.0）+ `RobotRoughPlayEnvCfg`，注册 `Unitree-Go2-Velocity-Rough`。**全部字段逐一对照 A1 run 的 `params/env.yaml` 核实**（sub_terrain 参数、max_init_terrain_level=5、curriculum=True 因 swap 发生在父类 post_init 之后需在定义里带）。3-seed 跑法已写入状态文档：`--task Unitree-Go2-Velocity-Rough --seed {1,2,3} --max_iterations 2500`，约 8h GPU 总量，排到 Stage A/B 之后。
+- 验证结果：py_compile 过；env.yaml 字段级 diff 无遗漏项。
+- 训练状态：iter ~10590/23400，平台延续。lunar-supervisor 仍 wait_gpu_free。
+- 下一步建议：不变——GPU 释放后 eval_terrain → analyze_eval → Stage A。轻活至此真正见底：**所有路线图上能预先准备的代码/工具/预案已全部落档**（eval 扫描、判读、暖启动、A/B 发射链路、奖励 Plan-B、A1 3-seed 通道、heldout 地形）。后续轮次只剩训练监测，可低频巡检（每轮看一眼 log 尾 + ckpt 时间戳即可）。
+
 ## 状态 2026-10-17 21:00（eval 判读工具 analyze_eval.py 落地，41b009d）
 
 - 本轮做了什么：新增 `unitree_rl_lab/scripts/rsl_rl/analyze_eval.py`——eval_summary.csv → 判读的最后一公里：每 ckpt 打 terrain×level fall_rate / mean_rel_err 矩阵（eps<5 标 `*`）、连续台阶上限（L0 起首个不达标行断；level r → [5+1.5r, 6.5+1.5r)cm）、15cm 门三态判定（stairs/stairs_inv 全部 L≥6 格 fall≤0.10 且 rel≤0.15 → PASS/FAIL/INCONCLUSIVE）。纯 stdlib/CPU，不依赖 conda env。状态文档补用法节 + resume 指标更新到 iter ~10505（fall ~0.167、err_xy 0.22-0.26 波动、timeout ~0.83、terrain_levels 2.41——平台延续）。
