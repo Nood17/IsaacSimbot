@@ -1,0 +1,10 @@
+[Unit]
+Description=Relay timer: next iteration 120min after the previous round ends
+
+[Timer]
+OnActiveSec=120min
+OnUnitInactiveSec=120min
+Unit=bmmms-iteration.service
+
+[Install]
+WantedBy=timers.target

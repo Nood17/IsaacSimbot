@@ -1,7 +1,7 @@
 import gymnasium as gym
 
 gym.register(
-    id="Unitree-Go2-Velocity",
+    id="Unitree-Go2-Velocity-Stairs",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
     disable_env_checker=True,
     kwargs={
@@ -27,7 +27,7 @@ gym.register(
 
 # A3 stage A: teacher PPO (actor reads the privileged `teacher` obs group = proprio + height_scanner)
 gym.register(
-    id="Unitree-Go2-Velocity-Scan",
+    id="Unitree-Go2-Velocity-Scan-Stairs",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
     disable_env_checker=True,
     kwargs={
@@ -53,7 +53,7 @@ gym.register(
 
 # A3 stage B: distill the scan teacher into a blind student (`policy` group only)
 gym.register(
-    id="Unitree-Go2-Velocity-Distill",
+    id="Unitree-Go2-Velocity-Distill-Stairs",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
     disable_env_checker=True,
     kwargs={

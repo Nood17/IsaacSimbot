@@ -1,0 +1,10 @@
+[Unit]
+Description=Run the loop watchdog every 2min
+
+[Timer]
+OnActiveSec=2min
+OnUnitInactiveSec=2min
+Unit=bmmms-watchdog.service
+
+[Install]
+WantedBy=timers.target

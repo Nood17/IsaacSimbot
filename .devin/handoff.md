@@ -2,6 +2,88 @@
 
 <!-- Agent 每轮把最新状态写到本文件顶部；使命完成时在最顶部单独写一行 MISSION-COMPLETE -->
 
+## 状态 2026-10-18 18:25（巡检：A3 教师半程——vf 零尖峰 vs terrain_levels 同平台）
+
+- **本轮做了什么**：用户要求总汇报——已完成全量判读并口头汇报；巡检 A3 日志全窗统计（vf/rew/terr/entropy/摔倒桶均值）。
+- **验证结果**：iter **3515/8000**（44%，3.71-4.13s/iter，ETA ~23:25）。**两面性**：① **vf loss 零尖峰**（max 1.93@iter1，累计 >100 = 0）——A2 的 critic 崩溃病理在教师（privileged scan）下未复发，旁证"盲观测下值函数不可预测→critic 击穿"机制；② ⚠️ **terrain_levels 平台化**：iter ~2000 达 2.49 后 ~1500 iter 钉死 2.42-2.49——与盲策略同一水位（2.4-2.5）。可能原因：(a) 晋级被最弱地形拖住（stairs 行 fall 仍不够低），(b) 感知改变的是同水位下的 fall/rel_err 质量而非晋级速度——须末评才知。entropy 5.4-5.5 稳、std 正常、act_rate -0.43 干净、fall 0.14-0.16、track_xy 1.23、err 0.23-0.26。RAM avail 仅 4.0G（紧），磁盘 326G，GPU 5.0G。
+- **下一步建议**：继续低频巡检至 ~23:25 跑完；重点盯 terrain_levels 是否在剩余 4500 iter 破 2.5。跑完后：eval 教师 ckpt（`-Scan` 任务 + heldout `--agent_cfg ...:Go2ScanPPORunnerCfg`，详见 state doc 对照表）→ 15cm gate 判读 → PASS 则 Stage B 蒸馏；**FAIL 且 terrain 仍 2.45 → 下一杠杆是课程设计（stairs 配比/分地形晋级）而非更多感知**。尾账：A1 3-seed 待补（Rough 任务通道已备）。任务 B 仍暂停。
+
+## 状态 2026-10-18 14:35（A2 eval 全量收口 + A3 Stage A 已启动且暖启动生效）
+
+- **本轮做了什么**：① 盯完 eval 链——extra 4 件 heldout + watcher2 3 件 train-dist + 早前 13900 = **8 eval 全部 rc=0**（each ~20-25min，12:12→14:22）；② 汇总 4 ckpt×2 分布矩阵写入 state doc（line 67）；③ **A3 Stage A 已启动**：新建 `run_a3_teacher.sh`（等 watcher2 退尽+GPU 空→conda/env 全设置→train），`go2-a3-teacher.service` 于 14:23 自动点火，log=`go2_a3_teacher.log`；④ 排查了 iter 0-59 的"100% fall"疑云并确认是冷启动暂态（详见下）。
+- **验证结果**：**A2 收口判读**——stairs L0 fall 8700→10600→13900→23399 = 0.31→0.26→0.16→0.15（inv 0.39→0.43→0.24→0.23）：干净期仍在学，**爆发相 9500 iter 的"相内退化量"≈0**，"critic 空转 actor 完好"全程实锤。全 ckpt step ceiling=none、15cm gate FAIL；盲策略台阶天花板 ~8-10cm。heldout：**gap 全灭 0.77-1.00**、boxes L0 0.54-0.67 部分泛化、discrete_obstacles 最好 L0-2≈0；23399 heldout ≥13900。**A3 teacher iter ~120 健康恢复中**：ep_len 26(冷启动)→241 陡爬、rew -1.3→+2.9、err_vel_xy 0.11→0.13、iter 3.71s、ETA ~23:00。
+- **排障记录（勿重蹈）**：iter 0-59 bad_orientation=1.0/ep_len~23 曾疑为观测错位/NaN——逐项排除：obs layout per-term history flatten（observation_manager.py:417，proprio [0,235) scan 末位 ✓）；warm ckpt 与 model_9900 输出差 1.4e-6（scan 零权列 ✓）；loss 无 NaN；normalization 实为关闭（ckpt 无 normalizer buffer，`empirical_normalization` deprecated 未生效）。实为 warm-resume 冷启动暂态：课程重置+全 env 同步 spawn+history 空帧初抖；leg1 同款（iter0 ep_len 11.6→iter11 265）。**判读口径：看 ep_len 趋势不看 bad_orientation 绝对值（只统计已终结回合）**。
+- **下一步建议**：低频巡检 A3（GPU 5.0G/2048envs，RAM 紧勿再开 Isaac）。盯：① time_out 何时 >0（幸存回合到达 ~1000 步上限的标志，应随 ep_len 爬升出现）；② terrain_levels 应比 A2 盲策略涨得快（教师有 privileged scan）；③ value_function 是否再现爆发尖峰（教师真值观测下 critic 击穿风险应低）；④ ckpt 每 100 落盘于 `logs/rsl_rl/unitree_go2_velocity_a3/<run>/`。8000 iter ≈ 22:50 收尾 → eval：教师 ckpt 用 `-Scan` 任务（heldout 加 `--agent_cfg ...:Go2ScanPPORunnerCfg`，对照表见 state doc 评估工具节）。A3 通过标准=教师 15cm stairs PASS → Stage B 蒸馏。任务 B（G1 月面）仍暂停勿碰。
+
+## 状态 2026-10-18 12:10（训练完结；首个 eval 实测 FAIL 如预期；修复 watcher/extra GPU 竞态）
+
+- **本轮做了什么**：① 确认 A2 resume 跑满 **23400/23400** 于 ~11:28 退出（722.5M steps、16:44:40）；② **排掉一个会炸 eval 链的竞态**——extra 05:01 超时后 11:30 抢先占 GPU（顺序颠倒：extra 先、watcher 后），而 extra 只在链首查一次 GPU-free，其 eval 进程间隙（Kit 启动 ~1min 无 CUDA ctx）必被 watcher 15s 轮询插进 → 8GB 卡双 Isaac + RAM avail ~6G vs 每实例 ~4.3G = OOM。处置：`systemctl --user stop go2-eval-watcher`，重挂 **`go2-eval-watcher2`**（等 extra service 退出后 exec 原 run_post_a2_eval.sh，幂等）；③ 首个 eval_summary 判读 + state doc 续报（line 66）。
+- **验证结果**：eval_terrain.py 运行时首跑无碍。**model_13900（最后干净 ckpt）训练分布**：flat/rough/slope fall ≤1.5%（slope_inv L9 11.8%）；**stairs 全线崩**——pyramid_stairs L0 16%→L8-9 95%，stairs_inv L0 24%→L5-7 ~83%；analyze_eval **step ceiling=none、15cm gate FAIL**。台阶停滞高度 ≈ **8-10cm**，与 terrain_levels 钉死 2.4-2.5 互洽。非 stairs rel_err 也超 10% 线（部分因 eval 用 limit_ranges x→1.5 更激进）。**结论：盲策略天花板 ~10cm → A3 height scanner + teacher-student 方向实锤**。eval 链运行中：extra 正在 heldout 8700（~23min/件，共 4 件到 ~13:40），之后 watcher2 自动补 train-dist 8700/10600/23399 + analyze（~14:40 全部落盘）。GPU 3.8G/84%、RAM avail 6.2G、磁盘正常。
+- **下一步建议**：下轮读 `journalctl --user -u go2-eval-extra` 的 `eval rc=` ×4 + `post_a2_eval.log` 的 watcher2 三 eval rc；全部 rc=0 后汇总 4 ckpt×2 分布矩阵做 A2 收口判读（8700 vs 10600 vs 13900 vs 23399 的"相内退化量" + heldout 分布外表现）→ 写进 state doc → **A3 Stage A 启动决策**（暖启动 warm_9900_scan.pt 已就绪，启动命令在 state doc 末尾；GPU 空后即可跑，--max_iterations 8000 ≈ 9h）。rc≠0 先查 PhysX/obs hook。切勿再碰 lunar supervisor（任务 B 仍暂停）。
+
+## 状态 2026-10-18 08:00（巡检：滚动波爆发 + 新签名"连续爆串"，两项纪录再破）
+
+- **本轮做了什么**：全窗复测 18590→20375 + 连爆串/极值定位 + state doc 续报（line 64）。
+- **验证结果**：iter ~20375/23400，余 ~3.0k ≈ 3.4h（ETA ~11:30）。衰减尾升级为**滚动波爆发**：+138 尖峰（>100）。**新签名**——18822-18841 **20 iter 连续 >1000 爆串**（峰 4550.4，此前均为孤立簇）；19327-19340 连 14、19504-19516 连 13。**两项纪录再破**：rew **-1110.5@18841-42 两连**、act_rate **-118.07@18841**（恰在 20 连爆串末尾，极端抖动回合烈度仍升级）。entropy 再回充 5.81→6.87→6.07（recharge→burst 第四次应验）；8078.7@19817 为本相第四高峰。部署面仍恒定：fall 0.165/err 0.248/track 1.20/eplen 882/std 0.40，last70 rew 15.3。累计 >100 尖峰 **997**。GPU/磁盘正常，watcher/extra 双 armed。
+- **下一步建议**：处置不变。剩 ~3h——下轮大概率撞上训练退出：盯 post_a2_eval.log `train pid 7928 gone` → GPU-free → **首个 `eval rc=`**（eval_terrain.py 运行时首测，rc≠0 查 PhysX/obs hook）→ `journalctl --user -u go2-eval-extra` 补件链。
+
+## 状态 2026-10-18 06:00（巡检：订正上轮——相未终结，转入簇状衰减尾）
+
+- **本轮做了什么**：全窗复测 16762→18590（250-iter 桶）+ state doc 续报（line 63）。
+- **验证结果**：iter ~18590/23400，余 ~4.8k ≈ 5.5h（ETA ~11:30）。**上轮"衰减殆尽"系 ~55-iter 净窗的误读**——16762 后又 +68 尖峰（>100），呈簇状振荡：16822-17138（顶 8401.7）、17272-17646（顶 4667.8）、17821-17973（顶 772），簇间隔 ~130-175 iter；随后 **18013-18512 整 500 iter 全净**（onset 以来最长，rewmin +13.8）。**entropy 持续冷却**：峰核 7.25 → 6.34@17k → 6.02@18k → **5.81@18513+（低于基线 5.9）**；std 回落 0.39；act_min 逐桶回暖 -11→-0.5。但 **18544-18587 又起小簇**（272.8/3642.6/453.0）——低 entropy 下仍发火，慢燃环未死透只是间隙拉长烈度递减。last70：vfmax 3642.6、rew 12.7/min -40、fall 0.168、err 0.239、track 1.22、eplen 889——部署面恒定。累计 >100 尖峰 **859**。GPU 4.6GB、磁盘 328G。watcher/extra 双 armed。
+- **下一步建议**：处置不变。盯 18544 簇是否扩展成新子爆发；以及 entropy<5.9 状态下若继续零星发火则"recharge→burst"签名需修正（低熵也能击穿）。~11:30 训练退 → post_a2_eval.log `train pid 7928 gone` → 首个 `eval rc=`。
+
+## 状态 2026-10-18 04:00（巡检：第三爆发相破全程纪录后衰减殆尽）
+
+- **本轮做了什么**：last70 窗口（16746-16815）+ 全相分段复测（15010-16820，250-iter 桶）+ state doc 续报（line 62）。
+- **验证结果**：iter ~16810/23400，余 ~6.6k ≈ 7.5h（ETA ~11:30）。**第三爆发相已达峰值并衰减**：15016→16762 持续 ~1750 iter，峰核 15260-15759 刷三个全程纪录——vf **15670.6@15502**（主相 9545.9 的 1.64×，同窗另有 4 尖峰 >10k）、rew **-620.4@15440**（4× 前纪录）、act_rate **-60.12@15455**（3× 前纪录）；entropy 峰核均值 7.25。密度衰减曲线 0.34→0.33→0.23→0.21→0.16→0.04→**0.00/iter**，16762（2010.0）后 ~55 iter 全净。部署面再次未垮：峰核 fall 0.176/err 0.257 → 峰后 0.162/0.237，track 1.27、eplen 885、std 0.41。累计 >100 尖峰 **791**。ckpt 落盘正常（model_16800 在）。GPU 4.6GB/43%、RAM avail ~5G、磁盘 328G。lunar supervisor 仍死、watcher（34238）/extra（57764）双 armed。
+- **下一步建议**：处置不变。本相已自然衰减——下轮确认是否真结束（>16820 窗若再密集尖峰=第四子爆发，否则进入新的回充/平静期）。~11:30 训练退 → post_a2_eval.log `train pid 7928 gone` → 首个 `eval rc=`。14800-16700 共 ~20 个 ckpt 落在本相内，"相内退化量"样本极充足。
+
+## 状态 2026-10-18 02:00（巡检：第三爆发相仍在升级——峰值逼近主相纪录）
+
+- **本轮做了什么**：例行巡检 last70 窗口（14941-15010）+ state doc 续报（line 61）。
+- **验证结果**：iter 15010/23400，余 ~9.5h（ETA ~11:40）。**第三爆发相未衰减反升级**：70 iter 内 18 尖峰（0.26/iter），新峰 **9093.4@14963、8648.9@15008**（逼近主相 9545.9@11165，刷新本相 6385.8 纪录）；rew min **-153.1**（最深纪录）；**act_rate 窗均值 -2.64（min -18.7）已明显重过主相 -2.24**。部署面依旧恒定：fall 0.161/err_xy 0.255/track_xy 1.19/eplen 885/noise_std 钉 0.42/entropy 6.62 续爬。ckpt 落盘正常（model_15000 已在 resume run dir `2026-10-17_18-41-04_A2_stairs_slope_ft`）。全程累计 >100 尖峰 **384**。GPU 4.6GB/89%、RAM avail ~5G、磁盘 328G。
+- **下一步建议**：处置不变——不主动杀用户 run；继续低频巡检盯尖峰密度/峰值是否正式破 9545 主相纪录；~11:30 训练退 → post_a2_eval.log `train pid 7928 gone` → 首个 `eval rc=`。14800/14900/15000 三个 ckpt 全落在爆发相内，eval 的"相内退化量"样本持续增厚。
+
+## 状态 2026-10-18 01:50（巡检：第三爆发相持续，act_rate 超主相水平）
+
+- iter 14950/23400，余 ~9.7h。再 +17 尖峰（14882-14949，峰稳 ~2900）；last60 14 尖峰密度 0.23/iter 持续。**act_rate -2.32 已超主相 -2.24**（doc 已更新）；rew mean -6.18/min -97.7、entropy 6.53。fall 0.166/err_xy 0.252 仍未漂。累计 363。
+- 无增量工作。结论不变：用户 run 不主动杀，watcher/extra armed 等 ~11:30。
+
+## 状态 2026-10-18 01:45（⚠️ 第三爆发相确认：主相量级）
+
+- iter 14880/23400，余 ~9.8h。**14837-14877 窗口 16 尖峰（密度 0.27/iter）**，峰 6385.8@14838/5089@14871——**已达主崩溃相量级与密度**；rew -111.0、act_rate -1.87（≈主相 -2.24，残余抖动升级）、entropy 6.41 续爬。fall 0.161/err_xy 0.245 仍稳。累计 >100 尖峰 346。
+- 已记入 state doc line 60（第三爆发相条）：**"复发相是衰减尾"判断作废——慢燃环第三次击穿为同等烈度新相**，23400 前每 iter 纯烧 GPU。ckpt 14800+ 落在爆发相内——eval 的"相内退化量"测量样本更足了。处置仍不变：用户 run 不主动杀。
+- 无增量工作。watcher/extra armed。
+
+## 状态 2026-10-18 01:41（例行巡检：簇状振荡延续，峰值缓抬）
+
+- iter 14820/23400，余 ~9.8h。last60 vf 尖峰 6 个（14786-14794 密簇 3 个/9iter，峰 1870.4@14794 为本相新高）；密度稳 ~0.1/iter。rew 7.97/min -26.4；fall 0.175、act_rate -0.77（残余抖动缓升但仍远低于主相 -2.24）；err_xy 0.251、ent 6.23。累计 330。无增量工作。
+
+## 状态 2026-10-18 01:37（例行巡检：簇状振荡延续）
+
+- iter 14765/23400，余 ~9.9h。last60 vf mean 67.5/max 844、尖峰 6 个（14714-14755，峰均 ~700 低于前两子爆发峰值）；密度 ~0.1/iter——14677-14701 密集簇后回落，簇状振荡模式延续。rew mean 10.5/min -15.3；fall 0.182、act_rate -0.68 略升但远不及主相（-2.24）；err_xy 0.253、entropy 6.26 高位。累计 324。无增量工作。
+
+## 状态 2026-10-18 01:34（巡检：14700 已过未停——23400 语义实证；复发相再度爬升）
+
+- **累计语义得实证**：iter 14705/23400（训练未在 14700 停），余 ~8695 ≈ 10h，~11:30 收尾。
+- **复发相第三子爆发迹象**：14600 起 10 尖峰（>100），尾段 14677-14701 密集 6 个（峰 1727.7@14679、1430.3@14701），密度 ~0.24/iter 已接近主崩溃相 0.39 水平；rew min -51.7。actor 侧依旧未漂（fall 0.146、err_xy 0.252、entropy 6.15）——同"critic 空转 actor 完好"病理。累计 >100 尖峰 318。
+- 无增量工作（GPU 被训练占满，RAM 6.4G 不够第二实例）。watcher/extra 双 armed。
+- **下一步建议**：低频巡检盯尖峰密度是否达主相水平（>0.3/iter 持续）——若成第三爆发相也只是加固"学习已死"结论，处置不变（等用户裁决停训）；~11:30 训练退 → 首个 `eval rc=`。
+
+## 状态 2026-10-18 01:32（⚠️ 重大订正：真终点 23400 非 14700，训练还需 ~10h；lunar supervisor 已除）
+
+- **本轮增量 1——终点订正**：`--max_iterations` 在 rsl_rl 是**累计语义**（on_policy_runner.py:96 `tot_iter = start_iter + N`；train.py:126 只覆盖 cfg 值）。A2 resume=8700+14700→**终点 iter 23400**，log header `/23400` 一直是对的；00:27 起多轮"~01:35 收尾"预期系误读（state doc line 78 的错误说法已改，commit 9430769）。训练现 iter ~14645/23400，余 ~8755 ≈ **~10h，ETA ~11:30**。
+- **本轮增量 2——已杀 lunar-surface supervisor**（PID 8398/8402，18:42 起挂 wait_gpu_free ~6.7h）：A2 一退它就会抢 GPU 启动**已暂停的 lsurface_earth（G1 月面，任务 B）**，并与 eval watcher 在 8GB 卡上竞争→双 Isaac OOM 风险砸 eval 首跑。脚本幂等可无损重启：`nohup ./run_lunar_surface_3runs.sh >> supervisor_v2.log 2>&1 &`（建议经 systemd-run --user）。已记入 state doc 订正条。
+- 巡检：last60 vf mean 15.2/max 623.7/尖峰 2（>100），rew mean 14.0/min -10.2，entropy 6.10——复发相余波延续，符合四相表。累计 >100 尖峰 310。GPU 4.6GB、RAM avail 6.4G（**仍不够并行第二 Isaac 实例，勿并行 eval**）、磁盘 328G。
+- 验证结果：lunar supervisor 进程确认消失；watcher(go2-eval-watcher.service, PID 34238)+extra(go2-eval-extra.service, PID 57764) 双 armed 不动；A2 resume（PID 7928，用户启动）按"不主动杀用户 run"规则保留。
+- **下一步建议**：恢复低频巡检（~10h 窗口）——每次看 last60 vf/尖峰密度 + iter 进度即可，不必每次深挖；重点盯复发相是否第三次爆发。~11:30 训练退 → 盯 post_a2_eval.log `train pid 7928 gone` → 首个 `eval rc=`（eval_terrain.py 运行时首测）→ `journalctl --user -u go2-eval-extra` 补件链。所有静态核验已完成，无 GPU 活可干——**别再按"快收尾了"的预期排班**。若用户在场，照旧建议其停 resume 直接进 eval→A3（决定信息早已齐）。
+
+## 状态 2026-10-18 01:21（工作区收口：eval 工具链已入库 a4d55f2）
+
+- **本轮增量：git 提交 a4d55f2**——eval_terrain.py（--experiment_name honor + --eval_tag）+ run_post_eval_extra.sh + 状态 doc（复发订正/四相表/col 映射）+ handoff。沿用 Nood17 署名与 "go2 eval:" 前缀惯例。未入库（有意）：pycache、.log、.bak、lunar_assets 等杂项。
+- iter ~14530/14700，余 ~170 ≈ ~11min。**下轮应能撞上训练退出 + watcher 首个 eval**。
+
 ## 状态 2026-10-18 01:17（四相行为对照表落盘：部署行为全程未退化实锤）
 
 - **本轮增量：四相对照表写入 state doc**（line 49-58）。核心证据——部署行为指标跨相恒定：track 1.17-1.22、err_xy 0.241-0.255、ep_len 868-903 全程不动；fall 主相 0.181 微升后回落且**复发相 0.143 优于 pre-onset 0.149**。rew 崩溃窗 -15.5 与复发相 13.66 的均值差源于极端回合尾部而非典型行为。**actor 唯一可测残留 = action_rate -0.56 vs 基线 -0.43**（轻度残余抖动）。这直接支撑"任何 ckpt 可 eval"判断，14700 的 eval 读数预期≈10600/13900（若有差异即是"相内 ckpt 退化量"的实测答案）。

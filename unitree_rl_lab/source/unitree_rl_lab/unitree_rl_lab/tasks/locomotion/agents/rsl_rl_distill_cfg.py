@@ -5,9 +5,9 @@
 
 """A3 teacher-student agent cfgs for Go2 rough terrain (see docs/quadruped/A3-teacher-student实现路径.md).
 
-Stage A (`Unitree-Go2-Velocity-Scan`): plain PPO, but the "policy" obs set reads the
+Stage A (`Unitree-Go2-Velocity-Scan-Stairs`): plain PPO, but the "policy" obs set reads the
 privileged env group "teacher" (proprio + height_scanner) -> the actor IS the teacher.
-Stage B (`Unitree-Go2-Velocity-Distill`): DistillationRunner + StudentTeacher;
+Stage B (`Unitree-Go2-Velocity-Distill-Stairs`): DistillationRunner + StudentTeacher;
 `--checkpoint <stage-A model_*.pt>` loads the PPO actor weights into the teacher
 network automatically (StudentTeacher.load_state_dict renames "actor." keys).
 """

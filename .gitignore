@@ -1,0 +1,6 @@
+*.log
+lunar_assets/
+*.bak
+__pycache__/
+*.local-bak
+.devin/loop/logs/

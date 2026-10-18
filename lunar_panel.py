@@ -51,8 +51,11 @@ PPO_CFG = os.path.join(SRC, "tasks/locomotion/agents/rsl_rl_ppo_cfg.py")
 LOGROOT = os.path.join(LAB, "logs/rsl_rl/unitree_g1_29dof_velocity_lunarsurface")
 OLD_LOGROOT = os.path.join(LAB, "logs/rsl_rl/unitree_g1_29dof_velocity")
 GO2_LOGROOT = os.path.join(LAB, "logs/rsl_rl/unitree_go2_velocity")
+GO2_A3_LOGROOT = os.path.join(LAB, "logs/rsl_rl/unitree_go2_velocity_a3")
 TASK = "Unitree-G1-29dof-Velocity-LunarSurface"
-TASKS = [TASK, "Unitree-G1-29dof-Velocity", "Unitree-Go2-Velocity"]
+TASKS = [TASK, "Unitree-G1-29dof-Velocity", "Unitree-Go2-Velocity-Stairs",
+         "Unitree-Go2-Velocity-Rough", "Unitree-Go2-Velocity-Heldout",
+         "Unitree-Go2-Velocity-Scan-Stairs", "Unitree-Go2-Velocity-Distill-Stairs"]
 ENV_ACT = "source ~/miniconda3/etc/profile.d/conda.sh && conda activate env_isaaclab"
 
 # --------------------------------------------------------------------------
@@ -220,7 +223,7 @@ def knob_set(knob, new_value: str) -> bool:
 def scan_checkpoints() -> list[tuple[str, str, str, str]]:
     """Return list of (display_label, log_root, load_run, checkpoint)."""
     out = []
-    for root in (LOGROOT, OLD_LOGROOT, GO2_LOGROOT):
+    for root in (LOGROOT, OLD_LOGROOT, GO2_LOGROOT, GO2_A3_LOGROOT):
         for d in sorted(glob.glob(os.path.join(root, "*/"))):
             run = os.path.basename(d.rstrip("/"))
             cks = []
@@ -630,6 +633,7 @@ class Panel(tk.Tk):
         # checkpoint is set), so pass the absolute checkpoint path.
         ck_path = os.path.join(root, run, ck)
         nopush = "UNITREE_PLAY_NO_PUSH=1 " if self.play_nopush_var.get() else ""
+        nopush += "UNITREE_PLAY_COLS=10 "
         kb = "--keyboard " if self.play_mode_var.get() == "键盘操控" else ""
         cmd = (f"{nopush}./unitree_rl_lab.sh -p --task {self.task_var.get()} "
                f"--num_envs {self.play_nenv_var.get()} "

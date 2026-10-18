@@ -1,0 +1,6 @@
+[Unit]
+Description=Watchdog for bmmms iteration loop (kills silent rounds)
+
+[Service]
+Type=oneshot
+ExecStart=/home/nood/IsaacSimbot/.devin/loop/watchdog.sh

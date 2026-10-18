@@ -60,7 +60,7 @@ latest=$(basename "$(ls -v "$LOGROOT/$RESUME_DIR"/model_*.pt | tail -1)")
 echo "[$(date +%T)] latest resume ckpt: $latest"
 
 # 1) train-distribution eval of model_13900 (pre-recurrence last clean)
-run_eval "$RESUME_DIR" model_13900.pt --task Unitree-Go2-Velocity
+run_eval "$RESUME_DIR" model_13900.pt --task Unitree-Go2-Velocity-Stairs
 snap "$RESUME_DIR" model_13900.pt ""
 
 # 2) held-out task eval for the full eval set

@@ -1,4 +1,5 @@
 import math
+import os
 
 import isaaclab.sim as sim_utils
 import isaaclab.terrains as terrain_gen
@@ -495,7 +496,10 @@ class RobotPlayEnvCfg(RobotEnvCfg):
         super().__post_init__()
         self.scene.num_envs = 32
         self.scene.terrain.terrain_generator.num_rows = 2
-        self.scene.terrain.terrain_generator.num_cols = 1
+        # columns = sub-terrain variety shown in the viewport; 1 col renders a
+        # single terrain type. UNITREE_PLAY_COLS lets the panel show the mix.
+        self.scene.terrain.terrain_generator.num_cols = int(
+            os.environ.get("UNITREE_PLAY_COLS", "1"))
         self.commands.base_velocity.ranges = self.commands.base_velocity.limit_ranges
 
 
@@ -548,7 +552,8 @@ class RobotScanPlayEnvCfg(RobotScanEnvCfg):
         super().__post_init__()
         self.scene.num_envs = 32
         self.scene.terrain.terrain_generator.num_rows = 2
-        self.scene.terrain.terrain_generator.num_cols = 1
+        self.scene.terrain.terrain_generator.num_cols = int(
+            os.environ.get("UNITREE_PLAY_COLS", "1"))
         self.commands.base_velocity.ranges = self.commands.base_velocity.limit_ranges
 
 
@@ -578,7 +583,8 @@ class RobotRoughPlayEnvCfg(RobotRoughEnvCfg):
         super().__post_init__()
         self.scene.num_envs = 32
         self.scene.terrain.terrain_generator.num_rows = 2
-        self.scene.terrain.terrain_generator.num_cols = 1
+        self.scene.terrain.terrain_generator.num_cols = int(
+            os.environ.get("UNITREE_PLAY_COLS", "1"))
         self.commands.base_velocity.ranges = self.commands.base_velocity.limit_ranges
 
 

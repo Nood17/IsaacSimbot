@@ -10,7 +10,7 @@ LAB=$BASE/unitree_rl_lab
 LOGROOT=$LAB/logs/rsl_rl/unitree_go2_velocity
 LEG1_DIR=2026-10-17_05-28-33_A2_stairs_slope_ft   # model_8700.pt = leg1 end
 RESUME_DIR=2026-10-17_18-41-04_A2_stairs_slope_ft # resume run (instability onset ~10626)
-TASK=Unitree-Go2-Velocity
+TASK=Unitree-Go2-Velocity-Stairs
 TRAIN_PID=${1:-7928}
 
 source ~/miniconda3/etc/profile.d/conda.sh

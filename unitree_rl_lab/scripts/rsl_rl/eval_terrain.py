@@ -17,7 +17,7 @@
 #
 # Usage (after training finishes, GPU free; conda env activated):
 #   cd unitree_rl_lab
-#   python scripts/rsl_rl/eval_terrain.py --task Unitree-Go2-Velocity \
+#   python scripts/rsl_rl/eval_terrain.py --task Unitree-Go2-Velocity-Stairs \
 #       --headless --num_envs 256 --eval_seconds 300 \
 #       --load_run 2026-10-17_18-41-04_A2_stairs_slope_ft --checkpoints "model_*.pt"
 #

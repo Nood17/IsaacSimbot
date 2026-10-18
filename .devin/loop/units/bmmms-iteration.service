@@ -1,0 +1,7 @@
+[Unit]
+Description=Devin chained iteration round (bmmms)
+
+[Service]
+Type=oneshot
+ExecStart=/home/nood/IsaacSimbot/.devin/loop/run-iteration.sh
+TimeoutStartSec=0
