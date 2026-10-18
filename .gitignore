@@ -4,3 +4,6 @@ lunar_assets/
 __pycache__/
 *.local-bak
 .devin/loop/logs/
+.devin/loop/STOP
+.devin/loop/.lock
+.devin/loop/state.json
