@@ -4,9 +4,9 @@
 # be free, then starts the height-scanner teacher from the warm-start ckpt
 # (warm_9900_scan.pt, actor obs expanded 235->1170 by expand_actor_obs.py).
 #
-# Usage: systemd-run --user --unit=go2-a3-teacher bash /home/nood/IsaacSimbot/run_a3_teacher.sh
+# Usage: systemd-run --user --unit=go2-a3-teacher bash /home/ubuntu/nood/run_a3_teacher.sh
 set -u
-BASE=/home/nood/IsaacSimbot
+BASE=/home/ubuntu/nood
 LAB=$BASE/unitree_rl_lab
 LOG=$BASE/go2_a3_teacher.log
 
@@ -25,7 +25,7 @@ sleep 20   # let the driver release memory fully
 
 # 3) launch Stage A teacher (height scanner, privileged obs)
 source ~/miniconda3/etc/profile.d/conda.sh
-conda activate env_isaaclab   # activate.d exports LD_LIBRARY_PATH (wsl_lib_links + wsl lib) — required for PhysX GPU
+conda activate /home/ubuntu/nood/env_isaaclab   # activate.d exports LD_LIBRARY_PATH — required for PhysX GPU
 cd "$LAB"
 echo "[$(date +%T)] launching A3 teacher: Unitree-Go2-Velocity-Scan-Stairs num_envs=2048 resume ft_init/warm_9900_scan.pt max_iterations=8000"
 echo "[$(date +%T)] log: $LOG"

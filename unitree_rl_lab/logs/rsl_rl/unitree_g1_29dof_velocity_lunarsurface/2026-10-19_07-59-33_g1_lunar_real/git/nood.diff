@@ -1,0 +1,236 @@
+--- git status ---
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   run_a3_teacher.sh
+	modified:   unitree_rl_lab/scripts/__pycache__/list_envs.cpython-311.pyc
+	modified:   unitree_rl_lab/scripts/rsl_rl/__pycache__/cli_args.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/__pycache__/unitree.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/__pycache__/unitree_actuators.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/__pycache__/rsl_rl_ppo_cfg.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/curriculums.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/observations.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/rewards.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/commands/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/commands/__pycache__/velocity_command.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/29dof/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/29dof/lunar_surface_env_cfg.py
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__pycache__/velocity_env_cfg.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/h1/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/agents/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/commands.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/events.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/observations.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/rewards.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/terminations.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/dance_102/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/gangnanm_style/__pycache__/__init__.cpython-311.pyc
+	modified:   unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/utils/__pycache__/export_deploy_cfg.cpython-311.pyc
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	run_g1_lunar_after_a3.sh
+	tools/
+
+no changes added to commit (use "git add" and/or "git commit -a") 
+
+
+--- git diff ---
+diff --git a/run_a3_teacher.sh b/run_a3_teacher.sh
+index dd3dc99..497fb7f 100755
+--- a/run_a3_teacher.sh
++++ b/run_a3_teacher.sh
+@@ -4,9 +4,9 @@
+ # be free, then starts the height-scanner teacher from the warm-start ckpt
+ # (warm_9900_scan.pt, actor obs expanded 235->1170 by expand_actor_obs.py).
+ #
+-# Usage: systemd-run --user --unit=go2-a3-teacher bash /home/nood/IsaacSimbot/run_a3_teacher.sh
++# Usage: systemd-run --user --unit=go2-a3-teacher bash /home/ubuntu/nood/run_a3_teacher.sh
+ set -u
+-BASE=/home/nood/IsaacSimbot
++BASE=/home/ubuntu/nood
+ LAB=$BASE/unitree_rl_lab
+ LOG=$BASE/go2_a3_teacher.log
+ 
+@@ -25,7 +25,7 @@ sleep 20   # let the driver release memory fully
+ 
+ # 3) launch Stage A teacher (height scanner, privileged obs)
+ source ~/miniconda3/etc/profile.d/conda.sh
+-conda activate env_isaaclab   # activate.d exports LD_LIBRARY_PATH (wsl_lib_links + wsl lib) — required for PhysX GPU
++conda activate /home/ubuntu/nood/env_isaaclab   # activate.d exports LD_LIBRARY_PATH — required for PhysX GPU
+ cd "$LAB"
+ echo "[$(date +%T)] launching A3 teacher: Unitree-Go2-Velocity-Scan-Stairs num_envs=2048 resume ft_init/warm_9900_scan.pt max_iterations=8000"
+ echo "[$(date +%T)] log: $LOG"
+diff --git a/unitree_rl_lab/scripts/__pycache__/list_envs.cpython-311.pyc b/unitree_rl_lab/scripts/__pycache__/list_envs.cpython-311.pyc
+index 5f6c66c..f69232d 100644
+Binary files a/unitree_rl_lab/scripts/__pycache__/list_envs.cpython-311.pyc and b/unitree_rl_lab/scripts/__pycache__/list_envs.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/scripts/rsl_rl/__pycache__/cli_args.cpython-311.pyc b/unitree_rl_lab/scripts/rsl_rl/__pycache__/cli_args.cpython-311.pyc
+index 9f3e741..2975e97 100644
+Binary files a/unitree_rl_lab/scripts/rsl_rl/__pycache__/cli_args.cpython-311.pyc and b/unitree_rl_lab/scripts/rsl_rl/__pycache__/cli_args.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/__pycache__/__init__.cpython-311.pyc
+index 154852a..b04fb7e 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/__pycache__/unitree.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/__pycache__/unitree.cpython-311.pyc
+index b048fd5..86d4e9c 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/__pycache__/unitree.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/__pycache__/unitree.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/__pycache__/unitree_actuators.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/__pycache__/unitree_actuators.cpython-311.pyc
+index c554d7e..3eb68ef 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/__pycache__/unitree_actuators.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/assets/robots/__pycache__/unitree_actuators.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/__pycache__/__init__.cpython-311.pyc
+index 6f1a2ce..57253e1 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/__pycache__/__init__.cpython-311.pyc
+index 74306dc..07c6d8c 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/__pycache__/__init__.cpython-311.pyc
+index f132c08..38a0d8c 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/__pycache__/rsl_rl_ppo_cfg.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/__pycache__/rsl_rl_ppo_cfg.cpython-311.pyc
+index 56e00aa..bbee4ca 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/__pycache__/rsl_rl_ppo_cfg.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/agents/__pycache__/rsl_rl_ppo_cfg.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/__init__.cpython-311.pyc
+index 139c438..9c4527c 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/curriculums.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/curriculums.cpython-311.pyc
+index 56173f4..2a38c94 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/curriculums.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/curriculums.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/observations.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/observations.cpython-311.pyc
+index 5dada52..298245e 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/observations.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/observations.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/rewards.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/rewards.cpython-311.pyc
+index 0d5a5fa..ddcc436 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/rewards.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/__pycache__/rewards.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/commands/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/commands/__pycache__/__init__.cpython-311.pyc
+index 2789d30..f2a4d5c 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/commands/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/commands/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/commands/__pycache__/velocity_command.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/commands/__pycache__/velocity_command.cpython-311.pyc
+index 2ac770c..3c5365e 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/commands/__pycache__/velocity_command.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/commands/__pycache__/velocity_command.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/__pycache__/__init__.cpython-311.pyc
+index 03cbbd8..589282b 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/29dof/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/29dof/__pycache__/__init__.cpython-311.pyc
+index ab1f7f5..f392d60 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/29dof/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/29dof/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/29dof/lunar_surface_env_cfg.py b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/29dof/lunar_surface_env_cfg.py
+index 69b2185..622eca4 100644
+--- a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/29dof/lunar_surface_env_cfg.py
++++ b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/29dof/lunar_surface_env_cfg.py
+@@ -19,17 +19,25 @@ RobotPlayEnvCfg = _vel_mod.RobotPlayEnvCfg
+ LUNAR_SURFACE_CFG = terrain_gen.TerrainGeneratorCfg(
+     size=(32.0, 32.0),
+     border_width=20.0,
+-    num_rows=9,
++    num_rows=4,
+     num_cols=10,
+     horizontal_scale=0.1,
+     vertical_scale=0.005,
+     slope_threshold=0.75,
+-    difficulty_range=(0.0, 1.0),
++    # fixed mid difficulty for every patch — rows only give DEM-crop variety,
++    # there is no difficulty stratification (user requirement: no difficulty tiers)
++    difficulty_range=(0.5, 0.5),
+     use_cache=False,
+     seed=42,
+     sub_terrains={
+-        "lunar_dem": LunarDemTerrainCfg(proportion=0.8),
+-        "flat": terrain_gen.MeshPlaneTerrainCfg(proportion=0.2),
++        # 100% real LOLA DEM windows; difficulty-independent band so the
++        # `difficulty` argument cannot introduce hidden tiers either
++        "lunar_dem": LunarDemTerrainCfg(
++            proportion=1.0,
++            slope_range=(12.0, 12.0),
++            micro_relief=(0.05, 0.05),
++            crater_count=(3.0, 3.0),
++        ),
+     },
+ )
+ 
+@@ -39,7 +47,12 @@ class RobotLunarSurfaceEnvCfg(RobotEnvCfg):
+         super().__post_init__()
+         self.scene.terrain.terrain_generator = LUNAR_SURFACE_CFG
+         self.scene.terrain.max_init_terrain_level = LUNAR_SURFACE_CFG.num_rows - 1
+-        self.scene.terrain.terrain_generator.curriculum = self.curriculum.terrain_levels is not None
++        # no difficulty curriculum: static uniform assignment across DEM patches
++        self.curriculum.terrain_levels = None
++        self.scene.terrain.terrain_generator.curriculum = False
++        # lunar gravity — the velocity task's __post_init__ pins -9.81, so this
++        # MUST be re-asserted after super() or the "lunar" task trains on earth g
++        self.sim.gravity = (0.0, 0.0, -1.62)
+         # DEM meshes are heavier than the flat plane: PhysX asks for >=70MB
+         self.sim.physx.gpu_collision_stack_size = 2**26  # keep at scratch-run value: 2**27 OOMs 4096 envs
+ 
+@@ -49,5 +62,7 @@ class RobotLunarSurfacePlayEnvCfg(RobotPlayEnvCfg):
+         super().__post_init__()
+         self.scene.terrain.terrain_generator = LUNAR_SURFACE_CFG
+         self.scene.terrain.max_init_terrain_level = LUNAR_SURFACE_CFG.num_rows - 1
++        self.scene.terrain.terrain_generator.curriculum = False
++        self.sim.gravity = (0.0, 0.0, -1.62)
+         self.scene.terrain.terrain_generator.num_rows = 2
+         self.scene.terrain.terrain_generator.num_cols = 5
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/__pycache__/__init__.cpython-311.pyc
+index 0161e67..202446f 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/g1/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__pycache__/__init__.cpython-311.pyc
+index 7053e4e..eb59916 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__pycache__/velocity_env_cfg.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__pycache__/velocity_env_cfg.cpython-311.pyc
+index 08e67e0..b23bebe 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__pycache__/velocity_env_cfg.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__pycache__/velocity_env_cfg.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/h1/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/h1/__pycache__/__init__.cpython-311.pyc
+index 9d37031..b4bc307 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/h1/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/h1/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/__pycache__/__init__.cpython-311.pyc
+index ce46150..60cf6ec 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/agents/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/agents/__pycache__/__init__.cpython-311.pyc
+index 831e3fe..8e94a4d 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/agents/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/agents/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/__init__.cpython-311.pyc
+index 762cbef..2bc95db 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/commands.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/commands.cpython-311.pyc
+index 1e7025c..839b05b 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/commands.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/commands.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/events.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/events.cpython-311.pyc
+index ea2da43..475e113 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/events.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/events.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/observations.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/observations.cpython-311.pyc
+index 796f1fe..4a0592c 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/observations.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/observations.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/rewards.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/rewards.cpython-311.pyc
+index 1693edb..741865f 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/rewards.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/rewards.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/terminations.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/terminations.cpython-311.pyc
+index acf8e20..9575178 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/terminations.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/mdp/__pycache__/terminations.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/__pycache__/__init__.cpython-311.pyc
+index 4b64b08..9f71346 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/__pycache__/__init__.cpython-311.pyc
+index 89295c9..fb1b5b1 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/dance_102/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/dance_102/__pycache__/__init__.cpython-311.pyc
+index a45b1f8..2a0927f 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/dance_102/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/dance_102/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/gangnanm_style/__pycache__/__init__.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/gangnanm_style/__pycache__/__init__.cpython-311.pyc
+index 69c596f..cef052e 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/gangnanm_style/__pycache__/__init__.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/tasks/mimic/robots/g1_29dof/gangnanm_style/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/utils/__pycache__/export_deploy_cfg.cpython-311.pyc b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/utils/__pycache__/export_deploy_cfg.cpython-311.pyc
+index baf3c06..c4b57a0 100644
+Binary files a/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/utils/__pycache__/export_deploy_cfg.cpython-311.pyc and b/unitree_rl_lab/source/unitree_rl_lab/unitree_rl_lab/utils/__pycache__/export_deploy_cfg.cpython-311.pyc differ
